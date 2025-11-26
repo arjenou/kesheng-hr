@@ -38,7 +38,14 @@ export default function Services() {
             loop
             muted
             playsInline
+            webkit-playsinline="true"
+            x5-playsinline="true"
+            x5-video-player-type="h5"
+            x5-video-player-fullscreen="true"
+            x5-video-orientation="portraint"
+            preload="auto"
             poster="/placeholder.jpg"
+            controls
           >
             <source src="/business-video.mp4" type="video/mp4" />
             您的浏览器不支持视频播放
