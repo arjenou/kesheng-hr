@@ -1,60 +1,121 @@
 export default function About() {
   return (
-    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">关于科盛咨询</h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            自2018年成立以来，我们致力于为全球科技企业提供专业的人才解决方案
-          </p>
+        <div className="text-center mb-12">
+          <p className="text-sm text-blue-600 font-medium mb-2">致力打造卓越服务</p>
+          <h2 className="text-4xl font-bold text-slate-900 mb-4">关于我们</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
-          <div className="text-center space-y-4">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-100">
-              <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left Card - About Us */}
+          <div className="relative rounded-3xl overflow-hidden shadow-xl h-[480px]">
+            {/* Background with overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+              <img
+                src="/about-us.jpg"
+                alt="科盛咨询"
+                className="w-full h-full object-cover opacity-40"
+              />
             </div>
-            <h3 className="text-xl font-semibold text-slate-900">快速交付</h3>
-            <p className="text-slate-600">24小时触达，48小时交付，72小时面试安排</p>
-          </div>
 
-          <div className="text-center space-y-4">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-purple-100">
-              <svg className="w-8 h-8 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
-              </svg>
+            {/* Content */}
+            <div className="relative h-full flex flex-col justify-between p-8 text-white">
+              <div className="inline-block">
+                <span className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium">
+                  关于科盛咨询
+                </span>
+              </div>
+
+              <div className="space-y-4">
+                <h3 className="text-3xl font-bold leading-tight">
+                  连接全球人才
+                  <br />
+                  创造卓越价值
+                </h3>
+                <p className="text-base text-white/90 leading-relaxed max-w-md">
+                  依托丰富的行业经验与跨国网络，我们为客户提供精准寻访、关键岗位招聘、海外团队落地及用工合规等全流程解决方案。
+                </p>
+                <p className="text-base text-white/90 leading-relaxed max-w-md">
+                  自 2018 年成立以来，我们已服务百余家科技企业，助力企业快速获取核心人才、提升组织效能。
+                </p>
+              </div>
             </div>
-            <h3 className="text-xl font-semibold text-slate-900">精准匹配</h3>
-            <p className="text-slate-600">深度行业理解，精准识别关键岗位与核心人才</p>
           </div>
 
-          <div className="text-center space-y-4">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-100">
-              <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-              </svg>
+          {/* Right Grid - Mission, Values, Strength, Vision */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {/* Our Mission */}
+            <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 mb-2">公司使命</h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                连接全球顶尖科技人才，让科技更快落地，让组织更具韧性
+              </p>
             </div>
-            <h3 className="text-xl font-semibold text-slate-900">全球网络</h3>
-            <p className="text-slate-600">千万级人才资源库，覆盖亚洲、北美等主要科技区域</p>
-          </div>
-        </div>
 
-        {/* Mission and Vision */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border border-blue-200">
-            <h3 className="text-2xl font-bold text-slate-900 mb-4">公司使命</h3>
-            <p className="text-lg text-slate-700 leading-relaxed">
-              连接全球顶尖科技人才，让科技更快落地，让组织更具韧性
-            </p>
-          </div>
+            {/* Our Values */}
+            <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 mb-2">公司价值观</h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                以客户为中心，以专业为本，以诚信为基，持续创新与追求卓越
+              </p>
+            </div>
 
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 border border-purple-200">
-            <h3 className="text-2xl font-bold text-slate-900 mb-4">公司愿景</h3>
-            <p className="text-lg text-slate-700 leading-relaxed">
-              以长期主义打造百年企业，成为全球科技企业信赖的人才服务伙伴
-            </p>
+            {/* Our Strength */}
+            <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 mb-2">经营理念</h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+              创造价值，持续精进，稳健增长
+              </p>
+            </div>
+
+            {/* Our Vision */}
+            <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 rounded-xl bg-pink-100 flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 mb-2">公司愿景</h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                以长期主义打造百年企业，成为全球科技企业信赖的人才服务伙伴
+              </p>
+            </div>
           </div>
         </div>
       </div>

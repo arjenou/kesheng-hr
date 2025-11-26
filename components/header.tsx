@@ -11,13 +11,8 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-              <span className="text-white text-xs font-bold">KS</span>
-            </div>
-            <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              KESHENG
-            </span>
+          <Link href="/" className="flex items-center">
+            <img src="/kesheng-logo.png" alt="KESHENG Logo" className="h-10 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -33,6 +28,9 @@ export default function Header() {
             </Link>
             <Link href="#team" className="text-slate-600 hover:text-blue-600 transition-colors">
               团队
+            </Link>
+            <Link href="#contact" className="text-slate-600 hover:text-blue-600 transition-colors">
+              联系我们
             </Link>
           </nav>
 
@@ -63,6 +61,9 @@ export default function Header() {
             </Link>
             <Link href="#team" className="block text-slate-600 hover:text-blue-600 py-2">
               团队
+            </Link>
+            <Link href="#contact" className="block text-slate-600 hover:text-blue-600 py-2">
+              联系我们
             </Link>
           </nav>
         )}
