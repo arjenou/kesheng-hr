@@ -30,6 +30,11 @@ export default function Footer() {
                 </a>
               </li>
               <li>
+                <a href="#hot-jobs" className="hover:text-white transition-colors">
+                  热门职位
+                </a>
+              </li>
+              <li>
                 <a href="#contact" className="hover:text-white transition-colors">
                   联系我们
                 </a>

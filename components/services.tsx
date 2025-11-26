@@ -31,7 +31,7 @@ export default function Services() {
       <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
       <div className="max-w-7xl mx-auto">
         {/* Video Section */}
-        <div className="mb-28 rounded-3xl overflow-hidden shadow-2xl max-h-[400px]">
+        <div className="mt-12 mb-28 rounded-3xl overflow-hidden shadow-2xl max-h-[400px]">
           <video
             className="w-full h-full object-cover"
             autoPlay

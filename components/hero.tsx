@@ -1,4 +1,20 @@
+"use client"
+
 export default function Hero() {
+  const handleScroll = (targetId: string) => {
+    const element = document.querySelector(targetId)
+    if (element) {
+      const headerOffset = 80 // 导航栏高度 + 一些额外间距
+      const elementPosition = element.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      })
+    }
+  }
+
   return (
     <section className="min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 via-white to-slate-50 flex items-center">
       <div className="max-w-6xl mx-auto w-full">
@@ -18,10 +34,16 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-xl transition-all transform hover:-translate-y-1">
+              <button 
+                onClick={() => handleScroll("#contact")}
+                className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-xl transition-all transform hover:-translate-y-1"
+              >
                 开始合作
               </button>
-              <button className="px-8 py-3 border-2 border-slate-300 text-slate-700 rounded-lg font-semibold hover:border-blue-600 hover:text-blue-600 transition-colors">
+              <button 
+                onClick={() => handleScroll("#about")}
+                className="px-8 py-3 border-2 border-slate-300 text-slate-700 rounded-lg font-semibold hover:border-blue-600 hover:text-blue-600 transition-colors"
+              >
                 了解更多
               </button>
             </div>

@@ -4,6 +4,7 @@ import About from "@/components/about"
 import Advantages from "@/components/advantages"
 import Services from "@/components/services"
 import Team from "@/components/team"
+import HotJobs from "@/components/hot-jobs"
 import Contact from "@/components/contact"
 import Footer from "@/components/footer"
 
@@ -16,6 +17,7 @@ export default function Home() {
       <Advantages />
       <Services />
       <Team />
+      <HotJobs />
       <Contact />
       <Footer />
     </main>
