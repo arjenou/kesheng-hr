@@ -52,12 +52,13 @@ export default function Services() {
           </video>
         </div>
 
-        <div className="text-center mb-16">
+        <div className="text-center mb-24 lg:mb-32">
           <h2 className="text-4xl font-bold text-slate-900 mb-4">服务介绍</h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">为您提供全面的人才解决方案</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Mobile/Tablet Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-8">
           {services.map((service, index) => (
             <div key={index} className="group relative flex flex-col">
               {/* Image Section - 溜出卡片 */}
@@ -79,6 +80,52 @@ export default function Services() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* PC Circular Layout */}
+        <div className="hidden lg:flex relative h-[900px] items-center justify-center mb-24">
+          {services.map((service, index) => {
+            // 计算每个卡片在圆形上的位置（4个卡片，每个90度）
+            const angle = (index * 90 - 90) * (Math.PI / 180) // 转换为弧度，从顶部开始
+            const radius = 320 // 圆形半径（像素）
+            
+            // 计算位置（相对于中心点）
+            const x = Math.cos(angle) * radius
+            const y = Math.sin(angle) * radius
+            
+            return (
+              <div
+                key={index}
+                className="absolute group"
+                style={{
+                  left: `calc(50% + ${x}px)`,
+                  top: `calc(50% + ${y}px)`,
+                  transform: 'translate(-50%, -50%)',
+                  width: '280px',
+                }}
+              >
+                <div className="relative flex flex-col">
+                  {/* Image Section - 溜出卡片 */}
+                  <div className="relative overflow-hidden rounded-t-3xl h-64 mb-[-2rem]">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+
+                  {/* Content Card */}
+                  <div className="bg-white rounded-3xl p-6 pt-10 pb-8 shadow-lg hover:shadow-xl transition-shadow relative z-10 flex-1 flex flex-col min-h-[240px]">
+                    <div className="inline-block px-4 py-1.5 bg-blue-100 text-blue-600 rounded-lg text-sm font-medium mb-3 self-start">
+                      {service.category}
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-3">{service.title}</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed">{service.description}</p>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
         </div>
 
       </div>

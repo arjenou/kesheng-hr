@@ -80,7 +80,7 @@ export default function Advantages() {
           {advantages.map((item, index) => (
             <div
               key={index}
-              className={`bg-gradient-to-br ${item.bgColor} rounded-3xl p-6 md:p-8 hover:shadow-xl transition-all group relative overflow-hidden text-center ${
+              className={`bg-gradient-to-br ${item.bgColor} rounded-3xl p-6 md:p-8 hover:shadow-xl hover:scale-105 transition-all duration-500 group relative overflow-hidden text-center ${
                 index % 2 === 0 ? "lg:translate-y-0" : "lg:translate-y-12"
               }`}
             >
