@@ -76,22 +76,22 @@ export default function Advantages() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-center">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 items-center">
           {advantages.map((item, index) => (
             <div
               key={index}
-              className={`bg-gradient-to-br ${item.bgColor} rounded-3xl p-8 hover:shadow-xl transition-all group relative overflow-hidden ${
+              className={`bg-gradient-to-br ${item.bgColor} rounded-3xl p-6 md:p-8 hover:shadow-xl transition-all group relative overflow-hidden text-center ${
                 index % 2 === 0 ? "lg:translate-y-0" : "lg:translate-y-12"
               }`}
             >
               {/* Icon */}
-              <div className={`${item.iconBg} w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-sm`}>
+              <div className={`${item.iconBg} w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-sm mx-auto`}>
                 {item.icon}
               </div>
 
               {/* Content */}
-              <h3 className="text-xl font-bold text-slate-900 mb-3">{item.title}</h3>
-              <p className="text-slate-700 leading-relaxed">{item.description}</p>
+              <h3 className="text-base md:text-xl font-bold text-slate-900 mb-2 md:mb-3">{item.title}</h3>
+              <p className="text-xs md:text-sm text-slate-700 leading-relaxed">{item.description}</p>
             </div>
           ))}
         </div>

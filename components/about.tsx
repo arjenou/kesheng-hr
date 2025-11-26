@@ -44,11 +44,11 @@ export default function About() {
           </div>
 
           {/* Right Grid - Mission, Values, Strength, Vision */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 sm:gap-6">
             {/* Our Mission */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -57,16 +57,16 @@ export default function About() {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">公司使命</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
+              <h3 className="text-sm sm:text-lg font-bold text-slate-900 mb-2 text-center sm:text-left">公司使命</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed text-center sm:text-left">
                 连接全球顶尖科技人才，让科技更快落地，让组织更具韧性
               </p>
             </div>
 
             {/* Our Values */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -75,16 +75,16 @@ export default function About() {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">公司价值观</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
+              <h3 className="text-sm sm:text-lg font-bold text-slate-900 mb-2 text-center sm:text-left">公司价值观</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed text-center sm:text-left">
                 以客户为中心，以专业为本，以诚信为基，持续创新与追求卓越
               </p>
             </div>
 
             {/* Our Strength */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-indigo-100 flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -93,16 +93,16 @@ export default function About() {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">经营理念</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
+              <h3 className="text-sm sm:text-lg font-bold text-slate-900 mb-2 text-center sm:text-left">经营理念</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed text-center sm:text-left">
               创造价值，持续精进，稳健增长
               </p>
             </div>
 
             {/* Our Vision */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-xl bg-pink-100 flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-pink-100 flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -111,8 +111,8 @@ export default function About() {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">公司愿景</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
+              <h3 className="text-sm sm:text-lg font-bold text-slate-900 mb-2 text-center sm:text-left">公司愿景</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed text-center sm:text-left">
                 以长期主义打造百年企业，成为全球科技企业信赖的人才服务伙伴
               </p>
             </div>
