@@ -85,16 +85,15 @@ export default function Services() {
     </section>
 
     {/* Deep Focus Areas - Full Width Section */}
-    <section 
-      className="relative py-20 overflow-hidden"
-      style={{
-        backgroundImage: 'url(/featcher.jpg)',
-        backgroundAttachment: 'fixed',
-        backgroundPosition: 'center 20%',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-      }}
-    >
+    <section className="relative py-20 overflow-hidden">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: 'url(/featcher.jpg)',
+          backgroundPosition: 'center 20%',
+        }}
+      ></div>
       {/* 高级感深色叠加层 */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-indigo-900/85 to-purple-900/80 z-0"></div>
 
