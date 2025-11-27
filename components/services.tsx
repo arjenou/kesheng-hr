@@ -1,3 +1,7 @@
+"use client"
+
+import { useEffect, useRef, useState } from "react"
+
 export default function Services() {
   const services = [
     {
@@ -25,6 +29,50 @@ export default function Services() {
       image: "/service/劳务派遣与外包.jpg",
     },
   ]
+
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const checkVisibility = () => {
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect()
+        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0
+        if (isInViewport) {
+          setIsVisible(true)
+          return true
+        }
+      }
+      return false
+    }
+
+    // 立即检查一次
+    if (checkVisibility()) {
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true)
+          }
+        })
+      },
+      { threshold: 0.01, rootMargin: '100px 0px 0px 0px' }
+    )
+
+    const currentRef = sectionRef.current
+    if (currentRef) {
+      observer.observe(currentRef)
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef)
+      }
+    }
+  }, [])
 
   return (
     <>
@@ -58,9 +106,17 @@ export default function Services() {
         </div>
 
         {/* Mobile/Tablet Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-8">
+        <div ref={sectionRef} className="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-8">
           {services.map((service, index) => (
-            <div key={index} className="group relative flex flex-col">
+            <div 
+              key={index} 
+              className={`group relative flex flex-col transition-all duration-700 ease-out ${
+                isVisible 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-20'
+              }`}
+              style={{ transitionDelay: `${index * 150}ms` }}
+            >
               {/* Image Section - 溜出卡片 */}
               <div className="relative overflow-hidden rounded-t-3xl h-64 mb-[-2rem]">
                 <img
@@ -84,6 +140,7 @@ export default function Services() {
 
         {/* PC Circular Layout */}
         <div className="hidden lg:flex relative h-[900px] items-center justify-center mb-24">
+          <div ref={sectionRef} className="absolute top-0 left-0 w-full h-1"></div>
           {services.map((service, index) => {
             // 计算每个卡片在圆形上的位置（4个卡片，每个90度）
             const angle = (index * 90 - 90) * (Math.PI / 180) // 转换为弧度，从顶部开始
@@ -96,12 +153,17 @@ export default function Services() {
             return (
               <div
                 key={index}
-                className="absolute group"
+                className={`absolute group transition-all duration-700 ease-out ${
+                  isVisible ? 'opacity-100' : 'opacity-0'
+                }`}
                 style={{
                   left: `calc(50% + ${x}px)`,
                   top: `calc(50% + ${y}px)`,
-                  transform: 'translate(-50%, -50%)',
+                  transform: isVisible 
+                    ? `translate(-50%, -50%)` 
+                    : `translate(-50%, calc(-50% + 80px))`,
                   width: '280px',
+                  transitionDelay: `${index * 150}ms`,
                 }}
               >
                 <div className="relative flex flex-col">
@@ -139,6 +201,7 @@ export default function Services() {
         style={{
           backgroundImage: 'url(/featcher.jpg)',
           backgroundPosition: 'center 20%',
+          backgroundAttachment: 'fixed',
         }}
       ></div>
       {/* 高级感深色叠加层 */}

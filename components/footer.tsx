@@ -118,8 +118,9 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-slate-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-center items-center text-slate-400 text-sm">
+          <div className="flex flex-col md:flex-row justify-center md:justify-between items-center text-slate-400 text-sm space-y-2 md:space-y-0">
             <p>&copy; 2025 KESHENG Consulting. All rights reserved.</p>
+            <p className="text-xs">冀ICP备2025135986号-1</p>
           </div>
         </div>
       </div>
