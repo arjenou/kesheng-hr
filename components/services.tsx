@@ -36,11 +36,13 @@ export default function Services() {
   const [posterUrl, setPosterUrl] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState(false)
   const [isWeChat, setIsWeChat] = useState(false)
+  const [cardsVisible, setCardsVisible] = useState<boolean[]>([])
   const sectionRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLDivElement>(null)
   const videoElementRef = useRef<HTMLVideoElement>(null)
   const deepFocusSectionRef = useRef<HTMLElement>(null)
   const mobileBgRef = useRef<HTMLDivElement>(null)
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([])
 
   useEffect(() => {
     let observer: IntersectionObserver | null = null
@@ -208,6 +210,74 @@ export default function Services() {
       }
     }
   }, [shouldLoadVideo])
+
+  // 移动端服务卡片加载动画
+  useEffect(() => {
+    // 初始化卡片可见性状态
+    setCardsVisible(new Array(services.length).fill(false))
+
+    let observer: IntersectionObserver | null = null
+
+    // 延迟初始化，确保DOM已渲染
+    const timer = setTimeout(() => {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '100px 0px 0px 0px',
+      }
+
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && observer) {
+            const index = cardsRef.current.indexOf(entry.target as HTMLDivElement)
+            if (index !== -1) {
+              setCardsVisible((prev) => {
+                const newState = [...prev]
+                newState[index] = true
+                return newState
+              })
+              // 观察后取消观察
+              observer.unobserve(entry.target)
+            }
+          }
+        })
+      }, observerOptions)
+
+      // 检查卡片是否已经在视口中
+      const checkInitialVisibility = () => {
+        cardsRef.current.forEach((card, index) => {
+          if (card) {
+            const rect = card.getBoundingClientRect()
+            const windowHeight = window.innerHeight || document.documentElement.clientHeight
+            const isInViewport = rect.top < windowHeight + 200 && rect.bottom > -200
+            
+            if (isInViewport) {
+              setCardsVisible((prev) => {
+                const newState = [...prev]
+                newState[index] = true
+                return newState
+              })
+            } else if (observer) {
+              observer.observe(card)
+            }
+          }
+        })
+      }
+
+      checkInitialVisibility()
+    }, 300)
+
+    return () => {
+      clearTimeout(timer)
+      const currentObserver = observer
+      if (currentObserver) {
+        cardsRef.current.forEach((card) => {
+          if (card) {
+            currentObserver.unobserve(card)
+          }
+        })
+      }
+    }
+  }, [services.length])
 
   // 检测是否是移动设备（包括微信浏览器）
   useEffect(() => {
@@ -409,11 +479,25 @@ export default function Services() {
 
         {/* Mobile/Tablet Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-8">
-          {services.map((service, index) => (
-            <div 
-              key={index} 
-              className="group relative flex flex-col"
-            >
+          {services.map((service, index) => {
+            const isVisible = cardsVisible[index] ?? false
+            return (
+              <div 
+                key={index}
+                ref={(el) => {
+                  if (el) {
+                    cardsRef.current[index] = el
+                  }
+                }}
+                className={`group relative flex flex-col transition-all duration-700 ease-out ${
+                  isVisible
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-20'
+                }`}
+                style={{
+                  transitionDelay: isVisible ? `${index * 150}ms` : '0ms',
+                }}
+              >
               {/* Image Section - 溜出卡片 */}
               <div className="relative overflow-hidden rounded-t-3xl h-64 mb-[-2rem]">
                 <img
@@ -432,7 +516,8 @@ export default function Services() {
                 <p className="text-slate-600 text-sm leading-relaxed">{service.description}</p>
               </div>
             </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* PC Circular Layout */}
