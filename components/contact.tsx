@@ -30,9 +30,9 @@ export default function Contact() {
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* PC端：左右两栏布局 */}
-        <div className="hidden lg:grid lg:grid-cols-3 gap-8">
+        <div className="hidden lg:flex lg:justify-center gap-8">
           {/* 左侧：表单 */}
-          <div className="lg:col-span-2">
+          <div className="max-w-2xl flex-1">
             <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-100">
               <h2 className="text-3xl font-bold text-slate-900 mb-8">咨询报价·联系我们</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -141,7 +141,7 @@ export default function Contact() {
           </div>
 
           {/* 右侧：联系信息卡片 */}
-          <div className="lg:col-span-1">
+          <div className="max-w-sm flex-shrink-0">
             <div className="bg-white rounded-2xl p-6 h-fit sticky top-8 shadow-lg border border-slate-100">
               <div className="space-y-6">
                 {/* 地址 */}
@@ -202,7 +202,8 @@ export default function Contact() {
         {/* 移动端：保持原有布局 */}
         <div className="lg:hidden">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">联系我们</h2>
+            <h2 className="text-4xl font-bold text-slate-900 mb-3">联系我们</h2>
+            <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
             <p className="text-lg text-slate-600">有任何问题或需要帮助？请填写下方表格，我们会在24小时内与您联系</p>
           </div>
 

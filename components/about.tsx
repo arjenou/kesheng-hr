@@ -69,7 +69,8 @@ export default function About() {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
           <p className="text-sm text-blue-600 font-medium mb-2">致力打造卓越服务</p>
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">关于我们</h2>
+          <h2 className="text-4xl font-bold text-slate-900 mb-3">关于我们</h2>
+          <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -92,23 +93,24 @@ export default function About() {
             </div>
 
             {/* Content */}
-            <div className="relative h-full flex flex-col justify-between p-8 text-white">
+            <div className="relative h-full flex flex-col justify-between p-8 text-white z-10">
               <div className="inline-block">
                 <span className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium">
                   关于科盛咨询
                 </span>
               </div>
 
-              <div className="space-y-4">
-                <h3 className="text-3xl font-bold leading-tight">
-                  连接全球人才
-                  <br />
-                  创造卓越价值
-                </h3>
-                <p className="text-base text-white/90 leading-relaxed max-w-md">
+              {/* 文字蒙版背景 */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent pointer-events-none"></div>
+
+              <div className="relative z-10 space-y-4">
+                <p className="text-base text-white leading-relaxed max-w-md">
+                  <span className="text-xl font-bold text-white">科盛才道企业管理咨询有限公司</span>，简称"科盛咨询"，专注 AI、大模型、机器人与前沿科技领域，为全球科技企业提供高端人才招聘与团队搭建服务。
+                </p>
+                <p className="text-base text-white leading-relaxed max-w-md">
                   依托丰富的行业经验与跨国网络，我们为客户提供精准寻访、关键岗位招聘、海外团队落地及用工合规等全流程解决方案。
                 </p>
-                <p className="text-base text-white/90 leading-relaxed max-w-md">
+                <p className="text-base text-white leading-relaxed max-w-md">
                   自 2018 年成立以来，我们已服务百余家科技企业，助力企业快速获取核心人才、提升组织效能。
                 </p>
               </div>
@@ -136,8 +138,8 @@ export default function About() {
                   />
                 </svg>
               </div>
-              <h3 className="text-sm sm:text-lg font-bold text-slate-900 mb-2 text-center sm:text-left">公司使命</h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed text-center sm:text-left">
+              <h3 className="text-base sm:text-xl font-bold text-slate-900 mb-2 text-center sm:text-left">公司使命</h3>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed text-center sm:text-left">
                 连接全球顶尖科技人才，让科技更快落地，让组织更具韧性
               </p>
             </div>
@@ -161,8 +163,8 @@ export default function About() {
                   />
                 </svg>
               </div>
-              <h3 className="text-sm sm:text-lg font-bold text-slate-900 mb-2 text-center sm:text-left">公司价值观</h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed text-center sm:text-left">
+              <h3 className="text-base sm:text-xl font-bold text-slate-900 mb-2 text-center sm:text-left">公司价值观</h3>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed text-center sm:text-left">
                 以客户为中心，以专业为本，以诚信为基，持续创新与追求卓越
               </p>
             </div>
@@ -186,8 +188,8 @@ export default function About() {
                   />
                 </svg>
               </div>
-              <h3 className="text-sm sm:text-lg font-bold text-slate-900 mb-2 text-center sm:text-left">经营理念</h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed text-center sm:text-left">
+              <h3 className="text-base sm:text-xl font-bold text-slate-900 mb-2 text-center sm:text-left">经营理念</h3>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed text-center sm:text-left">
               创造价值，持续精进，稳健增长
               </p>
             </div>
@@ -211,8 +213,8 @@ export default function About() {
                   />
                 </svg>
               </div>
-              <h3 className="text-sm sm:text-lg font-bold text-slate-900 mb-2 text-center sm:text-left">公司愿景</h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed text-center sm:text-left">
+              <h3 className="text-base sm:text-xl font-bold text-slate-900 mb-2 text-center sm:text-left">公司愿景</h3>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed text-center sm:text-left">
                 以长期主义打造百年企业，成为全球科技企业信赖的人才服务伙伴
               </p>
             </div>

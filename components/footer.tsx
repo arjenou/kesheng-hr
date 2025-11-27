@@ -11,7 +11,7 @@ export default function Footer() {
             <p className="text-slate-400 text-sm">连接全球顶尖科技人才，让科技更快落地</p>
           </div>
 
-          <div>
+          <div className="hidden md:block">
             <h4 className="font-semibold mb-4">快速链接</h4>
             <ul className="space-y-2 text-slate-400">
               <li>
@@ -42,7 +42,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="hidden md:block">
             <h4 className="font-semibold mb-4">服务</h4>
             <ul className="space-y-2 text-slate-400">
               <li>
