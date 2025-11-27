@@ -1,9 +1,11 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 
 export default function Team() {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   const team = [
     {
@@ -35,6 +37,46 @@ export default function Team() {
       email: "contact@keshengcaidao.com",
     },
   ]
+
+  // 自动轮播功能（仅移动端）
+  useEffect(() => {
+    // 只在移动端启用自动轮播
+    const checkMobile = () => {
+      return window.innerWidth < 768
+    }
+
+    if (!checkMobile()) return
+
+    const startAutoPlay = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
+      
+      if (!isPaused) {
+        intervalRef.current = setInterval(() => {
+          setCurrentIndex((prev) => (prev === team.length - 1 ? 0 : prev + 1))
+        }, 4000) // 每4秒切换一次
+      }
+    }
+
+    startAutoPlay()
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
+    }
+  }, [isPaused])
+
+  // 手动切换时暂停自动轮播
+  const handleManualChange = (newIndex: number) => {
+    setIsPaused(true)
+    setCurrentIndex(newIndex)
+    // 3秒后恢复自动轮播
+    setTimeout(() => {
+      setIsPaused(false)
+    }, 3000)
+  }
 
   return (
     <section id="team" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
@@ -79,7 +121,7 @@ export default function Team() {
 
           {/* Navigation Arrows */}
           <button
-            onClick={() => setCurrentIndex((prev) => (prev === 0 ? team.length - 1 : prev - 1))}
+            onClick={() => handleManualChange(currentIndex === 0 ? team.length - 1 : currentIndex - 1)}
             className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors z-10"
             aria-label="Previous"
           >
@@ -88,7 +130,7 @@ export default function Team() {
             </svg>
           </button>
           <button
-            onClick={() => setCurrentIndex((prev) => (prev === team.length - 1 ? 0 : prev + 1))}
+            onClick={() => handleManualChange(currentIndex === team.length - 1 ? 0 : currentIndex + 1)}
             className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors z-10"
             aria-label="Next"
           >
@@ -102,7 +144,7 @@ export default function Team() {
             {team.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentIndex(index)}
+                onClick={() => handleManualChange(index)}
                 className={`w-2 h-2 rounded-full transition-all ${
                   index === currentIndex ? "bg-blue-600 w-6" : "bg-slate-300"
                 }`}
