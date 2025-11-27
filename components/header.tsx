@@ -33,20 +33,26 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex gap-8">
+            <Link href="#client-logos" onClick={(e) => handleNavClick(e, "#client-logos")} className="text-slate-600 hover:text-blue-600 transition-colors">
+              合作伙伴
+            </Link>
+            <Link href="#services" onClick={(e) => handleNavClick(e, "#services")} className="text-slate-600 hover:text-blue-600 transition-colors">
+              服务介绍
+            </Link>
             <Link href="#about" onClick={(e) => handleNavClick(e, "#about")} className="text-slate-600 hover:text-blue-600 transition-colors">
               关于我们
             </Link>
             <Link href="#advantages" onClick={(e) => handleNavClick(e, "#advantages")} className="text-slate-600 hover:text-blue-600 transition-colors">
               核心优势
             </Link>
-            <Link href="#services" onClick={(e) => handleNavClick(e, "#services")} className="text-slate-600 hover:text-blue-600 transition-colors">
-              服务介绍
+            <Link href="#service-process" onClick={(e) => handleNavClick(e, "#service-process")} className="text-slate-600 hover:text-blue-600 transition-colors">
+              服务流程
             </Link>
             <Link href="#team" onClick={(e) => handleNavClick(e, "#team")} className="text-slate-600 hover:text-blue-600 transition-colors">
-              团队成员
+              我们的团队
             </Link>
             <Link href="#hot-jobs" onClick={(e) => handleNavClick(e, "#hot-jobs")} className="text-slate-600 hover:text-blue-600 transition-colors">
-              热门职位
+              公司动态
             </Link>
             <Link href="#contact" onClick={(e) => handleNavClick(e, "#contact")} className="text-slate-600 hover:text-blue-600 transition-colors">
               联系我们
@@ -75,20 +81,26 @@ export default function Header() {
         {/* Mobile Navigation */}
         {isOpen && (
           <nav className="md:hidden pb-4 space-y-2 bg-white/70 backdrop-blur-md">
+            <Link href="#client-logos" onClick={(e) => handleNavClick(e, "#client-logos")} className="block text-slate-600 hover:text-blue-600 py-2">
+              合作伙伴
+            </Link>
+            <Link href="#services" onClick={(e) => handleNavClick(e, "#services")} className="block text-slate-600 hover:text-blue-600 py-2">
+              服务介绍
+            </Link>
             <Link href="#about" onClick={(e) => handleNavClick(e, "#about")} className="block text-slate-600 hover:text-blue-600 py-2">
               关于我们
             </Link>
             <Link href="#advantages" onClick={(e) => handleNavClick(e, "#advantages")} className="block text-slate-600 hover:text-blue-600 py-2">
               核心优势
             </Link>
-            <Link href="#services" onClick={(e) => handleNavClick(e, "#services")} className="block text-slate-600 hover:text-blue-600 py-2">
-              服务介绍
+            <Link href="#service-process" onClick={(e) => handleNavClick(e, "#service-process")} className="block text-slate-600 hover:text-blue-600 py-2">
+              服务流程
             </Link>
             <Link href="#team" onClick={(e) => handleNavClick(e, "#team")} className="block text-slate-600 hover:text-blue-600 py-2">
-              团队成员
+              我们的团队
             </Link>
             <Link href="#hot-jobs" onClick={(e) => handleNavClick(e, "#hot-jobs")} className="block text-slate-600 hover:text-blue-600 py-2">
-              热门职位
+              公司动态
             </Link>
             <Link href="#contact" onClick={(e) => handleNavClick(e, "#contact")} className="block text-slate-600 hover:text-blue-600 py-2">
               联系我们

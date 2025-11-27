@@ -428,7 +428,7 @@ export default function Advantages() {
       </section>
 
       {/* Deep Focus Areas - Full Width Section */}
-      <section ref={deepFocusSectionRef} className="relative py-20 overflow-hidden">
+      <section ref={deepFocusSectionRef} id="service-process" className="relative py-20 overflow-hidden">
         {/* Background Image */}
         {isMobile ? (
           // 移动端：实现视差滚动（Parallax Scrolling）效果 - 通用解决方案
