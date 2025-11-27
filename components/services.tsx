@@ -119,16 +119,11 @@ export default function Services() {
         </div>
 
         {/* Mobile/Tablet Grid */}
-        <div ref={sectionRef} className="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-8">
           {services.map((service, index) => (
             <div 
               key={index} 
-              className={`group relative flex flex-col transition-all duration-700 ease-out ${
-                isVisible 
-                  ? 'opacity-100 translate-y-0' 
-                  : 'opacity-0 translate-y-20'
-              }`}
-              style={{ transitionDelay: `${index * 150}ms` }}
+              className="group relative flex flex-col"
             >
               {/* Image Section - 溜出卡片 */}
               <div className="relative overflow-hidden rounded-t-3xl h-64 mb-[-2rem]">
