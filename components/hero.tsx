@@ -16,11 +16,15 @@ export default function Hero() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // 移动端固定背景效果 - 使用transform实现视差滚动
+  // 移动端固定背景效果 - 使用transform实现视差滚动，添加节流和平滑处理
   useEffect(() => {
     if (!isMobile) return
 
     let rafId: number | null = null
+    let lastScrollY = 0
+    let currentTranslateY = 0
+    let targetTranslateY = 0
+    let isAnimating = false
 
     const updateBackground = () => {
       const sectionEl = sectionRef.current
@@ -28,16 +32,44 @@ export default function Hero() {
       if (!sectionEl || !bgEl) return
 
       const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop
-      const rect = sectionEl.getBoundingClientRect()
-      const sectionTop = rect.top + scrollY
-      const initialSectionTop = sectionEl.offsetTop || 0
+      
+      // 节流：只在滚动距离变化超过1px时更新
+      if (Math.abs(scrollY - lastScrollY) < 1) {
+        return
+      }
+      
+      lastScrollY = scrollY
+      targetTranslateY = scrollY
 
-      // 计算section从初始位置滚动了多少
-      const scrollDistance = scrollY
+      // 平滑插值：使用缓动函数减少抖动
+      const smoothUpdate = () => {
+        const diff = targetTranslateY - currentTranslateY
+        
+        // 如果差异很小，直接设置目标值
+        if (Math.abs(diff) < 0.5) {
+          currentTranslateY = targetTranslateY
+          bgEl.style.transform = `translate3d(0, ${Math.round(currentTranslateY)}px, 0)`
+          isAnimating = false
+          return
+        }
 
-      // 实现固定背景效果：背景元素向上移动，移动距离等于滚动距离
-      // 这样背景就会相对于视口保持固定
-      bgEl.style.transform = `translate3d(0, ${scrollDistance}px, 0)`
+        // 使用缓动插值
+        currentTranslateY += diff * 0.15 // 缓动系数，值越小越平滑
+        bgEl.style.transform = `translate3d(0, ${Math.round(currentTranslateY)}px, 0)`
+        
+        if (Math.abs(diff) > 0.5) {
+          rafId = requestAnimationFrame(smoothUpdate)
+        } else {
+          currentTranslateY = targetTranslateY
+          bgEl.style.transform = `translate3d(0, ${Math.round(currentTranslateY)}px, 0)`
+          isAnimating = false
+        }
+      }
+
+      if (!isAnimating) {
+        isAnimating = true
+        rafId = requestAnimationFrame(smoothUpdate)
+      }
     }
 
     const handleScroll = () => {
@@ -109,6 +141,7 @@ export default function Hero() {
               minHeight: "100vh",
               willChange: "transform",
               WebkitTransform: "translateZ(0)",
+              transform: "translateZ(0)",
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden",
             }}
