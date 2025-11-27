@@ -34,42 +34,55 @@ export default function Services() {
   const sectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const checkVisibility = () => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect()
-        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0
-        if (isInViewport) {
-          setIsVisible(true)
-          return true
-        }
-      }
-      return false
-    }
+    let observer: IntersectionObserver | null = null
 
-    // 立即检查一次
-    if (checkVisibility()) {
-      return
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+    // 延迟检查，确保DOM已完全渲染
+    const timer = setTimeout(() => {
+      const checkVisibility = () => {
+        if (sectionRef.current) {
+          const rect = sectionRef.current.getBoundingClientRect()
+          const viewportHeight = window.innerHeight || document.documentElement.clientHeight
+          // 如果元素在视口内或接近视口，立即显示
+          const isInViewport = rect.top < viewportHeight + 500 && rect.bottom > -500
+          if (isInViewport) {
             setIsVisible(true)
+            return true
           }
-        })
-      },
-      { threshold: 0.01, rootMargin: '100px 0px 0px 0px' }
-    )
+        }
+        return false
+      }
 
-    const currentRef = sectionRef.current
-    if (currentRef) {
-      observer.observe(currentRef)
-    }
+      // 立即检查一次
+      if (checkVisibility()) {
+        return
+      }
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setIsVisible(true)
+            }
+          })
+        },
+        { threshold: 0.01, rootMargin: '300px 0px 0px 0px' }
+      )
+
+      const currentRef = sectionRef.current
+      if (currentRef) {
+        observer.observe(currentRef)
+      }
+
+      // 如果2秒后还没有触发，强制显示内容（fallback）
+      setTimeout(() => {
+        setIsVisible(true)
+      }, 2000)
+    }, 100)
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef)
+      clearTimeout(timer)
+      if (observer && sectionRef.current) {
+        observer.unobserve(sectionRef.current)
       }
     }
   }, [])
