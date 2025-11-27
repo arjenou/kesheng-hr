@@ -35,6 +35,7 @@ export default function Services() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [posterUrl, setPosterUrl] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState(false)
+  const [isWeChat, setIsWeChat] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLDivElement>(null)
   const videoElementRef = useRef<HTMLVideoElement>(null)
@@ -213,9 +214,10 @@ export default function Services() {
     const checkMobile = () => {
       const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera
       const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent) || window.innerWidth < 768
-      // 检测微信浏览器
-      const isWeChat = /MicroMessenger/i.test(userAgent)
-      setIsMobile(isMobileDevice || isWeChat)
+      // 检测微信浏览器（X5内核）
+      const isWeChatBrowser = /MicroMessenger/i.test(userAgent) || /QQBrowser/i.test(userAgent)
+      setIsWeChat(isWeChatBrowser)
+      setIsMobile(isMobileDevice || isWeChatBrowser)
     }
     
     checkMobile()
@@ -223,46 +225,113 @@ export default function Services() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // 移动端：实现视差滚动（Parallax Scrolling）效果
+  // 移动端：实现视差滚动（Parallax Scrolling）效果 - 简化版本
   useEffect(() => {
-    if (!isMobile || !mobileBgRef.current || !deepFocusSectionRef.current) return
+    if (!isMobile) return
+    
+    let rafId: number | null = null
+    let cleanup: (() => void) | null = null
 
-    const handleScroll = () => {
+    // 等待DOM渲染完成
+    const timer = setTimeout(() => {
       const section = deepFocusSectionRef.current
       const bg = mobileBgRef.current
-      if (!section || !bg) return
-
-      const rect = section.getBoundingClientRect()
-      const sectionTop = rect.top
-      const sectionBottom = rect.bottom
-      const windowHeight = window.innerHeight
-      const sectionHeight = section.offsetHeight
-
-      // 只有当section在视口中时才显示背景
-      if (sectionTop < windowHeight && sectionBottom > 0) {
-        // 计算滚动进度（0 = section顶部刚进入视口，1 = section底部离开视口）
-        const scrollProgress = Math.max(0, Math.min(1, 
-          (windowHeight - sectionTop) / (windowHeight + sectionHeight)
-        ))
-        
-        // 计算背景图片应该显示的位置（实现视差滚动效果）
-        // 背景图片从20%位置开始，滚动时逐渐显示到50%位置
-        const startPosition = 20 // 起始位置（%）
-        const endPosition = 50 // 结束位置（%）
-        const bgPositionY = startPosition + (scrollProgress * (endPosition - startPosition))
-        
-        bg.style.backgroundPosition = `center ${bgPositionY}%`
-        bg.style.opacity = '1'
-      } else {
-        bg.style.opacity = '0'
+      if (!section || !bg) {
+        console.log('Parallax elements not found:', { section: !!section, bg: !!bg })
+        return
       }
-    }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll() // 初始调用
+      const updateBackground = () => {
+        const sectionEl = deepFocusSectionRef.current
+        const bgEl = mobileBgRef.current
+        if (!sectionEl || !bgEl) return
+
+        const rect = sectionEl.getBoundingClientRect()
+        const sectionTop = rect.top
+        const sectionBottom = rect.bottom
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight
+        const sectionHeight = sectionEl.offsetHeight
+        const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop
+
+        // 计算section在视口中的位置比例
+        // 实现视差滚动：背景位置根据section滚动位置动态调整
+        // 当section顶部在视口顶部时，显示背景底部（70%）
+        // 当section顶部在视口底部时，显示背景顶部（0%）
+        
+        // 计算section相对于视口的位置
+        // sectionTop = 0 时（section顶部在视口顶部），progress = 1
+        // sectionTop = windowHeight 时（section顶部刚进入视口），progress = 0
+        // sectionTop < 0 时（section在视口上方），progress > 1，但限制为1
+        // sectionBottom < 0 时（section完全在视口上方），progress = 1
+        
+        let progress = 0
+        
+        if (sectionBottom < 0) {
+          // section完全在视口上方，显示背景底部
+          progress = 1
+        } else if (sectionTop > windowHeight) {
+          // section完全在视口下方，显示背景顶部
+          progress = 0
+        } else {
+          // section在视口中或部分在视口中
+          // 计算进度：基于section顶部到视口顶部的距离
+          // 当sectionTop = 0时，progress = 1
+          // 当sectionTop = windowHeight时，progress = 0
+          const normalizedTop = Math.max(0, Math.min(windowHeight, sectionTop))
+          progress = 1 - (normalizedTop / windowHeight)
+        }
+        
+        // 背景位置：从0%到100%，让效果更明显
+        // 限制在0-1之间，确保背景位置在合理范围内
+        progress = Math.max(0, Math.min(1, progress))
+        // 对于横版图片，使用更大的范围（0%到100%）来显示更多内容
+        const bgPositionY = progress * 100
+        
+        // 应用样式
+        bgEl.style.backgroundPosition = `center ${bgPositionY}%`
+        bgEl.style.opacity = '1'
+        bgEl.style.visibility = 'visible'
+        
+        // 调试信息（开发时使用）
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Parallax:', {
+            scrollY,
+            sectionTop: Math.round(sectionTop),
+            progress: progress.toFixed(2),
+            bgPosition: `${bgPositionY.toFixed(1)}%`
+          })
+        }
+
+        rafId = null
+      }
+
+      const handleScroll = () => {
+        if (rafId === null) {
+          rafId = requestAnimationFrame(updateBackground)
+        }
+      }
+
+      // 立即执行一次
+      updateBackground()
+
+      // 监听滚动
+      window.addEventListener('scroll', handleScroll, { passive: true })
+      window.addEventListener('resize', handleScroll, { passive: true })
+
+      cleanup = () => {
+        window.removeEventListener('scroll', handleScroll)
+        window.removeEventListener('resize', handleScroll)
+        if (rafId !== null) {
+          cancelAnimationFrame(rafId)
+        }
+      }
+    }, 300)
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
+      clearTimeout(timer)
+      if (cleanup) {
+        cleanup()
+      }
     }
   }, [isMobile])
 
@@ -425,21 +494,30 @@ export default function Services() {
     <section ref={deepFocusSectionRef} className="relative py-20 overflow-hidden">
       {/* Background Image */}
       {isMobile ? (
-        // 移动端：实现视差滚动（Parallax Scrolling）效果
+        // 移动端：实现视差滚动（Parallax Scrolling）效果 - 通用解决方案
         <div className="absolute inset-0 overflow-hidden">
           <div 
             ref={mobileBgRef}
             className="absolute z-0 bg-cover bg-no-repeat"
             style={{
               backgroundImage: 'url(/featcher.jpg)',
-              backgroundPosition: 'center 20%',
-              backgroundSize: 'cover',
+              backgroundPosition: 'center 0%',
+              backgroundSize: 'auto 200%', // 横版图片：保持宽度自动，高度放大到200%，让垂直方向有更多内容可滚动
+              backgroundRepeat: 'no-repeat',
               top: 0,
               left: 0,
+              right: 0,
+              bottom: 0,
               width: '100%',
               height: '100%',
               minHeight: '100vh',
+              opacity: '1',
+              visibility: 'visible',
               willChange: 'background-position',
+              WebkitTransform: 'translateZ(0)', // 硬件加速
+              transform: 'translateZ(0)',
+              backfaceVisibility: 'hidden', // 优化渲染
+              WebkitBackfaceVisibility: 'hidden',
             }}
           ></div>
           {/* 移动端背景遮罩层 */}
