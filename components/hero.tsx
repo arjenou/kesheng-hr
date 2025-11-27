@@ -1,103 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-
 export default function Hero() {
-  const [isMobile, setIsMobile] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
-  const mobileBgRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  // 移动端固定背景效果 - 使用transform实现视差滚动，添加节流和平滑处理
-  useEffect(() => {
-    if (!isMobile) return
-
-    let rafId: number | null = null
-    let lastScrollY = 0
-    let currentTranslateY = 0
-    let targetTranslateY = 0
-    let isAnimating = false
-
-    const updateBackground = () => {
-      const sectionEl = sectionRef.current
-      const bgEl = mobileBgRef.current
-      if (!sectionEl || !bgEl) return
-
-      const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop
-      
-      // 节流：只在滚动距离变化超过1px时更新
-      if (Math.abs(scrollY - lastScrollY) < 1) {
-        return
-      }
-      
-      lastScrollY = scrollY
-      targetTranslateY = scrollY
-
-      // 平滑插值：使用缓动函数减少抖动
-      const smoothUpdate = () => {
-        const diff = targetTranslateY - currentTranslateY
-        
-        // 如果差异很小，直接设置目标值
-        if (Math.abs(diff) < 0.5) {
-          currentTranslateY = targetTranslateY
-          bgEl.style.transform = `translate3d(0, ${Math.round(currentTranslateY)}px, 0)`
-          isAnimating = false
-          return
-        }
-
-        // 使用缓动插值
-        currentTranslateY += diff * 0.15 // 缓动系数，值越小越平滑
-        bgEl.style.transform = `translate3d(0, ${Math.round(currentTranslateY)}px, 0)`
-        
-        if (Math.abs(diff) > 0.5) {
-          rafId = requestAnimationFrame(smoothUpdate)
-        } else {
-          currentTranslateY = targetTranslateY
-          bgEl.style.transform = `translate3d(0, ${Math.round(currentTranslateY)}px, 0)`
-          isAnimating = false
-        }
-      }
-
-      if (!isAnimating) {
-        isAnimating = true
-        rafId = requestAnimationFrame(smoothUpdate)
-      }
-    }
-
-    const handleScroll = () => {
-      if (rafId === null) {
-        rafId = requestAnimationFrame(() => {
-          updateBackground()
-          rafId = null
-        })
-      }
-    }
-
-    // 延迟执行，确保DOM已渲染
-    const timer = setTimeout(() => {
-      updateBackground()
-      window.addEventListener('scroll', handleScroll, { passive: true })
-      window.addEventListener('resize', handleScroll, { passive: true })
-    }, 100)
-
-    return () => {
-      clearTimeout(timer)
-      window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleScroll)
-      if (rafId !== null) {
-        cancelAnimationFrame(rafId)
-      }
-    }
-  }, [isMobile])
-
   const handleScroll = (targetId: string) => {
     const element = document.querySelector(targetId)
     if (element) {
@@ -114,40 +17,14 @@ export default function Hero() {
 
   return (
     <section
-      ref={sectionRef}
       className="relative min-h-screen flex items-center justify-start pt-20"
-      style={!isMobile ? {
+      style={{
         backgroundImage: "url(/hero-banner.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center right",
         backgroundAttachment: "fixed",
-      } : {}}
+      }}
     >
-      {/* 移动端背景 - 使用absolute定位+transform实现固定背景效果 */}
-      {isMobile ? (
-        <div className="absolute inset-0 overflow-hidden">
-          <div
-            ref={mobileBgRef}
-            className="absolute z-0 bg-no-repeat"
-            style={{
-              backgroundImage: "url(/hero-banner.jpg)",
-              backgroundSize: "cover",
-              backgroundPosition: "center right",
-              top: 0,
-              left: 0,
-              right: 0,
-              width: "100%",
-              height: "100vh",
-              minHeight: "100vh",
-              willChange: "transform",
-              WebkitTransform: "translateZ(0)",
-              transform: "translateZ(0)",
-              backfaceVisibility: "hidden",
-              WebkitBackfaceVisibility: "hidden",
-            }}
-          />
-        </div>
-      ) : null}
 
       <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-800/70 to-transparent"></div>
 
