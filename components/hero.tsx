@@ -25,14 +25,14 @@ export default function Hero() {
         backgroundAttachment: "fixed",
       }}
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-800/50 to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-800/70 to-transparent"></div>
 
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl opacity-60"></div>
 
       <div className="relative max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight text-balance">
-            科盛咨询
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+            <span className="whitespace-nowrap">科盛咨询</span>
             <br />
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent whitespace-nowrap">
               链接全球顶尖科技人才
@@ -42,32 +42,32 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-4">
             <button
               onClick={() => handleScroll("#contact")}
-              className="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all transform hover:-translate-y-1"
+              className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all transform hover:-translate-y-1"
             >
               开始合作
             </button>
             <button
               onClick={() => handleScroll("#about")}
-              className="px-8 py-3 border-2 border-white/30 text-white rounded-lg font-semibold hover:border-white hover:bg-white/10 transition-all"
+              className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-white/30 text-white rounded-lg font-semibold hover:border-white hover:bg-white/10 transition-all"
             >
               了解更多
             </button>
           </div>
 
-          <div className="grid grid-cols-3 gap-6 pt-16">
+          <div className="grid grid-cols-3 gap-4 sm:gap-6 pt-16">
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-400">100+</div>
-              <div className="text-sm text-slate-300">合作企业</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-blue-400 whitespace-nowrap">100+</div>
+              <div className="text-xs sm:text-sm text-slate-300">合作企业</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent whitespace-nowrap">
                 1000+
               </div>
-              <div className="text-sm text-slate-300">成功案例</div>
+              <div className="text-xs sm:text-sm text-slate-300">成功案例</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">北京&东京</div>
-              <div className="text-sm text-slate-300">双总部</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent whitespace-nowrap">北京&东京</div>
+              <div className="text-xs sm:text-sm text-slate-300">双总部</div>
             </div>
           </div>
         </div>
