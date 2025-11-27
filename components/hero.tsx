@@ -16,7 +16,7 @@ export default function Hero() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // 移动端视差滚动效果
+  // 移动端固定背景效果 - 使用transform实现视差滚动
   useEffect(() => {
     if (!isMobile) return
 
@@ -27,26 +27,17 @@ export default function Hero() {
       const bgEl = mobileBgRef.current
       if (!sectionEl || !bgEl) return
 
+      const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop
       const rect = sectionEl.getBoundingClientRect()
-      const sectionTop = rect.top
-      const sectionBottom = rect.bottom
-      const windowHeight = window.innerHeight || document.documentElement.clientHeight
+      const sectionTop = rect.top + scrollY
+      const initialSectionTop = sectionEl.offsetTop || 0
 
-      let progress = 0
+      // 计算section从初始位置滚动了多少
+      const scrollDistance = scrollY
 
-      if (sectionBottom < 0) {
-        progress = 1
-      } else if (sectionTop > windowHeight) {
-        progress = 0
-      } else {
-        const normalizedTop = Math.max(0, Math.min(windowHeight, sectionTop))
-        progress = 1 - (normalizedTop / windowHeight)
-      }
-
-      progress = Math.max(0, Math.min(1, progress))
-      const bgPositionY = progress * 100
-
-      bgEl.style.backgroundPosition = `center ${bgPositionY}%`
+      // 实现固定背景效果：背景元素向上移动，移动距离等于滚动距离
+      // 这样背景就会相对于视口保持固定
+      bgEl.style.transform = `translate3d(0, ${scrollDistance}px, 0)`
     }
 
     const handleScroll = () => {
@@ -100,26 +91,24 @@ export default function Hero() {
         backgroundAttachment: "fixed",
       } : {}}
     >
-      {/* 移动端背景 */}
+      {/* 移动端背景 - 使用absolute定位+transform实现固定背景效果 */}
       {isMobile ? (
         <div className="absolute inset-0 overflow-hidden">
           <div
             ref={mobileBgRef}
-            className="absolute z-0 bg-cover bg-no-repeat"
+            className="absolute z-0 bg-no-repeat"
             style={{
               backgroundImage: "url(/hero-banner.jpg)",
-              backgroundPosition: "center 0%",
               backgroundSize: "cover",
+              backgroundPosition: "center right",
               top: 0,
               left: 0,
               right: 0,
-              bottom: 0,
               width: "100%",
-              height: "100%",
+              height: "100vh",
               minHeight: "100vh",
-              willChange: "background-position",
+              willChange: "transform",
               WebkitTransform: "translateZ(0)",
-              transform: "translateZ(0)",
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden",
             }}
