@@ -1,15 +1,87 @@
+"use client"
+
+import { useEffect, useRef, useState } from "react"
+
 export default function About() {
+  const [isVisible, setIsVisible] = useState(false)
+  const [cardsVisible, setCardsVisible] = useState<boolean[]>(new Array(5).fill(false)) // 左侧大卡片 + 右侧4个小卡片
+  const sectionRef = useRef<HTMLElement>(null)
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([])
+
+  useEffect(() => {
+    // 检测是否是移动端
+    const checkMobile = () => {
+      return window.innerWidth < 768
+    }
+
+    const isMobile = checkMobile()
+    
+    // 移动端才添加加载动画
+    if (!isMobile) {
+      setIsVisible(true)
+      setCardsVisible(new Array(5).fill(true))
+      return
+    }
+
+    // 移动端：使用 Intersection Observer 检测元素进入视口
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true)
+            
+            // 逐个显示卡片
+            cardsRef.current.forEach((card, index) => {
+              if (card) {
+                setTimeout(() => {
+                  setCardsVisible((prev) => {
+                    const newState = [...prev]
+                    newState[index] = true
+                    return newState
+                  })
+                }, index * 150) // 每个卡片延迟150ms
+              }
+            })
+            
+            // 取消观察
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: '100px 0px 0px 0px' }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current)
+      }
+    }
+  }, [])
+
   return (
-    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
+    <section ref={sectionRef} id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 transition-all duration-700 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}>
           <p className="text-sm text-blue-600 font-medium mb-2">致力打造卓越服务</p>
           <h2 className="text-4xl font-bold text-slate-900 mb-4">关于我们</h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Card - About Us */}
-          <div className="relative rounded-3xl overflow-hidden shadow-xl h-[480px]">
+          <div 
+            ref={(el) => {
+              if (el) cardsRef.current[0] = el
+            }}
+            className={`relative rounded-3xl overflow-hidden shadow-xl h-[480px] transition-all duration-700 ${
+              cardsVisible[0] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+            }`}
+          >
             {/* Background with overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
               <img
@@ -44,9 +116,16 @@ export default function About() {
           </div>
 
           {/* Right Grid - Mission, Values, Strength, Vision */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-md lg:max-w-none mx-auto lg:mx-0">
             {/* Our Mission */}
-            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div 
+              ref={(el) => {
+                if (el) cardsRef.current[1] = el
+              }}
+              className={`bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-700 ${
+                cardsVisible[1] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+              }`}
+            >
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
                 <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -64,7 +143,14 @@ export default function About() {
             </div>
 
             {/* Our Values */}
-            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div 
+              ref={(el) => {
+                if (el) cardsRef.current[2] = el
+              }}
+              className={`bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-700 ${
+                cardsVisible[2] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+              }`}
+            >
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
                 <svg className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -82,7 +168,14 @@ export default function About() {
             </div>
 
             {/* Our Strength */}
-            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div 
+              ref={(el) => {
+                if (el) cardsRef.current[3] = el
+              }}
+              className={`bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-700 ${
+                cardsVisible[3] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+              }`}
+            >
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-indigo-100 flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
                 <svg className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -100,7 +193,14 @@ export default function About() {
             </div>
 
             {/* Our Vision */}
-            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div 
+              ref={(el) => {
+                if (el) cardsRef.current[4] = el
+              }}
+              className={`bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-700 ${
+                cardsVisible[4] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+              }`}
+            >
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-pink-100 flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
                 <svg className="w-5 h-5 sm:w-6 sm:h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path

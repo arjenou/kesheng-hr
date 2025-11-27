@@ -126,89 +126,124 @@ export default function Services() {
     }
   }, [])
 
-  // 捕获视频第一帧作为封面
+  // 捕获视频第一帧作为封面（可选，已有 poster 图片时跳过）
   useEffect(() => {
-    if (shouldLoadVideo && videoElementRef.current && !posterUrl) {
-      const video = videoElementRef.current
+    // 如果已经有 poster 图片，不需要动态捕获
+    if (posterUrl) return
+    
+    if (!shouldLoadVideo || !videoElementRef.current) return
+
+    const video = videoElementRef.current
+    
+    // 只在视频暂停时捕获，避免干扰自动播放
+    const captureFirstFrame = () => {
+      // 如果视频正在播放，不捕获（避免干扰）
+      if (!video.paused) return
       
-      const captureFirstFrame = () => {
-        try {
-          // 确保视频尺寸有效
-          if (video.videoWidth === 0 || video.videoHeight === 0) {
-            // 如果视频尺寸无效，等待loadeddata事件
-            video.addEventListener('loadeddata', () => {
-              if (video.videoWidth > 0 && video.videoHeight > 0) {
-                captureFrame()
-              }
-            }, { once: true })
-            return
-          }
-          
-          captureFrame()
-        } catch (error) {
-          console.error('Failed to capture first frame:', error)
-        }
-      }
-      
-      const captureFrame = () => {
-        // 设置视频时间为第一帧
-        video.currentTime = 0.1
-        
-        // 等待视频帧加载
-        const onSeeked = () => {
-          try {
-            // 创建canvas来捕获第一帧
-            const canvas = document.createElement('canvas')
-            canvas.width = video.videoWidth
-            canvas.height = video.videoHeight
-            
-            const ctx = canvas.getContext('2d')
-            if (ctx) {
-              ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-              
-              // 转换为base64图片
-              const dataUrl = canvas.toDataURL('image/jpeg', 0.85)
-              setPosterUrl(dataUrl)
+      try {
+        // 确保视频尺寸有效
+        if (video.videoWidth === 0 || video.videoHeight === 0) {
+          // 如果视频尺寸无效，等待loadeddata事件
+          video.addEventListener('loadeddata', () => {
+            if (video.videoWidth > 0 && video.videoHeight > 0 && video.paused) {
+              captureFrame()
             }
-          } catch (error) {
-            console.error('Failed to draw frame:', error)
-          }
+          }, { once: true })
+          return
         }
         
-        video.addEventListener('seeked', onSeeked, { once: true })
+        captureFrame()
+      } catch (error) {
+        console.error('Failed to capture first frame:', error)
+      }
+    }
+    
+    const captureFrame = () => {
+      // 保存当前播放状态
+      const wasPlaying = !video.paused
+      const savedTime = video.currentTime
+      
+      // 设置视频时间为第一帧
+      video.currentTime = 0.1
+      
+      // 等待视频帧加载
+      const onSeeked = () => {
+        try {
+          // 创建canvas来捕获第一帧
+          const canvas = document.createElement('canvas')
+          canvas.width = video.videoWidth
+          canvas.height = video.videoHeight
+          
+          const ctx = canvas.getContext('2d')
+          if (ctx) {
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+            
+            // 转换为base64图片
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.85)
+            setPosterUrl(dataUrl)
+            
+            // 恢复之前的播放状态
+            if (wasPlaying) {
+              video.currentTime = savedTime
+              video.play().catch(() => {
+                // 如果恢复播放失败，忽略错误
+              })
+            } else {
+              video.currentTime = savedTime
+            }
+          }
+        } catch (error) {
+          console.error('Failed to draw frame:', error)
+          // 恢复之前的播放状态
+          if (wasPlaying) {
+            video.currentTime = savedTime
+            video.play().catch(() => {})
+          } else {
+            video.currentTime = savedTime
+          }
+        }
       }
       
-      if (video.readyState >= 2) {
-        // 视频元数据已加载
-        captureFirstFrame()
-      } else {
-        // 等待视频元数据加载
-        video.addEventListener('loadedmetadata', captureFirstFrame, { once: true })
-      }
+      video.addEventListener('seeked', onSeeked, { once: true })
+    }
+    
+    // 只在视频暂停时尝试捕获
+    if (video.readyState >= 2 && video.paused) {
+      captureFirstFrame()
+    } else if (video.readyState < 2) {
+      // 等待视频元数据加载
+      video.addEventListener('loadedmetadata', () => {
+        if (video.paused) {
+          captureFirstFrame()
+        }
+      }, { once: true })
     }
   }, [shouldLoadVideo, posterUrl])
 
-  // 视频加载后尝试自动播放（PC端）
+  // 视频播放状态同步
   useEffect(() => {
-    if (shouldLoadVideo && videoElementRef.current) {
-      const video = videoElementRef.current
-      // 检测是否是移动设备
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768
-      
-      if (!isMobile) {
-        // PC端尝试自动播放
-        const playPromise = video.play()
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              setIsPlaying(true)
-            })
-            .catch(() => {
-              // 自动播放失败，显示播放按钮
-              setIsPlaying(false)
-            })
-        }
-      }
+    if (!shouldLoadVideo || !videoElementRef.current) return
+
+    const video = videoElementRef.current
+
+    // 监听播放状态变化，同步 isPlaying 状态
+    const handlePlay = () => setIsPlaying(true)
+    const handlePause = () => setIsPlaying(false)
+    const handleEnded = () => setIsPlaying(false)
+
+    video.addEventListener('play', handlePlay)
+    video.addEventListener('pause', handlePause)
+    video.addEventListener('ended', handleEnded)
+
+    // 检查当前播放状态
+    if (!video.paused) {
+      setIsPlaying(true)
+    }
+
+    return () => {
+      video.removeEventListener('play', handlePlay)
+      video.removeEventListener('pause', handlePause)
+      video.removeEventListener('ended', handleEnded)
     }
   }, [shouldLoadVideo])
 
@@ -412,57 +447,36 @@ export default function Services() {
       <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
       <div className="max-w-7xl mx-auto">
         {/* Video Section */}
-        <div ref={videoRef} className="mt-12 mb-28 rounded-3xl overflow-hidden shadow-2xl max-h-[400px] relative bg-slate-200">
+        <div ref={videoRef} className="mt-12 mb-28 rounded-3xl overflow-hidden shadow-2xl h-[400px] relative bg-slate-200">
           {shouldLoadVideo ? (
-            <>
-              <video
-                ref={videoElementRef}
-                className="w-full h-full object-cover"
-                loop
-                muted
-                playsInline
-                webkit-playsinline="true"
-                x5-playsinline="true"
-                x5-video-player-type="h5"
-                x5-video-player-fullscreen="true"
-                x5-video-orientation="portraint"
-                preload="metadata"
-                poster={posterUrl || "/placeholder.jpg"}
-                controls={isPlaying}
-                onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
-              >
-                <source src="/business-video.mp4" type="video/mp4" />
-                您的浏览器不支持视频播放
-              </video>
-              {!isPlaying && (
-                <div 
-                  className="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer group"
-                  onClick={() => {
-                    if (videoElementRef.current) {
-                      videoElementRef.current.play()
-                      setIsPlaying(true)
-                    }
-                  }}
-                >
-                  <div className="bg-white/90 rounded-full p-6 group-hover:bg-white transition-all group-hover:scale-110 shadow-xl">
-                    <svg 
-                      className="w-12 h-12 text-blue-600 ml-1" 
-                      fill="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                </div>
-              )}
-            </>
+            // 显示视频（PC端和移动端都自动播放）
+            <video
+              ref={videoElementRef}
+              className="w-full h-full absolute inset-0 object-cover"
+              loop
+              muted
+              playsInline
+              webkit-playsinline="true"
+              x5-playsinline="true"
+              x5-video-player-type="h5"
+              x5-video-player-fullscreen="true"
+              x5-video-orientation="portraint"
+              preload="auto"
+              poster="/video-home.png"
+              controls={isMobile ? false : true}
+              autoPlay
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
+            >
+              <source src="/business-video.mp4" type="video/mp4" />
+              您的浏览器不支持视频播放
+            </video>
           ) : (
-            <div className="w-full h-full min-h-[400px] flex items-center justify-center bg-slate-200">
+            <div className="w-full h-full absolute inset-0 flex items-center justify-center bg-slate-200">
               <img 
-                src="/placeholder.jpg" 
+                src="/video-home.png" 
                 alt="视频预览" 
-                className="w-full h-full object-cover opacity-50"
+                className="w-full h-full absolute inset-0 object-cover opacity-50"
               />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
