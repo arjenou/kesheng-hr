@@ -1,6 +1,19 @@
 "use client"
 
+import { useEffect, useState } from "react"
+
 export default function Hero() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   const handleScroll = (targetId: string) => {
     const element = document.querySelector(targetId)
     if (element) {
@@ -22,7 +35,7 @@ export default function Hero() {
         backgroundImage: "url(/hero-banner.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center right",
-        backgroundAttachment: "fixed",
+        backgroundAttachment: isMobile ? "scroll" : "fixed",
       }}
     >
       <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-800/70 to-transparent"></div>
