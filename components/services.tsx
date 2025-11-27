@@ -32,8 +32,14 @@ export default function Services() {
 
   const [isVisible, setIsVisible] = useState(false)
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [posterUrl, setPosterUrl] = useState<string | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLDivElement>(null)
+  const videoElementRef = useRef<HTMLVideoElement>(null)
+  const deepFocusSectionRef = useRef<HTMLElement>(null)
+  const mobileBgRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     let observer: IntersectionObserver | null = null
@@ -116,6 +122,150 @@ export default function Services() {
     }
   }, [])
 
+  // 捕获视频第一帧作为封面
+  useEffect(() => {
+    if (shouldLoadVideo && videoElementRef.current && !posterUrl) {
+      const video = videoElementRef.current
+      
+      const captureFirstFrame = () => {
+        try {
+          // 确保视频尺寸有效
+          if (video.videoWidth === 0 || video.videoHeight === 0) {
+            // 如果视频尺寸无效，等待loadeddata事件
+            video.addEventListener('loadeddata', () => {
+              if (video.videoWidth > 0 && video.videoHeight > 0) {
+                captureFrame()
+              }
+            }, { once: true })
+            return
+          }
+          
+          captureFrame()
+        } catch (error) {
+          console.error('Failed to capture first frame:', error)
+        }
+      }
+      
+      const captureFrame = () => {
+        // 设置视频时间为第一帧
+        video.currentTime = 0.1
+        
+        // 等待视频帧加载
+        const onSeeked = () => {
+          try {
+            // 创建canvas来捕获第一帧
+            const canvas = document.createElement('canvas')
+            canvas.width = video.videoWidth
+            canvas.height = video.videoHeight
+            
+            const ctx = canvas.getContext('2d')
+            if (ctx) {
+              ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+              
+              // 转换为base64图片
+              const dataUrl = canvas.toDataURL('image/jpeg', 0.85)
+              setPosterUrl(dataUrl)
+            }
+          } catch (error) {
+            console.error('Failed to draw frame:', error)
+          }
+        }
+        
+        video.addEventListener('seeked', onSeeked, { once: true })
+      }
+      
+      if (video.readyState >= 2) {
+        // 视频元数据已加载
+        captureFirstFrame()
+      } else {
+        // 等待视频元数据加载
+        video.addEventListener('loadedmetadata', captureFirstFrame, { once: true })
+      }
+    }
+  }, [shouldLoadVideo, posterUrl])
+
+  // 视频加载后尝试自动播放（PC端）
+  useEffect(() => {
+    if (shouldLoadVideo && videoElementRef.current) {
+      const video = videoElementRef.current
+      // 检测是否是移动设备
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768
+      
+      if (!isMobile) {
+        // PC端尝试自动播放
+        const playPromise = video.play()
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              setIsPlaying(true)
+            })
+            .catch(() => {
+              // 自动播放失败，显示播放按钮
+              setIsPlaying(false)
+            })
+        }
+      }
+    }
+  }, [shouldLoadVideo])
+
+  // 检测是否是移动设备（包括微信浏览器）
+  useEffect(() => {
+    const checkMobile = () => {
+      const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera
+      const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent) || window.innerWidth < 768
+      // 检测微信浏览器
+      const isWeChat = /MicroMessenger/i.test(userAgent)
+      setIsMobile(isMobileDevice || isWeChat)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // 移动端：实现视差滚动（Parallax Scrolling）效果
+  useEffect(() => {
+    if (!isMobile || !mobileBgRef.current || !deepFocusSectionRef.current) return
+
+    const handleScroll = () => {
+      const section = deepFocusSectionRef.current
+      const bg = mobileBgRef.current
+      if (!section || !bg) return
+
+      const rect = section.getBoundingClientRect()
+      const sectionTop = rect.top
+      const sectionBottom = rect.bottom
+      const windowHeight = window.innerHeight
+      const sectionHeight = section.offsetHeight
+
+      // 只有当section在视口中时才显示背景
+      if (sectionTop < windowHeight && sectionBottom > 0) {
+        // 计算滚动进度（0 = section顶部刚进入视口，1 = section底部离开视口）
+        const scrollProgress = Math.max(0, Math.min(1, 
+          (windowHeight - sectionTop) / (windowHeight + sectionHeight)
+        ))
+        
+        // 计算背景图片应该显示的位置（实现视差滚动效果）
+        // 背景图片从20%位置开始，滚动时逐渐显示到50%位置
+        const startPosition = 20 // 起始位置（%）
+        const endPosition = 50 // 结束位置（%）
+        const bgPositionY = startPosition + (scrollProgress * (endPosition - startPosition))
+        
+        bg.style.backgroundPosition = `center ${bgPositionY}%`
+        bg.style.opacity = '1'
+      } else {
+        bg.style.opacity = '0'
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll() // 初始调用
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [isMobile])
+
   return (
     <>
       <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
@@ -123,24 +273,49 @@ export default function Services() {
         {/* Video Section */}
         <div ref={videoRef} className="mt-12 mb-28 rounded-3xl overflow-hidden shadow-2xl max-h-[400px] relative bg-slate-200">
           {shouldLoadVideo ? (
-            <video
-              className="w-full h-full object-cover"
-              autoPlay
-              loop
-              muted
-              playsInline
-              webkit-playsinline="true"
-              x5-playsinline="true"
-              x5-video-player-type="h5"
-              x5-video-player-fullscreen="true"
-              x5-video-orientation="portraint"
-              preload="metadata"
-              poster="/placeholder.jpg"
-              controls
-            >
-              <source src="/business-video.mp4" type="video/mp4" />
-              您的浏览器不支持视频播放
-            </video>
+            <>
+              <video
+                ref={videoElementRef}
+                className="w-full h-full object-cover"
+                loop
+                muted
+                playsInline
+                webkit-playsinline="true"
+                x5-playsinline="true"
+                x5-video-player-type="h5"
+                x5-video-player-fullscreen="true"
+                x5-video-orientation="portraint"
+                preload="metadata"
+                poster={posterUrl || "/placeholder.jpg"}
+                controls={isPlaying}
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+              >
+                <source src="/business-video.mp4" type="video/mp4" />
+                您的浏览器不支持视频播放
+              </video>
+              {!isPlaying && (
+                <div 
+                  className="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer group"
+                  onClick={() => {
+                    if (videoElementRef.current) {
+                      videoElementRef.current.play()
+                      setIsPlaying(true)
+                    }
+                  }}
+                >
+                  <div className="bg-white/90 rounded-full p-6 group-hover:bg-white transition-all group-hover:scale-110 shadow-xl">
+                    <svg 
+                      className="w-12 h-12 text-blue-600 ml-1" 
+                      fill="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                </div>
+              )}
+            </>
           ) : (
             <div className="w-full h-full min-h-[400px] flex items-center justify-center bg-slate-200">
               <img 
@@ -177,7 +352,7 @@ export default function Services() {
                   alt={service.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-              </div>
+                  </div>
 
               {/* Content Card */}
               <div className="bg-white rounded-3xl p-6 pt-10 pb-8 shadow-lg hover:shadow-xl transition-shadow relative z-10 flex-1 flex flex-col min-h-[240px]">
@@ -247,18 +422,44 @@ export default function Services() {
     </section>
 
     {/* Deep Focus Areas - Full Width Section */}
-    <section className="relative py-20 overflow-hidden">
+    <section ref={deepFocusSectionRef} className="relative py-20 overflow-hidden">
       {/* Background Image */}
-      <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: 'url(/featcher.jpg)',
-          backgroundPosition: 'center 20%',
-          backgroundAttachment: 'fixed',
-        }}
-      ></div>
-      {/* 高级感深色叠加层 */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-indigo-900/85 to-purple-900/80 z-0"></div>
+      {isMobile ? (
+        // 移动端：实现视差滚动（Parallax Scrolling）效果
+        <div className="absolute inset-0 overflow-hidden">
+          <div 
+            ref={mobileBgRef}
+            className="absolute z-0 bg-cover bg-no-repeat"
+            style={{
+              backgroundImage: 'url(/featcher.jpg)',
+              backgroundPosition: 'center 20%',
+              backgroundSize: 'cover',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              minHeight: '100vh',
+              willChange: 'background-position',
+            }}
+          ></div>
+          {/* 移动端背景遮罩层 */}
+          <div className="absolute inset-0 z-0 bg-gradient-to-br from-slate-900/80 via-indigo-900/85 to-purple-900/80"></div>
+        </div>
+      ) : (
+        // PC端：使用background-attachment: fixed
+        <>
+          <div 
+            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url(/featcher.jpg)',
+              backgroundPosition: 'center 20%',
+              backgroundAttachment: 'fixed',
+            }}
+          ></div>
+          {/* 高级感深色叠加层 */}
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-indigo-900/85 to-purple-900/80 z-0"></div>
+        </>
+      )}
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -267,7 +468,7 @@ export default function Services() {
           <p className="text-lg text-white/90 max-w-3xl mx-auto">
             我们专注服务于人工智能、大模型、云服务平台、金融科技、前沿科技等领域
           </p>
-        </div>
+          </div>
 
         {/* Icons Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-12">
