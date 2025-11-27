@@ -37,6 +37,7 @@ export default function Services() {
   const [isMobile, setIsMobile] = useState(false)
   const [isWeChat, setIsWeChat] = useState(false)
   const [cardsVisible, setCardsVisible] = useState<boolean[]>([])
+  const [cardsAnimationKey, setCardsAnimationKey] = useState<number[]>([]) // 用于强制重新触发动画
   const sectionRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLDivElement>(null)
   const videoElementRef = useRef<HTMLVideoElement>(null)
@@ -211,10 +212,11 @@ export default function Services() {
     }
   }, [shouldLoadVideo])
 
-  // 移动端服务卡片加载动画
+  // 移动端服务卡片加载动画 - 每次进入视口都触发
   useEffect(() => {
-    // 初始化卡片可见性状态
+    // 初始化卡片可见性状态和动画key
     setCardsVisible(new Array(services.length).fill(false))
+    setCardsAnimationKey(new Array(services.length).fill(0))
 
     let observer: IntersectionObserver | null = null
 
@@ -227,43 +229,43 @@ export default function Services() {
 
       observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && observer) {
-            const index = cardsRef.current.indexOf(entry.target as HTMLDivElement)
-            if (index !== -1) {
-              setCardsVisible((prev) => {
+          const index = cardsRef.current.indexOf(entry.target as HTMLDivElement)
+          if (index !== -1) {
+            if (entry.isIntersecting) {
+              // 卡片进入视口，触发动画
+              // 先更新动画key，强制重新渲染，然后设置为可见
+              setCardsAnimationKey((prev) => {
                 const newState = [...prev]
-                newState[index] = true
+                newState[index] = (prev[index] || 0) + 1
                 return newState
               })
-              // 观察后取消观察
-              observer.unobserve(entry.target)
+              
+              // 使用 setTimeout 确保 key 更新后再更新可见性
+              setTimeout(() => {
+                setCardsVisible((prev) => {
+                  const newState = [...prev]
+                  newState[index] = true
+                  return newState
+                })
+              }, 10)
+            } else {
+              // 卡片离开视口，重置为不可见
+              setCardsVisible((prev) => {
+                const newState = [...prev]
+                newState[index] = false
+                return newState
+              })
             }
           }
         })
       }, observerOptions)
 
-      // 检查卡片是否已经在视口中
-      const checkInitialVisibility = () => {
-        cardsRef.current.forEach((card, index) => {
-          if (card) {
-            const rect = card.getBoundingClientRect()
-            const windowHeight = window.innerHeight || document.documentElement.clientHeight
-            const isInViewport = rect.top < windowHeight + 200 && rect.bottom > -200
-            
-            if (isInViewport) {
-              setCardsVisible((prev) => {
-                const newState = [...prev]
-                newState[index] = true
-                return newState
-              })
-            } else if (observer) {
-              observer.observe(card)
-            }
-          }
-        })
-      }
-
-      checkInitialVisibility()
+      // 观察所有卡片，让动画可以重复触发
+      cardsRef.current.forEach((card) => {
+        if (card && observer) {
+          observer.observe(card)
+        }
+      })
     }, 300)
 
     return () => {
@@ -481,9 +483,10 @@ export default function Services() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-8">
           {services.map((service, index) => {
             const isVisible = cardsVisible[index] ?? false
+            const animationKey = cardsAnimationKey[index] ?? 0
             return (
               <div 
-                key={index}
+                key={`${index}-${animationKey}`}
                 ref={(el) => {
                   if (el) {
                     cardsRef.current[index] = el
