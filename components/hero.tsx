@@ -1,9 +1,11 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function Hero() {
   const [isMobile, setIsMobile] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+  const mobileBgRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const checkMobile = () => {
@@ -13,6 +15,65 @@ export default function Hero() {
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
+
+  // 移动端视差滚动效果
+  useEffect(() => {
+    if (!isMobile) return
+
+    let rafId: number | null = null
+
+    const updateBackground = () => {
+      const sectionEl = sectionRef.current
+      const bgEl = mobileBgRef.current
+      if (!sectionEl || !bgEl) return
+
+      const rect = sectionEl.getBoundingClientRect()
+      const sectionTop = rect.top
+      const sectionBottom = rect.bottom
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight
+
+      let progress = 0
+
+      if (sectionBottom < 0) {
+        progress = 1
+      } else if (sectionTop > windowHeight) {
+        progress = 0
+      } else {
+        const normalizedTop = Math.max(0, Math.min(windowHeight, sectionTop))
+        progress = 1 - (normalizedTop / windowHeight)
+      }
+
+      progress = Math.max(0, Math.min(1, progress))
+      const bgPositionY = progress * 100
+
+      bgEl.style.backgroundPosition = `center ${bgPositionY}%`
+    }
+
+    const handleScroll = () => {
+      if (rafId === null) {
+        rafId = requestAnimationFrame(() => {
+          updateBackground()
+          rafId = null
+        })
+      }
+    }
+
+    // 延迟执行，确保DOM已渲染
+    const timer = setTimeout(() => {
+      updateBackground()
+      window.addEventListener('scroll', handleScroll, { passive: true })
+      window.addEventListener('resize', handleScroll, { passive: true })
+    }, 100)
+
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleScroll)
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId)
+      }
+    }
+  }, [isMobile])
 
   const handleScroll = (targetId: string) => {
     const element = document.querySelector(targetId)
@@ -30,14 +91,42 @@ export default function Hero() {
 
   return (
     <section
+      ref={sectionRef}
       className="relative min-h-screen flex items-center justify-start pt-20"
-      style={{
+      style={!isMobile ? {
         backgroundImage: "url(/hero-banner.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center right",
-        backgroundAttachment: isMobile ? "scroll" : "fixed",
-      }}
+        backgroundAttachment: "fixed",
+      } : {}}
     >
+      {/* 移动端背景 */}
+      {isMobile ? (
+        <div className="absolute inset-0 overflow-hidden">
+          <div
+            ref={mobileBgRef}
+            className="absolute z-0 bg-cover bg-no-repeat"
+            style={{
+              backgroundImage: "url(/hero-banner.jpg)",
+              backgroundPosition: "center 0%",
+              backgroundSize: "cover",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              width: "100%",
+              height: "100%",
+              minHeight: "100vh",
+              willChange: "background-position",
+              WebkitTransform: "translateZ(0)",
+              transform: "translateZ(0)",
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+            }}
+          />
+        </div>
+      ) : null}
+
       <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-800/70 to-transparent"></div>
 
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl opacity-60"></div>
