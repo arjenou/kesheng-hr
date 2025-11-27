@@ -31,10 +31,13 @@ export default function Services() {
   ]
 
   const [isVisible, setIsVisible] = useState(false)
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
+  const videoRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     let observer: IntersectionObserver | null = null
+    let videoObserver: IntersectionObserver | null = null
 
     // 延迟检查，确保DOM已完全渲染
     const timer = setTimeout(() => {
@@ -79,10 +82,36 @@ export default function Services() {
       }, 2000)
     }, 100)
 
+    // 视频懒加载：只有当视频容器进入视口时才加载视频
+    const videoTimer = setTimeout(() => {
+      if (videoRef.current) {
+        videoObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                setShouldLoadVideo(true)
+                // 加载后取消观察
+                if (videoObserver && videoRef.current) {
+                  videoObserver.unobserve(videoRef.current)
+                }
+              }
+            })
+          },
+          { threshold: 0.1, rootMargin: '200px 0px 0px 0px' }
+        )
+
+        videoObserver.observe(videoRef.current)
+      }
+    }, 200)
+
     return () => {
       clearTimeout(timer)
+      clearTimeout(videoTimer)
       if (observer && sectionRef.current) {
         observer.unobserve(sectionRef.current)
+      }
+      if (videoObserver && videoRef.current) {
+        videoObserver.unobserve(videoRef.current)
       }
     }
   }, [])
@@ -92,25 +121,41 @@ export default function Services() {
       <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
       <div className="max-w-7xl mx-auto">
         {/* Video Section */}
-        <div className="mt-12 mb-28 rounded-3xl overflow-hidden shadow-2xl max-h-[400px]">
-          <video
-            className="w-full h-full object-cover"
-            autoPlay
-            loop
-            muted
-            playsInline
-            webkit-playsinline="true"
-            x5-playsinline="true"
-            x5-video-player-type="h5"
-            x5-video-player-fullscreen="true"
-            x5-video-orientation="portraint"
-            preload="auto"
-            poster="/placeholder.jpg"
-            controls
-          >
-            <source src="/business-video.mp4" type="video/mp4" />
-            您的浏览器不支持视频播放
-          </video>
+        <div ref={videoRef} className="mt-12 mb-28 rounded-3xl overflow-hidden shadow-2xl max-h-[400px] relative bg-slate-200">
+          {shouldLoadVideo ? (
+            <video
+              className="w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+              webkit-playsinline="true"
+              x5-playsinline="true"
+              x5-video-player-type="h5"
+              x5-video-player-fullscreen="true"
+              x5-video-orientation="portraint"
+              preload="metadata"
+              poster="/placeholder.jpg"
+              controls
+            >
+              <source src="/business-video.mp4" type="video/mp4" />
+              您的浏览器不支持视频播放
+            </video>
+          ) : (
+            <div className="w-full h-full min-h-[400px] flex items-center justify-center bg-slate-200">
+              <img 
+                src="/placeholder.jpg" 
+                alt="视频预览" 
+                className="w-full h-full object-cover opacity-50"
+              />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                  <p className="text-slate-600 font-medium">视频加载中...</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="text-center mb-24 lg:mb-32">
