@@ -88,7 +88,7 @@ export default function ClientLogos() {
               {row.map((logo, index) => (
                 <div
                   key={`row-${rowIndex}-${index}`}
-                  className="flex items-center justify-center h-12 md:h-14 lg:h-16 w-full opacity-70"
+                  className="flex items-center justify-center h-12 md:h-14 lg:h-16 w-full"
                 >
                   <img
                     src={`${logo.image}?v=${version}`}

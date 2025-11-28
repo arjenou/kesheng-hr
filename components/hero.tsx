@@ -85,7 +85,7 @@ export default function Hero() {
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-start pt-20"
       style={!isMobile ? {
-        backgroundImage: "url(/hero-banner.jpg)",
+        backgroundImage: "url(/banner-business.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center right",
         backgroundAttachment: "fixed",
@@ -98,7 +98,7 @@ export default function Hero() {
             ref={mobileBgRef}
             className="absolute z-0 bg-no-repeat"
             style={{
-              backgroundImage: "url(/hero-banner.jpg)",
+              backgroundImage: "url(/banner-business.jpg)",
               backgroundSize: "cover",
               backgroundPosition: "center right",
               top: 0,
