@@ -12,28 +12,35 @@ export default function Team() {
       name: "李楠",
       title: "高级合伙人",
       description: "拥有15年以上人力资源与组织管理经验，心理学硕士，国家二级心理咨询师",
-      image: "/images/e6-9d-8e-e6-a5-a0.jpg",
+      image: "/member/李楠.jpg",
       email: "linan07@keshengcaidao.com",
     },
     {
       name: "王佳",
       title: "高级合伙人",
       description: "资深猎头专家，10年以上高阶岗位寻访经验，计算机专业背景",
-      image: "/images/e7-8e-8b-e4-bd-b3.jpg",
+      image: "/member/王佳.jpg",
       email: "luck@keshengcaidao.com",
     },
     {
       name: "温煦森",
       title: "高级合伙人",
       description: "精通人才Mapping，全球顶尖实验室定点寻访专家，服务过多个一线互联网企业",
-      image: "/images/e6-b8-a9-e7-85-a6-e6-a3-ae.jpg",
+      image: "/member/温煦森.jpg",
       email: "contact@keshengcaidao.com",
     },
     {
       name: "魏忻伶",
       title: "合伙人",
       description: "资深人力资源专家，专注于组织发展和人才战略",
-      image: "/images/e9-ad-8f-e5-bf-bb-e4-bc-b6.jpg",
+      image: "/member/魏忻伶.jpg",
+      email: "contact@keshengcaidao.com",
+    },
+    {
+      name: "李晟洋",
+      title: "高级合伙人",
+      description: "资深人力资源与猎头专家，专注于高端人才寻访和团队建设",
+      image: "/member/李晟洋.jpg",
       email: "contact@keshengcaidao.com",
     },
   ]
@@ -155,7 +162,7 @@ export default function Team() {
         </div>
 
         {/* Desktop Grid */}
-        <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="hidden md:grid grid-cols-2 lg:grid-cols-5 gap-8">
           {team.map((member, index) => (
             <div
               key={index}

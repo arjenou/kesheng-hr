@@ -29,17 +29,22 @@ export default function Contact() {
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
+        {/* PC端标题 */}
+        <div className="hidden lg:block text-center mb-12">
+          <h2 className="text-4xl font-bold text-slate-900 mb-3">联系我们</h2>
+          <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
+        </div>
+
         {/* PC端：左右两栏布局 */}
         <div className="hidden lg:flex lg:justify-center gap-8">
           {/* 左侧：表单 */}
           <div className="max-w-2xl flex-1">
             <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-100">
-              <h2 className="text-3xl font-bold text-slate-900 mb-8">咨询报价·联系我们</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">
-                    公司名称<span className="text-red-500 ml-1">【必填】</span>
+                    公司名称<span className="text-slate-400 ml-1">【必填】</span>
                   </label>
                   <input
                     type="text"
@@ -53,7 +58,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">
-                    姓名<span className="text-red-500 ml-1">【必填】</span>
+                    姓名<span className="text-slate-400 ml-1">【必填】</span>
                   </label>
                   <input
                     type="text"
@@ -70,7 +75,7 @@ export default function Contact() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">
-                    电话号码<span className="text-red-500 ml-1">【必填】</span>
+                    电话号码<span className="text-slate-400 ml-1">【必填】</span>
                   </label>
                   <input
                     type="tel"
@@ -84,7 +89,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">
-                    邮件<span className="text-red-500 ml-1">【必填】</span>
+                    邮件<span className="text-slate-400 ml-1">【必填】</span>
                   </label>
                   <input
                     type="email"
@@ -100,7 +105,7 @@ export default function Contact() {
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">
-                  地址<span className="text-red-500 ml-1">【必填】</span>
+                  地址<span className="text-slate-400 ml-1">【必填】</span>
                 </label>
                 <input
                   type="text"
@@ -115,7 +120,7 @@ export default function Contact() {
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">
-                  咨询内容<span className="text-red-500 ml-1">【必填】</span>
+                  咨询内容<span className="text-slate-400 ml-1">【必填】</span>
                 </label>
                 <textarea
                   name="message"
