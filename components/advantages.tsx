@@ -500,10 +500,9 @@ export default function Advantages() {
           </div>
 
           {/* Icons Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-12">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {[
               { name: "人工智能", icon: "/icon/icons8-人工智能-100.png" },
-              { name: "大模型", icon: "/icon/icons8-工程-100.png" },
               { name: "云服务平台", icon: "/icon/icons8-云开发-100.png" },
               { name: "金融科技", icon: "/icon/icons8-金融科技-100.png" },
               { name: "前沿科技", icon: "/icon/icons8-simulation-100.png" },

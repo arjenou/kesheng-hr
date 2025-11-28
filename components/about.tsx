@@ -138,7 +138,7 @@ export default function About() {
               </div>
               
               {/* 整体黑色蒙版，增强对比度 */}
-              <div className="absolute inset-0 bg-black/60 rounded-2xl z-[1]"></div>
+              <div className="absolute inset-0 bg-black/75 rounded-2xl z-[1]"></div>
               
               {/* 装饰性设计素材 - 左侧形状 */}
               <div className="absolute top-0 left-0 w-16 h-16 sm:w-20 sm:h-20 opacity-20 z-[2]">
@@ -193,7 +193,7 @@ export default function About() {
               </div>
               
               {/* 整体黑色蒙版，增强对比度 */}
-              <div className="absolute inset-0 bg-black/60 rounded-2xl z-[1]"></div>
+              <div className="absolute inset-0 bg-black/75 rounded-2xl z-[1]"></div>
               
               {/* 装饰性设计素材 - 左侧形状 */}
               <div className="absolute top-0 left-0 w-16 h-16 sm:w-20 sm:h-20 opacity-20 z-[2]">
@@ -248,7 +248,7 @@ export default function About() {
               </div>
               
               {/* 整体黑色蒙版，增强对比度 */}
-              <div className="absolute inset-0 bg-black/60 rounded-2xl z-[1]"></div>
+              <div className="absolute inset-0 bg-black/75 rounded-2xl z-[1]"></div>
               
               {/* 装饰性设计素材 - 左侧形状 */}
               <div className="absolute top-0 left-0 w-16 h-16 sm:w-20 sm:h-20 opacity-20 z-[2]">
@@ -303,7 +303,7 @@ export default function About() {
               </div>
               
               {/* 整体黑色蒙版，增强对比度 */}
-              <div className="absolute inset-0 bg-black/60 rounded-2xl z-[1]"></div>
+              <div className="absolute inset-0 bg-black/75 rounded-2xl z-[1]"></div>
               
               {/* 装饰性设计素材 - 左侧形状 */}
               <div className="absolute top-0 left-0 w-16 h-16 sm:w-20 sm:h-20 opacity-20 z-[2]">

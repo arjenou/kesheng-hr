@@ -3,7 +3,6 @@ export default function ClientLogos() {
   const version = "20241127"
   
   const logos = [
-    { name: "360", image: "/icone-spnn/360.png" },
     { name: "360数科", image: "/icone-spnn/360数科.png" },
     { name: "MiniMax", image: "/icone-spnn/MiniMax.png" },
     { name: "夸克", image: "/icone-spnn/夸克.png" },
