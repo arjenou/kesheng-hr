@@ -61,6 +61,7 @@ export default function Advantages() {
       description: "专注AI与前沿科技领域，精准识别关键岗位与核心人才",
       bgColor: "from-slate-50 to-slate-100",
       iconBg: "bg-white",
+      backgroundImage: "/picture2/img1.jpg",
       icon: (
         <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -77,6 +78,7 @@ export default function Advantages() {
       description: "从人才寻访、团队搭建到组织优化，提供完整解决方案",
       bgColor: "from-blue-50 to-blue-100",
       iconBg: "bg-white",
+      backgroundImage: "/picture2/img2.jpg",
       icon: (
         <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -93,6 +95,7 @@ export default function Advantages() {
       description: "千万级人才资源库，支持企业全球化用人需求",
       bgColor: "from-indigo-50 to-indigo-100",
       iconBg: "bg-white",
+      backgroundImage: "/picture2/img3.jpg",
       icon: (
         <svg className="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -109,6 +112,7 @@ export default function Advantages() {
       description: "24小时触达，48小时交付，72小时安排面试",
       bgColor: "from-purple-50 to-purple-100",
       iconBg: "bg-white",
+      backgroundImage: "/picture2/img4.jpg",
       icon: (
         <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -128,28 +132,28 @@ export default function Advantages() {
       author: "科盛",
       title: "一周热门职位",
       description: "快来看看您感兴趣的职位吧...",
-      image: "/placeholder.jpg",
+      image: "/image/bg6.jpg",
     },
     {
       date: "2022-07-15",
       author: "科盛",
       title: "一周热门职位",
       description: "快来看看您感兴趣的职位吧...",
-      image: "/placeholder.jpg",
+      image: "/image/bg7.jpg",
     },
     {
       date: "2022-07-08",
       author: "科盛",
       title: "一周热门职位",
       description: "快来看看您感兴趣的职位吧...",
-      image: "/placeholder.jpg",
+      image: "/image/bg8.jpg",
     },
     {
       date: "2019-06-22",
       author: "科盛",
       title: "雇主品牌 公益随行",
       description: "雇主品牌 公益随行",
-      image: "/placeholder.jpg",
+      image: "/image/bg9.jpg",
     },
   ]
 
@@ -412,24 +416,26 @@ export default function Advantages() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 items-center">
-            {advantages.map((item, index) => (
-              <div
-                key={index}
-                className={`bg-gradient-to-br ${item.bgColor} rounded-3xl p-6 md:p-8 hover:shadow-xl hover:scale-105 transition-all duration-500 group relative overflow-hidden text-center ${
-                  index % 2 === 0 ? "lg:translate-y-0" : "lg:translate-y-12"
-                }`}
-              >
+          <div className="flex justify-center">
+            <div className="grid grid-cols-2 gap-4 md:gap-6 max-w-2xl w-full">
+              {advantages.map((item, index) => (
+                <div
+                  key={index}
+                  className={`bg-gradient-to-br ${item.bgColor} rounded-3xl p-6 md:p-8 hover:shadow-xl hover:scale-105 transition-all duration-500 group relative overflow-hidden text-center aspect-square flex flex-col items-center justify-center`}
+                >
                 {/* Icon */}
-                <div className={`${item.iconBg} w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-sm mx-auto`}>
+                <div className={`relative ${item.iconBg} w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-sm`}>
                   {item.icon}
                 </div>
 
                 {/* Content */}
-                <h3 className="text-base md:text-xl font-bold text-slate-900 mb-2 md:mb-3">{item.title}</h3>
-                <p className="text-xs md:text-sm text-slate-700 leading-relaxed">{item.description}</p>
+                <div className="relative flex flex-col items-center justify-center px-2">
+                  <h3 className="text-base md:text-xl font-bold text-slate-900 mb-2 md:mb-3 text-center">{item.title}</h3>
+                  <p className="text-xs md:text-sm text-slate-700 leading-relaxed text-center">{item.description}</p>
+                </div>
               </div>
             ))}
+            </div>
           </div>
         </div>
       </section>
@@ -518,8 +524,17 @@ export default function Advantages() {
       </section>
 
       {/* Team Section */}
-      <section id="team" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
-        <div className="max-w-7xl mx-auto">
+      <section id="team" className="relative py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 overflow-hidden">
+        {/* 背景装饰 */}
+        <div className="absolute top-0 left-0 w-full h-full opacity-5">
+          <img 
+            src="/image/bg1.jpg" 
+            alt="" 
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-slate-900 mb-3">我们的团队</h2>
             <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
@@ -642,6 +657,8 @@ export default function Advantages() {
                           alt={job.title}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
+                        {/* 装饰性渐变叠加 */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                       </div>
 
                       {/* Content */}

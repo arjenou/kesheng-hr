@@ -124,12 +124,42 @@ export default function About() {
               ref={(el) => {
                 if (el) cardsRef.current[1] = el
               }}
-              className={`bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-700 ${
+              className={`rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-700 relative overflow-hidden ${
                 cardsVisible[1] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
               }`}
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {/* 商业背景图片 */}
+              <div className="absolute inset-0 z-0 overflow-hidden rounded-2xl">
+                <img 
+                  src="/picture2/img1.jpg"
+                  alt=""
+                  className="w-full h-full object-cover opacity-50 group-hover:opacity-60 transition-opacity duration-500"
+                />
+              </div>
+              
+              {/* 整体黑色蒙版，增强对比度 */}
+              <div className="absolute inset-0 bg-black/60 rounded-2xl z-[1]"></div>
+              
+              {/* 装饰性设计素材 - 左侧形状 */}
+              <div className="absolute top-0 left-0 w-16 h-16 sm:w-20 sm:h-20 opacity-20 z-[2]">
+                <img 
+                  src="/picture2/leftshape.png" 
+                  alt="" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              
+              {/* 装饰性设计素材 - 右侧形状 */}
+              <div className="absolute bottom-0 right-0 w-16 h-16 sm:w-20 sm:h-20 opacity-20 z-[2]">
+                <img 
+                  src="/picture2/rightshape.png" 
+                  alt="" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              
+              <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -138,8 +168,8 @@ export default function About() {
                   />
                 </svg>
               </div>
-              <h3 className="text-base sm:text-xl font-bold text-slate-900 mb-2 text-center sm:text-left">公司使命</h3>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed text-center sm:text-left">
+              <h3 className="relative z-10 text-base sm:text-xl font-bold text-white mb-2 text-center sm:text-left drop-shadow-lg">公司使命</h3>
+              <p className="relative z-10 text-sm sm:text-base text-white/95 leading-relaxed text-center sm:text-left drop-shadow-md">
                 连接全球顶尖科技人才，让科技更快落地，让组织更具韧性
               </p>
             </div>
@@ -149,12 +179,42 @@ export default function About() {
               ref={(el) => {
                 if (el) cardsRef.current[2] = el
               }}
-              className={`bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-700 ${
+              className={`rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-700 relative overflow-hidden ${
                 cardsVisible[2] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
               }`}
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {/* 商业背景图片 */}
+              <div className="absolute inset-0 z-0 overflow-hidden rounded-2xl">
+                <img 
+                  src="/picture2/img2.jpg"
+                  alt=""
+                  className="w-full h-full object-cover opacity-50 group-hover:opacity-60 transition-opacity duration-500"
+                />
+              </div>
+              
+              {/* 整体黑色蒙版，增强对比度 */}
+              <div className="absolute inset-0 bg-black/60 rounded-2xl z-[1]"></div>
+              
+              {/* 装饰性设计素材 - 左侧形状 */}
+              <div className="absolute top-0 left-0 w-16 h-16 sm:w-20 sm:h-20 opacity-20 z-[2]">
+                <img 
+                  src="/picture2/leftshape.png" 
+                  alt="" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              
+              {/* 装饰性设计素材 - 右侧形状 */}
+              <div className="absolute bottom-0 right-0 w-16 h-16 sm:w-20 sm:h-20 opacity-20 z-[2]">
+                <img 
+                  src="/picture2/rightshape.png" 
+                  alt="" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              
+              <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -163,8 +223,8 @@ export default function About() {
                   />
                 </svg>
               </div>
-              <h3 className="text-base sm:text-xl font-bold text-slate-900 mb-2 text-center sm:text-left">公司价值观</h3>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed text-center sm:text-left">
+              <h3 className="relative z-10 text-base sm:text-xl font-bold text-white mb-2 text-center sm:text-left drop-shadow-lg">公司价值观</h3>
+              <p className="relative z-10 text-sm sm:text-base text-white/95 leading-relaxed text-center sm:text-left drop-shadow-md">
                 以客户为中心，以专业为本，以诚信为基，持续创新与追求卓越
               </p>
             </div>
@@ -174,12 +234,42 @@ export default function About() {
               ref={(el) => {
                 if (el) cardsRef.current[3] = el
               }}
-              className={`bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-700 ${
+              className={`rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-700 relative overflow-hidden ${
                 cardsVisible[3] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
               }`}
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-indigo-100 flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {/* 商业背景图片 */}
+              <div className="absolute inset-0 z-0 overflow-hidden rounded-2xl">
+                <img 
+                  src="/picture2/img3.jpg"
+                  alt=""
+                  className="w-full h-full object-cover opacity-50 group-hover:opacity-60 transition-opacity duration-500"
+                />
+              </div>
+              
+              {/* 整体黑色蒙版，增强对比度 */}
+              <div className="absolute inset-0 bg-black/60 rounded-2xl z-[1]"></div>
+              
+              {/* 装饰性设计素材 - 左侧形状 */}
+              <div className="absolute top-0 left-0 w-16 h-16 sm:w-20 sm:h-20 opacity-20 z-[2]">
+                <img 
+                  src="/picture2/leftshape.png" 
+                  alt="" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              
+              {/* 装饰性设计素材 - 右侧形状 */}
+              <div className="absolute bottom-0 right-0 w-16 h-16 sm:w-20 sm:h-20 opacity-20 z-[2]">
+                <img 
+                  src="/picture2/rightshape.png" 
+                  alt="" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              
+              <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -188,8 +278,8 @@ export default function About() {
                   />
                 </svg>
               </div>
-              <h3 className="text-base sm:text-xl font-bold text-slate-900 mb-2 text-center sm:text-left">经营理念</h3>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed text-center sm:text-left">
+              <h3 className="relative z-10 text-base sm:text-xl font-bold text-white mb-2 text-center sm:text-left drop-shadow-lg">经营理念</h3>
+              <p className="relative z-10 text-sm sm:text-base text-white/95 leading-relaxed text-center sm:text-left drop-shadow-md">
               创造价值，持续精进，稳健增长
               </p>
             </div>
@@ -199,12 +289,42 @@ export default function About() {
               ref={(el) => {
                 if (el) cardsRef.current[4] = el
               }}
-              className={`bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-700 ${
+              className={`rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-700 relative overflow-hidden ${
                 cardsVisible[4] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
               }`}
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-pink-100 flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {/* 商业背景图片 */}
+              <div className="absolute inset-0 z-0 overflow-hidden rounded-2xl">
+                <img 
+                  src="/picture2/img4.jpg"
+                  alt=""
+                  className="w-full h-full object-cover opacity-50 group-hover:opacity-60 transition-opacity duration-500"
+                />
+              </div>
+              
+              {/* 整体黑色蒙版，增强对比度 */}
+              <div className="absolute inset-0 bg-black/60 rounded-2xl z-[1]"></div>
+              
+              {/* 装饰性设计素材 - 左侧形状 */}
+              <div className="absolute top-0 left-0 w-16 h-16 sm:w-20 sm:h-20 opacity-20 z-[2]">
+                <img 
+                  src="/picture2/leftshape.png" 
+                  alt="" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              
+              {/* 装饰性设计素材 - 右侧形状 */}
+              <div className="absolute bottom-0 right-0 w-16 h-16 sm:w-20 sm:h-20 opacity-20 z-[2]">
+                <img 
+                  src="/picture2/rightshape.png" 
+                  alt="" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              
+              <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -213,8 +333,8 @@ export default function About() {
                   />
                 </svg>
               </div>
-              <h3 className="text-base sm:text-xl font-bold text-slate-900 mb-2 text-center sm:text-left">公司愿景</h3>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed text-center sm:text-left">
+              <h3 className="relative z-10 text-base sm:text-xl font-bold text-white mb-2 text-center sm:text-left drop-shadow-lg">公司愿景</h3>
+              <p className="relative z-10 text-sm sm:text-base text-white/95 leading-relaxed text-center sm:text-left drop-shadow-md">
                 以长期主义打造百年企业，成为全球科技企业信赖的人才服务伙伴
               </p>
             </div>

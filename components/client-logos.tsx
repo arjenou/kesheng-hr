@@ -1,11 +1,6 @@
-"use client"
-
-import { useState, useEffect } from "react"
-
 export default function ClientLogos() {
   // 添加版本号以清除缓存
   const version = "20241127"
-  const [isMobile, setIsMobile] = useState(false)
   
   const logos = [
     { name: "360", image: "/icone-spnn/360.png" },
@@ -41,38 +36,40 @@ export default function ClientLogos() {
     { name: "高德地图", image: "/icone-spnn/高德地图.png" },
   ]
 
-  // 将logo分成两排，并复制以实现无缝循环
-  const logosPerRow = isMobile ? 3 : 7
-  const firstRowLogos: typeof logos = []
-  const secondRowLogos: typeof logos = []
+  // 只取前32个logo（4排 x 8个）
+  const displayLogos = logos.slice(0, 32)
   
-  logos.forEach((logo, index) => {
-    if (index % 2 === 0) {
-      firstRowLogos.push(logo)
-    } else {
-      secondRowLogos.push(logo)
-    }
-  })
+  // 将logo分成4排，每排8个
+  const logosPerRow = 8
+  const rows: typeof logos[] = []
   
-  // 复制数组以实现无缝循环（每排复制3次）
-  const duplicatedFirstRow = [...firstRowLogos, ...firstRowLogos, ...firstRowLogos]
-  const duplicatedSecondRow = [...secondRowLogos, ...secondRowLogos, ...secondRowLogos]
-
-  // 检测屏幕尺寸
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024)
-    }
-    
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
+  for (let i = 0; i < 4; i++) {
+    const start = i * logosPerRow
+    const end = start + logosPerRow
+    rows.push(displayLogos.slice(start, end))
+  }
 
   return (
-    <section id="client-logos" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-      <div className="max-w-7xl mx-auto">
+    <section id="client-logos" className="relative py-20 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
+      {/* 背景装饰 */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-5">
+        <img 
+          src="/image/bg12.jpg" 
+          alt="" 
+          className="w-full h-full object-cover"
+        />
+      </div>
+      
+      {/* 装饰元素 */}
+      <div className="absolute top-10 left-10 w-40 h-40 opacity-10">
+        <img 
+          src="/image/shape3.png" 
+          alt="" 
+          className="w-full h-full object-contain"
+        />
+      </div>
+      
+      <div className="relative max-w-7xl mx-auto z-10">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">合作伙伴</h2>
           <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
@@ -81,17 +78,17 @@ export default function ClientLogos() {
           </p>
         </div>
 
-        {/* PC端和移动端：无限循环轮播 */}
-        <div className="relative overflow-hidden">
-          {/* 第一排 */}
-          <div className="mb-4 md:mb-6">
-            <div className="flex animate-scroll-left">
-              {duplicatedFirstRow.map((logo, index) => (
+        {/* 静态展示 - 4排布局，每排8个 */}
+        <div className="space-y-6">
+          {rows.map((row, rowIndex) => (
+            <div 
+              key={`row-${rowIndex}`}
+              className="grid grid-cols-4 md:grid-cols-8 gap-4 md:gap-6 items-center justify-items-center"
+            >
+              {row.map((logo, index) => (
                 <div
-                  key={`first-${index}`}
-                  className={`flex items-center justify-center flex-shrink-0 px-2 md:px-3 lg:px-4 ${
-                    isMobile ? 'h-20 w-[calc((100vw-2rem)/3)]' : 'h-24 md:h-28 lg:h-32 w-[calc((100vw-8rem)/7)]'
-                  }`}
+                  key={`row-${rowIndex}-${index}`}
+                  className="flex items-center justify-center h-12 md:h-14 lg:h-16 w-full opacity-70"
                 >
                   <img
                     src={`${logo.image}?v=${version}`}
@@ -101,27 +98,7 @@ export default function ClientLogos() {
                 </div>
               ))}
             </div>
-          </div>
-          
-          {/* 第二排 */}
-          <div>
-            <div className="flex animate-scroll-right">
-              {duplicatedSecondRow.map((logo, index) => (
-                <div
-                  key={`second-${index}`}
-                  className={`flex items-center justify-center flex-shrink-0 px-2 md:px-3 lg:px-4 ${
-                    isMobile ? 'h-20 w-[calc((100vw-2rem)/3)]' : 'h-24 md:h-28 lg:h-32 w-[calc((100vw-8rem)/7)]'
-                  }`}
-                >
-                  <img
-                    src={`${logo.image}?v=${version}`}
-                    alt={logo.name}
-                    className="h-full w-auto object-contain max-w-full"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

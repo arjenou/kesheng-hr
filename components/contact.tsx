@@ -39,110 +39,96 @@ export default function Contact() {
         <div className="hidden lg:flex lg:justify-center gap-8">
           {/* 左侧：表单 */}
           <div className="max-w-2xl flex-1">
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-100">
-              <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    公司名称<span className="text-slate-400 ml-1">【必填】</span>
-                  </label>
+            <form onSubmit={handleSubmit} className="form-style">
+              <p className="title-style">
+                联系我们
+              </p>
+              <p className="message-style">填写表单，我们会尽快与您联系</p>
+
+              <div className="flex gap-2">
+                <label className="form-label">
                   <input
                     type="text"
                     name="company"
                     value={formData.company}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white"
-                    placeholder="请输入公司名称"
+                    className="input-style"
+                    placeholder=" "
                   />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    姓名<span className="text-slate-400 ml-1">【必填】</span>
-                  </label>
+                  <span>公司名称</span>
+                </label>
+                <label className="form-label">
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white"
-                    placeholder="请输入您的姓名"
+                    className="input-style"
+                    placeholder=" "
                   />
-                </div>
+                  <span>姓名</span>
+                </label>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    电话号码<span className="text-slate-400 ml-1">【必填】</span>
-                  </label>
+              <div className="flex gap-2">
+                <label className="form-label">
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white"
-                    placeholder="请输入电话号码"
+                    className="input-style"
+                    placeholder=" "
                   />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    邮件<span className="text-slate-400 ml-1">【必填】</span>
-                  </label>
+                  <span>电话号码</span>
+                </label>
+                <label className="form-label">
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white"
-                    placeholder="请输入邮箱地址"
+                    className="input-style"
+                    placeholder=" "
                   />
-                </div>
+                  <span>邮箱</span>
+                </label>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
-                  地址<span className="text-slate-400 ml-1">【必填】</span>
-                </label>
+              <label className="form-label">
                 <input
                   type="text"
                   name="address"
                   value={formData.address}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white"
-                  placeholder="请输入地址"
+                  className="input-style"
+                  placeholder=" "
                 />
-              </div>
+                <span>地址</span>
+              </label>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
-                  咨询内容<span className="text-slate-400 ml-1">【必填】</span>
-                </label>
+              <label className="form-label">
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  rows={6}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white resize-none"
-                  placeholder="请输入咨询内容"
+                  rows={4}
+                  className="input-style resize-none pt-3"
+                  placeholder=" "
                 ></textarea>
-              </div>
+                <span>咨询内容</span>
+              </label>
 
-              <div className="flex justify-end">
-                <button
-                  type="submit"
-                  className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  送信
-                </button>
-              </div>
+              <button type="submit" className="submit-style">
+                提交
+              </button>
             </form>
-            </div>
           </div>
 
           {/* 右侧：联系信息卡片 */}
@@ -204,92 +190,96 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* 移动端：保持原有布局 */}
+        {/* 移动端：使用新设计 */}
         <div className="lg:hidden">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-slate-900 mb-3">联系我们</h2>
             <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
-            <p className="text-lg text-slate-600">有任何问题或需要帮助？请填写下方表格，我们会在24小时内与您联系</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <div>
-                <label className="block text-sm font-semibold text-slate-900 mb-2">公司名称</label>
+          <form onSubmit={handleSubmit} className="form-style">
+            <p className="title-style">
+              联系我们
+            </p>
+            <p className="message-style">填写表单，我们会尽快与您联系</p>
+
+            <div className="flex flex-col gap-4">
+              <label className="form-label">
                 <input
                   type="text"
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white"
-                  placeholder="请输入公司名称"
+                  required
+                  className="input-style"
+                  placeholder=" "
                 />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-slate-900 mb-2">姓名</label>
+                <span>公司名称</span>
+              </label>
+              <label className="form-label">
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white"
-                  placeholder="请输入您的姓名"
+                  className="input-style"
+                  placeholder=" "
                 />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-slate-900 mb-2">电话</label>
+                <span>姓名</span>
+              </label>
+              <label className="form-label">
                 <input
                   type="tel"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white"
-                  placeholder="请输入您的电话"
+                  required
+                  className="input-style"
+                  placeholder=" "
                 />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-slate-900 mb-2">邮箱</label>
+                <span>电话号码</span>
+              </label>
+              <label className="form-label">
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white"
-                  placeholder="请输入您的邮箱"
+                  className="input-style"
+                  placeholder=" "
                 />
-              </div>
-              <div className="md:col-span-2">
-                <label className="block text-sm font-semibold text-slate-900 mb-2">地址</label>
+                <span>邮箱</span>
+              </label>
+              <label className="form-label">
                 <input
                   type="text"
                   name="address"
                   value={formData.address}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white"
-                  placeholder="请输入地址"
+                  required
+                  className="input-style"
+                  placeholder=" "
                 />
-              </div>
+                <span>地址</span>
+              </label>
+              <label className="form-label">
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={4}
+                  className="input-style resize-none pt-3"
+                  placeholder=" "
+                ></textarea>
+                <span>咨询内容</span>
+              </label>
             </div>
 
-            <div className="mb-6">
-              <label className="block text-sm font-semibold text-slate-900 mb-2">留言</label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                rows={5}
-                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white"
-                placeholder="请输入您的留言内容"
-              ></textarea>
-            </div>
-
-            <button
-              type="submit"
-              className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all transform hover:-translate-y-1"
-            >
-              提交表格
+            <button type="submit" className="submit-style">
+              提交
             </button>
           </form>
         </div>
