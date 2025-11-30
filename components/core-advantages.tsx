@@ -1,13 +1,12 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Rocket, Wifi, RefreshCw, Box, FileDown } from "lucide-react"
+import { Brain, Layers, Globe, Zap } from "lucide-react"
 
 interface AdvantageNode {
   title: string
   description: string
   icon: React.ReactNode
-  angle: number // 角度（度）
 }
 
 export default function CoreAdvantages() {
@@ -24,55 +23,29 @@ export default function CoreAdvantages() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // 5个优势节点，按图片描述的顺序排列（从左上开始顺时针）
+  // 4个优势节点
   const advantages: AdvantageNode[] = [
     {
-      title: "高兼容性与性能",
-      description: "SDK兼容2000+型号设备, 不影响应用业务进行",
-      icon: <Rocket className="w-6 h-6" />,
-      angle: -120, // 左上
+      title: "深度行业理解",
+      description: "专注AI与前沿科技领域，精准识别关键岗位与核心人才",
+      icon: <Brain className="w-6 h-6" />,
     },
     {
-      title: "多平台支持",
-      description: "支持Android、iOS、web/wap/H5、小程序、Windows等多平台",
-      icon: <Wifi className="w-6 h-6" />,
-      angle: -30, // 右上
+      title: "一站式服务",
+      description: "从人才寻访、团队搭建到组织优化，提供完整解决方案",
+      icon: <Layers className="w-6 h-6" />,
     },
     {
-      title: "支持自定义策略",
-      description: "支持根据业务需要自定义检测策略, 提供更多业务场景检测能力",
-      icon: <RefreshCw className="w-6 h-6" />,
-      angle: 30, // 右下
+      title: "全球交付",
+      description: "千万级人才资源库，支持企业全球化用人需求",
+      icon: <Globe className="w-6 h-6" />,
     },
     {
-      title: "客户端风险识别",
-      description: "风控SDK检测设备、环境、用户操作行为异常行为, 支持策略热更新, 客户端异常风险行为识别准确率高",
-      icon: <Box className="w-6 h-6" />,
-      angle: 90, // 底部
-    },
-    {
-      title: "便捷接入",
-      description: "SDK接入三步即可完成, 最快0.5天完成整体对接",
-      icon: <FileDown className="w-6 h-6" />,
-      angle: 150, // 左下
+      title: "极速交付",
+      description: "24小时触达，48小时交付，72小时安排面试",
+      icon: <Zap className="w-6 h-6" />,
     },
   ]
-
-  // 计算节点位置（基于椭圆）
-  const calculatePosition = (angle: number, radiusX: number, radiusY: number) => {
-    const rad = (angle * Math.PI) / 180
-    const x = Math.cos(rad) * radiusX
-    const y = Math.sin(rad) * radiusY
-    return { x, y }
-  }
-
-  // 椭圆参数 - 水平椭圆（宽大于高）
-  const radiusX = isMobile ? 180 : 280  // 水平半径（更宽）
-  const radiusY = isMobile ? 100 : 140  // 垂直半径（更窄）
-  const svgWidth = isMobile ? 500 : 800
-  const svgHeight = isMobile ? 500 : 700
-  const centerX = svgWidth / 2
-  const centerY = svgHeight / 2
 
   if (!mounted) {
     return null
@@ -89,261 +62,29 @@ export default function CoreAdvantages() {
           </p>
         </div>
 
-        {/* 椭圆布局容器 */}
-        <div className="relative flex items-center justify-center min-h-[600px] md:min-h-[800px]">
-          {/* SVG 用于绘制椭圆路径和连接箭头 */}
-          <svg
-            className="absolute"
-            width={svgWidth}
-            height={svgHeight}
-            style={{ 
-              left: '50%',
-              top: '50%',
-              transform: 'translate(-50%, -50%)',
-              overflow: 'visible'
-            }}
-          >
-            {/* 椭圆轨道 - 连接所有图标，这是关键视觉元素 */}
-            {(() => {
-              // 计算椭圆轨道半径，使其通过图标中心
-              const iconCircleRadius = isMobile ? 28 : 32
-              // 椭圆轨道应该通过图标中心
-              const orbitRadiusX = radiusX + iconCircleRadius
-              const orbitRadiusY = radiusY + iconCircleRadius
-              
-              return (
-                <ellipse
-                  cx={centerX}
-                  cy={centerY}
-                  rx={orbitRadiusX}
-                  ry={orbitRadiusY}
-                  fill="none"
-                  stroke="#93c5fd"
-                  strokeWidth="3"
-                  opacity="0.7"
-                  strokeDasharray="10,5"
-                  className="z-0"
-                />
-              )
-            })()}
-            
-            {/* 椭圆路径（浅色背景，带渐变效果） */}
-            <ellipse
-              cx={centerX}
-              cy={centerY}
-              rx={radiusX}
-              ry={radiusY}
-              fill="none"
-              stroke="#dbeafe"
-              strokeWidth="3"
-              opacity="0.6"
-            />
-            {/* 内层椭圆（更浅） */}
-            <ellipse
-              cx={centerX}
-              cy={centerY}
-              rx={radiusX * 0.95}
-              ry={radiusY * 0.95}
-              fill="none"
-              stroke="#e0f2fe"
-              strokeWidth="1"
-              opacity="0.4"
-            />
-
-            {/* 节点之间的椭圆轨道连接箭头（沿椭圆轨道，深灰色） */}
-            {advantages.map((_, index) => {
-              const nextIndex = (index + 1) % advantages.length
-              const fromAngle = advantages[index].angle
-              const toAngle = advantages[nextIndex].angle
-              
-              const iconCircleRadius = isMobile ? 28 : 32
-              const orbitRadiusX = radiusX + iconCircleRadius
-              const orbitRadiusY = radiusY + iconCircleRadius
-              
-              const from = calculatePosition(fromAngle, orbitRadiusX, orbitRadiusY)
-              const to = calculatePosition(toAngle, orbitRadiusX, orbitRadiusY)
-              
-              const startX = centerX + from.x
-              const startY = centerY + from.y
-              const endX = centerX + to.x
-              const endY = centerY + to.y
-              
-              // 计算箭头方向
-              const dx = endX - startX
-              const dy = endY - startY
-              const angle = Math.atan2(dy, dx) * (180 / Math.PI)
-              const arrowSize = 6
-              
-              return (
-                <g key={`orbit-arrow-${index}`}>
-                  {/* 沿椭圆轨道的箭头线（深灰色，细线） */}
-                  <line
-                    x1={startX}
-                    y1={startY}
-                    x2={endX}
-                    y2={endY}
-                    stroke="#64748b"
-                    strokeWidth="1.5"
-                    opacity="0.6"
-                    strokeLinecap="round"
-                  />
-                  {/* 箭头头部 */}
-                  <polygon
-                    points={`
-                      ${endX},${endY}
-                      ${endX - arrowSize * Math.cos((angle - 20) * Math.PI / 180)},${endY - arrowSize * Math.sin((angle - 20) * Math.PI / 180)}
-                      ${endX - arrowSize * Math.cos((angle + 20) * Math.PI / 180)},${endY - arrowSize * Math.sin((angle + 20) * Math.PI / 180)}
-                    `}
-                    fill="#64748b"
-                    opacity="0.6"
-                  />
-                </g>
-              )
-            })}
-          </svg>
-
-          {/* 中心水平椭圆 */}
-          <div className="absolute z-10 flex items-center justify-center">
-            <div 
-              className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500 shadow-xl flex items-center justify-center"
-              style={{
-                width: isMobile ? '200px' : '300px',
-                height: isMobile ? '80px' : '100px',
-                borderRadius: '50%',
-                padding: isMobile ? '0 24px' : '0 32px',
-              }}
+        {/* 4个矩形并排布局 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          {advantages.map((advantage, index) => (
+            <div
+              key={index}
+              className="group bg-white rounded-lg shadow-md border border-slate-200 p-6 lg:p-8 flex flex-col items-center text-center hover:shadow-xl hover:-translate-y-2 hover:border-blue-300 transition-all duration-300 ease-out cursor-pointer"
             >
-              <h3 className="text-white text-lg md:text-2xl font-bold whitespace-nowrap">核心优势</h3>
-            </div>
-          </div>
-          
-          {/* 从中心到各节点的连接线（双向箭头） */}
-          {advantages.map((advantage, index) => {
-            // 使用图标在轨道上的位置
-            const iconCircleRadius = isMobile ? 28 : 32
-            const orbitRadiusX = radiusX + iconCircleRadius
-            const orbitRadiusY = radiusY + iconCircleRadius
-            const iconPosition = calculatePosition(advantage.angle, orbitRadiusX, orbitRadiusY)
-            
-            // 计算连接线的起点和终点（从中心椭圆边缘到图标边缘）
-            const centerToIcon = Math.sqrt(iconPosition.x ** 2 + iconPosition.y ** 2)
-            const centerEllipseWidth = isMobile ? 100 : 150 // 中心椭圆的一半宽度
-            const centerEllipseHeight = isMobile ? 40 : 50 // 中心椭圆的一半高度
-            const iconOffset = iconCircleRadius // 图标半径
-            
-            // 计算中心椭圆边缘点（考虑椭圆形状）
-            const centerAngle = Math.atan2(iconPosition.y, iconPosition.x)
-            const centerOffsetX = Math.cos(centerAngle) * centerEllipseWidth
-            const centerOffsetY = Math.sin(centerAngle) * centerEllipseHeight
-            
-            const startX = centerX + centerOffsetX
-            const startY = centerY + centerOffsetY
-            const endX = centerX + iconPosition.x - (iconPosition.x / centerToIcon) * iconOffset
-            const endY = centerY + iconPosition.y - (iconPosition.y / centerToIcon) * iconOffset
-            
-            const angle = Math.atan2(iconPosition.y, iconPosition.x) * (180 / Math.PI)
-            const arrowSize = 8
-            
-            return (
-              <svg
-                key={`center-line-${index}`}
-                className="absolute z-5"
-                width={svgWidth}
-                height={svgHeight}
-                style={{ 
-                  left: '50%',
-                  top: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  overflow: 'visible',
-                  pointerEvents: 'none'
-                }}
-              >
-                {/* 连接线 - 浅蓝色曲线 */}
-                <line
-                  x1={startX}
-                  y1={startY}
-                  x2={endX}
-                  y2={endY}
-                  stroke="#93c5fd"
-                  strokeWidth="2"
-                  opacity="0.7"
-                  strokeLinecap="round"
-                />
-                {/* 箭头 - 指向节点图标（向外） */}
-                <polygon
-                  points={`
-                    ${endX},${endY}
-                    ${endX - arrowSize * Math.cos((angle - 25) * Math.PI / 180)},${endY - arrowSize * Math.sin((angle - 25) * Math.PI / 180)}
-                    ${endX - arrowSize * Math.cos((angle + 25) * Math.PI / 180)},${endY - arrowSize * Math.sin((angle + 25) * Math.PI / 180)}
-                  `}
-                  fill="#93c5fd"
-                  opacity="0.7"
-                />
-              </svg>
-            )
-          })}
-
-          {/* 优势节点 - 图标在最外环上 */}
-          {advantages.map((advantage, index) => {
-            // 图标位置：使用椭圆轨道半径，让图标在轨道上
-            const iconCircleRadius = isMobile ? 28 : 32
-            const orbitRadiusX = radiusX + iconCircleRadius
-            const orbitRadiusY = radiusY + iconCircleRadius
-            const iconPosition = calculatePosition(advantage.angle, orbitRadiusX, orbitRadiusY)
-            
-            const isLeft = iconPosition.x < 0
-            const isTop = iconPosition.y < 0
-            
-            // 根据位置调整文本块的位置（在图标外侧）
-            let textOffsetX = 0
-            let textOffsetY = 0
-            let textAlign: 'left' | 'right' | 'center' = 'left'
-            
-            // 计算文本块的位置（在图标外侧）
-            const iconRadius = iconCircleRadius + 10 // 图标半径 + 间距
-            if (Math.abs(iconPosition.x) < 30) {
-              // 顶部或底部节点
-              textAlign = 'center'
-              textOffsetY = isTop ? -iconRadius - 20 : iconRadius + 20
-            } else if (isLeft) {
-              // 左侧节点：文本在图标左侧
-              textAlign = 'right'
-              textOffsetX = -iconRadius - 20
-            } else {
-              // 右侧节点：文本在图标右侧
-              textAlign = 'left'
-              textOffsetX = iconRadius + 20
-            }
-            
-            return (
-              <div key={index} className="absolute z-20" style={{
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%, -50%)',
-              }}>
-                {/* 图标圆圈 - 位于椭圆轨道上，浅蓝色带渐变 */}
-                <div
-                  className="absolute w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-blue-200 to-blue-300 border-2 border-blue-400 flex items-center justify-center text-blue-600 shadow-md group-hover:scale-110 transition-transform duration-300 z-30"
-                  style={{
-                    transform: `translate(${iconPosition.x}px, ${iconPosition.y}px) translate(-50%, -50%)`,
-                  }}
-                >
+              {/* 图标 */}
+              <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-blue-200 to-blue-300 border-2 border-blue-400 flex items-center justify-center text-blue-600 shadow-md mb-4 group-hover:scale-110 group-hover:rotate-3 group-hover:from-blue-300 group-hover:to-blue-400 group-hover:border-blue-500 transition-all duration-300 ease-out">
+                <div className="group-hover:scale-110 transition-transform duration-300">
                   {advantage.icon}
                 </div>
-                
-                {/* 文本块 - 在图标外侧，无背景，深灰色文字 */}
-                <div
-                  className={`absolute max-w-[220px] md:max-w-[280px] ${textAlign === 'center' ? 'text-center' : textAlign === 'right' ? 'text-right' : 'text-left'}`}
-                  style={{
-                    transform: `translate(${iconPosition.x + textOffsetX}px, ${iconPosition.y + textOffsetY}px) translate(-50%, -50%)`,
-                  }}
-                >
-                  <h4 className="font-bold text-slate-800 text-base md:text-lg mb-2">{advantage.title}</h4>
-                  <p className="text-sm md:text-base text-slate-500 leading-relaxed">{advantage.description}</p>
-                </div>
               </div>
-            )
-          })}
+              
+              {/* 标题和描述 */}
+              <h4 className="font-bold text-slate-900 text-lg md:text-xl mb-3 leading-tight group-hover:text-blue-600 transition-colors duration-300">
+                {advantage.title}
+              </h4>
+              <p className="text-sm md:text-base text-slate-600 leading-relaxed group-hover:text-slate-700 transition-colors duration-300">
+                {advantage.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

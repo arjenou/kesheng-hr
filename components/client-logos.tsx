@@ -92,7 +92,7 @@ export default function ClientLogos() {
                   <img
                     src={`${logo.image}?v=${version}`}
                     alt={logo.name}
-                    className={`h-full w-auto object-contain max-w-full ${logo.name === "高德地图" ? "scale-150" : ""}`}
+                    className={`h-full w-auto object-contain max-w-full ${logo.name === "高德地图" ? "scale-[2]" : ""}`}
                   />
                 </div>
               ))}
