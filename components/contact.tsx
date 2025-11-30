@@ -36,10 +36,10 @@ export default function Contact() {
         </div>
 
         {/* PC端：左右两栏布局 */}
-        <div className="hidden lg:flex lg:justify-center gap-8">
+        <div className="hidden lg:flex lg:justify-center gap-8 items-stretch">
           {/* 左侧：表单 */}
-          <div className="max-w-2xl flex-1">
-            <form onSubmit={handleSubmit} className="form-style">
+          <div className="max-w-2xl flex-1 flex">
+            <form onSubmit={handleSubmit} className="form-style w-full flex flex-col">
               <p className="title-style">
                 联系我们
               </p>
@@ -125,15 +125,15 @@ export default function Contact() {
                 <span>咨询内容</span>
               </label>
 
-              <button type="submit" className="submit-style">
+              <button type="submit" className="submit-style mt-auto">
                 提交
               </button>
             </form>
           </div>
 
           {/* 右侧：联系信息卡片 */}
-          <div className="max-w-sm flex-shrink-0">
-            <div className="bg-white rounded-2xl p-6 h-fit sticky top-8 shadow-lg border border-slate-100">
+          <div className="max-w-sm flex-shrink-0 flex">
+            <div className="bg-white rounded-2xl p-6 w-full sticky top-8 shadow-lg border border-slate-100 flex flex-col">
               <div className="space-y-6">
                 {/* 地址 */}
                 <div className="flex items-start gap-4">
@@ -156,21 +156,6 @@ export default function Contact() {
                   </div>
                 </div>
 
-                {/* 电话号码 */}
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-slate-900 mb-1">电话号码</h3>
-                    <a href="tel:" className="text-sm text-slate-600 hover:text-blue-600 transition-colors">
-                      请通过邮件联系我们
-                    </a>
-                  </div>
-                </div>
-
                 {/* 邮件 */}
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
@@ -183,6 +168,36 @@ export default function Contact() {
                     <a href="mailto:lishengyang3@keshengcaidao.com" className="text-sm text-slate-600 hover:text-blue-600 transition-colors">
                       lishengyang3@keshengcaidao.com
                     </a>
+                  </div>
+                </div>
+
+                {/* LinkedIn */}
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-slate-900 mb-1">LinkedIn</h3>
+                    <a href="https://www.linkedin.com/company/73024403/admin/dashboard/" target="_blank" rel="noopener noreferrer" className="text-sm text-slate-600 hover:text-blue-600 transition-colors">
+                      LinkedIn
+                    </a>
+                  </div>
+                </div>
+
+                {/* 二维码 */}
+                <div className="pt-4 border-t border-slate-200">
+                  <div className="text-center">
+                    <h3 className="text-sm font-semibold text-slate-900 mb-4">关注我们</h3>
+                    <div className="flex justify-center">
+                      <img 
+                        src="/公众号.png" 
+                        alt="公众号二维码" 
+                        className="w-40 h-40 object-contain"
+                      />
+                    </div>
+                    <p className="text-xs text-slate-500 mt-3">扫码关注公众号</p>
                   </div>
                 </div>
               </div>

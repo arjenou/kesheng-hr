@@ -65,7 +65,7 @@ export default function Header() {
               e.preventDefault()
               handleNavClick(e as any, "#contact")
             }}
-            className="hidden md:block px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all"
+            className="hidden md:block px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all transform hover:-translate-y-0.5"
           >
             联系我们
           </button>

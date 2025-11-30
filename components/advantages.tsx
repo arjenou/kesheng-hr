@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import CoreAdvantages from "./core-advantages"
 
 export default function Advantages() {
   const [isMobile, setIsMobile] = useState(false)
@@ -128,32 +129,36 @@ export default function Advantages() {
 
   const jobs = [
     {
-      date: "2022-07-22",
+      date: "",
       author: "科盛",
-      title: "一周热门职位",
-      description: "快来看看您感兴趣的职位吧...",
-      image: "/image/bg6.jpg",
+      title: "科盛咨询受邀出席 2025 高德地图猎头供应商峰会",
+      description: "斩获\"最佳猎头贡献奖\"",
+      image: "/公司活动/4.JPEG",
+      link: "https://ay8cup2mj4.feishu.cn/wiki/WQaiwfI2nitTezkOgRLchHvUnvd",
     },
     {
-      date: "2022-07-15",
+      date: "",
       author: "科盛",
-      title: "一周热门职位",
-      description: "快来看看您感兴趣的职位吧...",
-      image: "/image/bg7.jpg",
+      title: "科盛咨询 2024-2025 财年总结会圆满落幕",
+      description: "全员自驾游开启活力新程",
+      image: "/公司活动/1.jpeg",
+      link: "https://ay8cup2mj4.feishu.cn/wiki/RiKpwWz9kiwA33k4oQjcrCS5nch",
     },
     {
-      date: "2022-07-08",
+      date: "",
       author: "科盛",
-      title: "一周热门职位",
-      description: "快来看看您感兴趣的职位吧...",
-      image: "/image/bg8.jpg",
+      title: "科盛咨询 2023-2024 财年总结会圆满收官",
+      description: "全员泰国团建共启新程",
+      image: "/公司活动/2.JPEG",
+      link: "https://ay8cup2mj4.feishu.cn/wiki/DIO0wSsuqilmp4kVSj3c23dNn8c",
     },
     {
-      date: "2019-06-22",
+      date: "",
       author: "科盛",
-      title: "雇主品牌 公益随行",
-      description: "雇主品牌 公益随行",
-      image: "/image/bg9.jpg",
+      title: "科盛咨询 2023 财年团建",
+      description: "芽庄一周行，以热爱续新程",
+      image: "/公司活动/3.JPEG",
+      link: "https://ay8cup2mj4.feishu.cn/docx/J3Mgd33f2oMguMxWVEKcCIQanQf",
     },
   ]
 
@@ -406,39 +411,8 @@ export default function Advantages() {
 
   return (
     <>
-      <section id="advantages" className="pt-20 pb-32 px-2 sm:px-4 lg:px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">核心优势</h2>
-            <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
-            <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto">
-              我们拥有业界领先的人才库和专业的顾问团队，为您提供卓越的人才解决方案
-            </p>
-          </div>
-
-          <div className="flex justify-center">
-            <div className="grid grid-cols-2 gap-4 md:gap-6 max-w-2xl w-full">
-              {advantages.map((item, index) => (
-                <div
-                  key={index}
-                  className={`bg-gradient-to-br ${item.bgColor} rounded-3xl p-6 md:p-8 hover:shadow-xl hover:scale-105 transition-all duration-500 group relative overflow-hidden text-center aspect-square flex flex-col items-center justify-center`}
-                >
-                {/* Icon */}
-                <div className={`relative ${item.iconBg} w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-sm`}>
-                  {item.icon}
-                </div>
-
-                {/* Content */}
-                <div className="relative flex flex-col items-center justify-center px-2">
-                  <h3 className="text-base md:text-xl font-bold text-slate-900 mb-2 md:mb-3 text-center">{item.title}</h3>
-                  <p className="text-xs md:text-sm text-slate-700 leading-relaxed text-center">{item.description}</p>
-                </div>
-              </div>
-            ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* 核心优势 - 圆形布局 */}
+      <CoreAdvantages />
 
       {/* Deep Focus Areas - Full Width Section */}
       <section ref={deepFocusSectionRef} id="service-process" className="relative py-20 overflow-hidden">
@@ -495,27 +469,61 @@ export default function Advantages() {
             <h2 className="text-4xl font-bold text-white mb-3">服务流程</h2>
             <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
             <p className="text-lg text-white/90 max-w-3xl mx-auto">
-              从需求分析到人才交付，我们提供全流程专业服务
+              让复杂的招聘变得高效，透明，可控
             </p>
           </div>
 
-          {/* Icons Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          {/* Service Process Flow */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {[
-              { name: "人工智能", icon: "/icon/icons8-人工智能-100.png" },
-              { name: "云服务平台", icon: "/icon/icons8-云开发-100.png" },
-              { name: "金融科技", icon: "/icon/icons8-金融科技-100.png" },
-              { name: "前沿科技", icon: "/icon/icons8-simulation-100.png" },
+              {
+                step: "01",
+                title: "商谈需求",
+                description: "精准理解岗位要求，构建人岗双向画像",
+                icon: (
+                  <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                ),
+              },
+              {
+                step: "02",
+                title: "人选推荐",
+                description: "24小时内首批人选推荐，基于自研AI匹配引擎高效精准",
+                icon: (
+                  <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                  </svg>
+                ),
+              },
+              {
+                step: "03",
+                title: "面试推进",
+                description: "72小时内推进面试，从约面到反馈，专业顾问全程追踪",
+                icon: (
+                  <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                ),
+              },
+              {
+                step: "04",
+                title: "入职成功",
+                description: "30天内完成入职，从Offer到入职，实现节奏可视化",
+                icon: (
+                  <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                  </svg>
+                ),
+              },
             ].map((item) => (
-              <div key={item.name} className="flex flex-col items-center text-center group">
-                <div className="w-20 h-20 mb-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-indigo-500/40 group-hover:via-purple-500/40 group-hover:to-pink-500/40 group-hover:border-indigo-400/50 transition-all group-hover:scale-110 group-hover:shadow-2xl group-hover:shadow-purple-500/20 p-4">
-                  <img 
-                    src={item.icon} 
-                    alt={item.name}
-                    className="w-full h-full object-contain brightness-0 invert"
-                  />
+              <div key={item.step} className="flex flex-col items-center text-center group">
+                <div className="w-16 h-16 lg:w-20 lg:h-20 mb-3 lg:mb-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-indigo-500/40 group-hover:via-purple-500/40 group-hover:to-pink-500/40 group-hover:border-indigo-400/50 transition-all group-hover:scale-110 group-hover:shadow-2xl group-hover:shadow-purple-500/20 p-3 lg:p-4">
+                  {item.icon}
                 </div>
-                <p className="text-white font-medium text-lg">{item.name}</p>
+                <div className="text-white font-bold text-lg lg:text-xl mb-1 lg:mb-2">{item.step}</div>
+                <div className="text-white font-semibold text-base lg:text-lg mb-1 lg:mb-2">{item.title}</div>
+                <p className="text-white/90 text-xs lg:text-sm leading-relaxed px-1">{item.description}</p>
               </div>
             ))}
           </div>
@@ -662,13 +670,22 @@ export default function Advantages() {
 
                       {/* Content */}
                       <div className="p-5">
-                        <div className="text-xs text-slate-500 mb-3">
-                          {job.date} / {job.author}
-                        </div>
+                        {job.date && (
+                          <div className="text-xs text-slate-500 mb-3">
+                            {job.date} / {job.author}
+                          </div>
+                        )}
+                        {!job.date && (
+                          <div className="text-xs text-slate-500 mb-3">
+                            {job.author}
+                          </div>
+                        )}
                         <h3 className="text-base font-bold text-slate-900 mb-2 leading-tight">{job.title}</h3>
                         <p className="text-sm text-slate-600 mb-4 line-clamp-2 leading-relaxed">{job.description}</p>
                         <a
-                          href="#"
+                          href={job.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="text-blue-600 hover:text-blue-700 font-medium text-sm inline-flex items-center gap-1 group-hover:gap-2 transition-all"
                         >
                           查看详情
