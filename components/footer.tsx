@@ -4,9 +4,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <img src="/kesheng-logo.png" alt="KESHENG Logo" className="h-10 w-auto" />
-              <span className="text-lg font-bold">KESHENG</span>
+            <div className="flex items-center mb-4">
+              <img src="/kesheng-logo.png" alt="KESHENG Logo" className="h-20 w-auto" />
             </div>
             <p className="text-slate-400 text-sm">连接全球顶尖科技人才，让科技更快落地</p>
           </div>

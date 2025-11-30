@@ -3,41 +3,45 @@
 import { useState, useEffect } from "react"
 
 export default function HotJobs() {
+  const [hotJobsIndex, setHotJobsIndex] = useState(0)
+  const [itemsPerView, setItemsPerView] = useState(4)
+
   const jobs = [
     {
-      date: "2022-07-22",
+      date: "",
       author: "科盛",
-      title: "一周热门职位",
-      description: "快来看看您感兴趣的职位吧...",
-      image: "/placeholder.jpg",
+      title: "科盛咨询受邀出席 2025 高德地图猎头供应商峰会",
+      description: "斩获\"最佳猎头贡献奖\"",
+      image: "/公司活动/4.JPEG",
+      link: "https://ay8cup2mj4.feishu.cn/wiki/WQaiwfI2nitTezkOgRLchHvUnvd",
     },
     {
-      date: "2022-07-15",
+      date: "",
       author: "科盛",
-      title: "一周热门职位",
-      description: "快来看看您感兴趣的职位吧...",
-      image: "/placeholder.jpg",
+      title: "科盛咨询 2024-2025 财年总结会圆满落幕",
+      description: "全员自驾游开启活力新程",
+      image: "/公司活动/1.jpeg",
+      link: "https://ay8cup2mj4.feishu.cn/wiki/RiKpwWz9kiwA33k4oQjcrCS5nch",
     },
     {
-      date: "2022-07-08",
+      date: "",
       author: "科盛",
-      title: "一周热门职位",
-      description: "快来看看您感兴趣的职位吧...",
-      image: "/placeholder.jpg",
+      title: "科盛咨询 2023-2024 财年总结会圆满收官",
+      description: "全员泰国团建共启新程",
+      image: "/公司活动/2.JPEG",
+      link: "https://ay8cup2mj4.feishu.cn/wiki/DIO0wSsuqilmp4kVSj3c23dNn8c",
     },
     {
-      date: "2019-06-22",
+      date: "",
       author: "科盛",
-      title: "雇主品牌 公益随行",
-      description: "雇主品牌 公益随行",
-      image: "/placeholder.jpg",
+      title: "科盛咨询 2023 财年团建",
+      description: "芽庄一周行，以热爱续新程",
+      image: "/公司活动/3.JPEG",
+      link: "https://ay8cup2mj4.feishu.cn/docx/J3Mgd33f2oMguMxWVEKcCIQanQf",
     },
   ]
 
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [itemsPerView, setItemsPerView] = useState(4) // 每次显示的卡片数量
-
-  // 响应式设置每次显示的卡片数量
+  // 热门职位响应式设置每次显示的卡片数量
   useEffect(() => {
     const updateItemsPerView = () => {
       let newItemsPerView = 4
@@ -49,7 +53,7 @@ export default function HotJobs() {
       
       setItemsPerView(newItemsPerView)
       // 重置索引，确保显示正确
-      setCurrentIndex(0)
+      setHotJobsIndex(0)
     }
 
     updateItemsPerView()
@@ -59,11 +63,12 @@ export default function HotJobs() {
 
   const totalPages = Math.ceil(jobs.length / itemsPerView)
 
-  // 自动轮播
+  // 热门职位自动轮播
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => {
-        const nextPage = (prev + 1) % totalPages
+      setHotJobsIndex((prev) => {
+        const currentPage = Math.floor(prev / itemsPerView)
+        const nextPage = (currentPage + 1) % totalPages
         return nextPage * itemsPerView
       })
     }, 4000) // 每4秒切换一次
@@ -72,7 +77,7 @@ export default function HotJobs() {
   }, [totalPages, itemsPerView])
 
   const goToNext = () => {
-    setCurrentIndex((prev) => {
+    setHotJobsIndex((prev) => {
       const currentPage = Math.floor(prev / itemsPerView)
       const nextPage = (currentPage + 1) % totalPages
       return nextPage * itemsPerView
@@ -80,7 +85,7 @@ export default function HotJobs() {
   }
 
   const goToPrev = () => {
-    setCurrentIndex((prev) => {
+    setHotJobsIndex((prev) => {
       const currentPage = Math.floor(prev / itemsPerView)
       const prevPage = currentPage === 0 ? totalPages - 1 : currentPage - 1
       return prevPage * itemsPerView
@@ -88,14 +93,14 @@ export default function HotJobs() {
   }
 
   const goToPage = (page: number) => {
-    setCurrentIndex(page * itemsPerView)
+    setHotJobsIndex(page * itemsPerView)
   }
 
   return (
     <section id="hot-jobs" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-slate-900 mb-3">热门职位</h2>
+          <h2 className="text-4xl font-bold text-slate-900 mb-3">公司动态</h2>
           <div className="w-16 h-0.5 bg-teal-500 mx-auto"></div>
         </div>
 
@@ -105,7 +110,7 @@ export default function HotJobs() {
           <div className="overflow-hidden">
             <div 
               className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)` }}
+              style={{ transform: `translateX(-${hotJobsIndex * (100 / itemsPerView)}%)` }}
             >
               {jobs.map((job, index) => (
                 <div 
@@ -121,17 +126,28 @@ export default function HotJobs() {
                         alt={job.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
+                      {/* 装饰性渐变叠加 */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
 
                     {/* Content */}
                     <div className="p-5">
-                      <div className="text-xs text-slate-500 mb-3">
-                        {job.date} / {job.author}
-                      </div>
+                      {job.date && (
+                        <div className="text-xs text-slate-500 mb-3">
+                          {job.date} / {job.author}
+                        </div>
+                      )}
+                      {!job.date && (
+                        <div className="text-xs text-slate-500 mb-3">
+                          {job.author}
+                        </div>
+                      )}
                       <h3 className="text-base font-bold text-slate-900 mb-2 leading-tight">{job.title}</h3>
                       <p className="text-sm text-slate-600 mb-4 line-clamp-2 leading-relaxed">{job.description}</p>
                       <a
-                        href="#"
+                        href={job.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="text-blue-600 hover:text-blue-700 font-medium text-sm inline-flex items-center gap-1 group-hover:gap-2 transition-all"
                       >
                         查看详情
@@ -171,7 +187,7 @@ export default function HotJobs() {
                 key={index}
                 onClick={() => goToPage(index)}
                 className={`h-2 rounded-full transition-all ${
-                  Math.floor(currentIndex / itemsPerView) === index
+                  Math.floor(hotJobsIndex / itemsPerView) === index
                     ? 'bg-teal-500 w-8'
                     : 'bg-slate-300 w-2 hover:bg-slate-400'
                 }`}

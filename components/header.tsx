@@ -10,7 +10,7 @@ export default function Header() {
     e.preventDefault()
     const element = document.querySelector(href)
     if (element) {
-      const headerOffset = 80 // 导航栏高度 + 一些额外间距
+      const headerOffset = 100 // 导航栏高度 + 一些额外间距
       const elementPosition = element.getBoundingClientRect().top
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset
 
@@ -28,7 +28,7 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <img src="/kesheng-logo.png" alt="KESHENG Logo" className="h-10 w-auto" />
+            <img src="/e9254cce6107f0a3d6ff66169641adaa.png" alt="KESHENG Logo" className="h-40 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -39,9 +39,6 @@ export default function Header() {
             <Link href="#services" onClick={(e) => handleNavClick(e, "#services")} className="text-slate-600 hover:text-blue-600 transition-colors">
               服务介绍
             </Link>
-            <Link href="#about" onClick={(e) => handleNavClick(e, "#about")} className="text-slate-600 hover:text-blue-600 transition-colors">
-              关于我们
-            </Link>
             <Link href="#advantages" onClick={(e) => handleNavClick(e, "#advantages")} className="text-slate-600 hover:text-blue-600 transition-colors">
               核心优势
             </Link>
@@ -50,6 +47,9 @@ export default function Header() {
             </Link>
             <Link href="#team" onClick={(e) => handleNavClick(e, "#team")} className="text-slate-600 hover:text-blue-600 transition-colors">
               我们的团队
+            </Link>
+            <Link href="#about" onClick={(e) => handleNavClick(e, "#about")} className="text-slate-600 hover:text-blue-600 transition-colors">
+              关于我们
             </Link>
             <Link href="#hot-jobs" onClick={(e) => handleNavClick(e, "#hot-jobs")} className="text-slate-600 hover:text-blue-600 transition-colors">
               公司动态
@@ -87,9 +87,6 @@ export default function Header() {
             <Link href="#services" onClick={(e) => handleNavClick(e, "#services")} className="block text-slate-600 hover:text-blue-600 py-2">
               服务介绍
             </Link>
-            <Link href="#about" onClick={(e) => handleNavClick(e, "#about")} className="block text-slate-600 hover:text-blue-600 py-2">
-              关于我们
-            </Link>
             <Link href="#advantages" onClick={(e) => handleNavClick(e, "#advantages")} className="block text-slate-600 hover:text-blue-600 py-2">
               核心优势
             </Link>
@@ -98,6 +95,9 @@ export default function Header() {
             </Link>
             <Link href="#team" onClick={(e) => handleNavClick(e, "#team")} className="block text-slate-600 hover:text-blue-600 py-2">
               我们的团队
+            </Link>
+            <Link href="#about" onClick={(e) => handleNavClick(e, "#about")} className="block text-slate-600 hover:text-blue-600 py-2">
+              关于我们
             </Link>
             <Link href="#hot-jobs" onClick={(e) => handleNavClick(e, "#hot-jobs")} className="block text-slate-600 hover:text-blue-600 py-2">
               公司动态

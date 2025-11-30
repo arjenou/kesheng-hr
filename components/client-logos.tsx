@@ -3,7 +3,6 @@ export default function ClientLogos() {
   const version = "20241127"
   
   const logos = [
-    { name: "360数科", image: "/icone-spnn/360数科.png" },
     { name: "MiniMax", image: "/icone-spnn/MiniMax.png" },
     { name: "夸克", image: "/icone-spnn/夸克.png" },
     { name: "小鹏汽车", image: "/icone-spnn/小鹏汽车.png" },
@@ -33,16 +32,20 @@ export default function ClientLogos() {
     { name: "阿里巴巴", image: "/icone-spnn/阿里巴巴.png" },
     { name: "饿了么", image: "/icone-spnn/饿了么.png" },
     { name: "高德地图", image: "/icone-spnn/高德地图.png" },
+    { name: "360集团", image: "/icone-spnn/360集团.png" },
+    { name: "QFIN", image: "/icone-spnn/QFIN.jpg" },
+    { name: "幻方", image: "/icone-spnn/幻方.png" },
   ]
 
-  // 只取前32个logo（4排 x 8个）
-  const displayLogos = logos.slice(0, 32)
+  // 显示所有logo（5排 x 8个 = 40个，当前有37个）
+  const displayLogos = logos
   
-  // 将logo分成4排，每排8个
+  // 将logo分成5排，每排8个
   const logosPerRow = 8
   const rows: typeof logos[] = []
+  const totalRows = Math.ceil(displayLogos.length / logosPerRow)
   
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < totalRows; i++) {
     const start = i * logosPerRow
     const end = start + logosPerRow
     rows.push(displayLogos.slice(start, end))
@@ -92,7 +95,7 @@ export default function ClientLogos() {
                   <img
                     src={`${logo.image}?v=${version}`}
                     alt={logo.name}
-                    className={`h-full w-auto object-contain max-w-full ${logo.name === "高德地图" ? "scale-[2]" : ""}`}
+                    className={`h-full w-auto object-contain max-w-full ${logo.name === "高德地图" || logo.name === "QFIN" ? "scale-[2]" : ""}`}
                   />
                 </div>
               ))}
