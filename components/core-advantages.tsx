@@ -61,9 +61,9 @@ export default function CoreAdvantages() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16 md:mb-20">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">核心优势</h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto mb-6"></div>
-          <p className="text-base md:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+          <h2 className="text-4xl font-bold text-slate-900 mb-4">核心优势</h2>
+          <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-6"></div>
+          <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
             我们拥有业界领先的人才库和专业的顾问团队，为您提供卓越的人才解决方案
           </p>
         </div>
