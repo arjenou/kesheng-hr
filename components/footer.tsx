@@ -91,7 +91,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="text-center text-sm text-white/70">
-          <p>株式会社科盛 KESHENG Consulting. all rights reserved.</p>
+          <p>科盛才道企业管理咨询有限公司. all rights reserved.</p>
         </div>
       </div>
     </footer>
