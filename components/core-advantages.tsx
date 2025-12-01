@@ -71,11 +71,11 @@ export default function CoreAdvantages() {
         </div>
 
         {/* 4个矩形并排布局 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-16">
           {advantages.map((advantage, index) => (
             <div
               key={index}
-              className="group bg-white rounded-xl shadow-lg border border-slate-200 p-8 lg:p-10 flex flex-col items-center text-center hover:shadow-2xl hover:-translate-y-3 hover:border-blue-400 transition-all duration-300 ease-out cursor-pointer min-h-[280px]"
+              className="group bg-white rounded-xl shadow-lg border border-slate-200 p-9 lg:p-11 flex flex-col items-center text-center hover:shadow-2xl hover:-translate-y-3 hover:border-blue-400 transition-all duration-300 ease-out cursor-pointer min-h-[280px]"
             >
               {/* 图标 */}
               <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-blue-200 to-blue-300 border-2 border-blue-400 flex items-center justify-center text-blue-600 shadow-lg mb-6 group-hover:scale-110 group-hover:rotate-3 group-hover:from-blue-300 group-hover:to-blue-400 group-hover:border-blue-500 transition-all duration-300 ease-out">
@@ -88,7 +88,7 @@ export default function CoreAdvantages() {
               <h4 className="font-bold text-slate-900 text-xl md:text-2xl mb-4 leading-tight group-hover:text-blue-600 transition-colors duration-300 whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
                 {advantage.title}
               </h4>
-              <p className="text-sm md:text-base text-slate-600 leading-relaxed group-hover:text-slate-700 transition-colors duration-300 flex-1">
+              <p className="text-sm md:text-base text-slate-600 leading-relaxed group-hover:text-slate-700 transition-colors duration-300 flex-1" style={{ wordBreak: 'keep-all', overflowWrap: 'anywhere', textWrap: 'balance' }}>
                 {advantage.description}
               </p>
             </div>

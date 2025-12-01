@@ -171,9 +171,8 @@ export default function Hero() {
 
       <div className="relative max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
-          <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-            <span className="whitespace-nowrap overflow-hidden text-ellipsis block" style={{ textShadow: '0 0 8px rgba(255,255,255,0.5), 0 0 16px rgba(255,255,255,0.3), 0 0 24px rgba(255,255,255,0.2)' }}>{t.hero.title}</span>
-            <br />
+          <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+            <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl whitespace-nowrap overflow-hidden text-ellipsis block mb-2" style={{ textShadow: '0 0 8px rgba(255,255,255,0.5), 0 0 16px rgba(255,255,255,0.3), 0 0 24px rgba(255,255,255,0.2)' }}>{t.hero.title}</span>
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block whitespace-pre-line">
               {t.hero.subtitle}
             </span>

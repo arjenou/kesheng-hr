@@ -14,6 +14,12 @@ export default function Services() {
       image: "/service/全球高端人才寻访.jpg",
     },
     {
+      title: t.services.outsourcing.title,
+      features: t.services.outsourcing.features,
+      category: t.services.outsourcing.category,
+      image: "/service/劳务派遣与外包.jpg",
+    },
+    {
       title: t.services.mapping.title,
       features: t.services.mapping.features,
       category: t.services.mapping.category,
@@ -24,12 +30,6 @@ export default function Services() {
       features: t.services.organization.features,
       category: t.services.organization.category,
       image: "/service/组织优化与风险管理.jpg",
-    },
-    {
-      title: t.services.outsourcing.title,
-      features: t.services.outsourcing.features,
-      category: t.services.outsourcing.category,
-      image: "/service/劳务派遣与外包.jpg",
     },
   ]
 

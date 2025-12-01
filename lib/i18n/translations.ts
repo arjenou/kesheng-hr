@@ -196,19 +196,19 @@ export const translations: Record<Language, Translations> = {
     },
     services: {
       title: '服务介绍',
-      subtitle: '24小时触达；48小时交付；72小时安排面试',
+      subtitle: '一站式解决你的人才与组织难题',
       globalTalent: {
-        title: '全球高端人才寻访',
+        title: '全球中高端人才猎寻',
         category: '人才寻访',
         features: [
-          '千万级高端人选库',
-          '全球范围人才寻访，中国，美国，新加坡，日本等',
-          '资深顾问直访，精准猎寻与吸引人选，确保人岗匹配',
+          '千万级精英人才库,覆盖中/美/新/日等全球核心市场',
+          '资深顾问直访:精准定位 + 价值吸引,实现人岗深度适配',
+          '时效保障:24h 响应・48h 交付候选・72h 安排面试',
         ],
       },
       mapping: {
         title: 'Mapping与专家咨询',
-        category: '人才咨询',
+        category: '专家咨询',
         features: [
           '关键岗位人才库构建、目标公司盘点',
           '行业人才结构调研与薪酬竞争分析',
@@ -236,16 +236,16 @@ export const translations: Record<Language, Translations> = {
     },
     advantages: {
       deepUnderstanding: {
-        title: '深度行业理解',
-        description: '专注AI与前沿科技领域，精准识别关键岗位与核心人才',
+        title: '精准交付',
+        description: '专注AI与前沿科技领域,通过自研AI搜索引擎匹配,帮你快速锁定关键岗位的「核心人才」',
       },
       oneStop: {
         title: '一站式服务',
-        description: '从人才寻访、团队搭建到组织优化，提供完整解决方案',
+        description: '不只是"推荐简历",从人才寻访、团队搭建到组织架构优化,一套方案解决所有人力难题',
       },
       globalDelivery: {
         title: '全球交付',
-        description: '千万级人才资源库，支持企业全球化用人需求',
+        description: '拥有千万级全球人才资源,不管是国内团队补位,还是海外分部搭建,都能快速匹配适配人选',
       },
       professionalTeam: {
         title: '专业团队',
@@ -253,7 +253,7 @@ export const translations: Record<Language, Translations> = {
       },
       speedyDelivery: {
         title: '极速交付',
-        description: '24小时触达，48小时交付，72小时安排面试',
+        description: '24小时触达,48小时交付,72小时安排面试,用"闪电速度"接住你的紧急用人需求',
       },
     },
     about: {
@@ -349,7 +349,7 @@ export const translations: Record<Language, Translations> = {
     },
     coreAdvantages: {
       title: '核心优势',
-      subtitle: '我们拥有业界领先的人才库和专业的顾问团队，为您提供卓越的人才解决方案',
+      subtitle: '让人才问题「快、准、全」解决',
     },
     serviceProcess: {
       title: '服务流程',
@@ -389,8 +389,8 @@ export const translations: Record<Language, Translations> = {
       beijing: '北京',
       tokyo: '东京',
       hebei: '河北',
-      beijingAddress: '北京市朝阳区建国路93号万达广场A座',
-      tokyoAddress: '東京都港区赤坂1-1-1',
+      beijingAddress: '昌平区科星西路106号国风美唐综合楼2号楼701',
+      tokyoAddress: '日本东京丰岛区1 Chome-19-1 Higashiikebukuro, Toshima City, Tokyo 170-0013',
       hebeiAddress: '邢台市信都区河北机电大学',
       followUs: '关注我们',
       scanQRCode: '扫码关注公众号',
@@ -421,19 +421,19 @@ export const translations: Record<Language, Translations> = {
     },
     services: {
       title: 'サービス紹介',
-      subtitle: '24時間以内に連絡；48時間以内に納品；72時間以内に面接を手配',
+      subtitle: 'あなたの人材と組織の課題をワンストップで解決',
       globalTalent: {
-        title: 'グローバル人材リクルーティング',
+        title: 'グローバル中高級人材ヘッドハンティング',
         category: '人材リクルーティング',
         features: [
-          '千万級の高級人選データベース',
-          'グローバル範囲の人材リクルーティング、中国、米国、シンガポール、日本など',
-          'ベテランコンサルタントが直接訪問し、正確に人材を探し、人材を引き付け、人とポジションのマッチングを確保',
+          '千万級のエリート人材データベース、中国/米国/シンガポール/日本などのグローバルコア市場をカバー',
+          'ベテランコンサルタント直接訪問：精密なポジショニング + 価値の魅力、人とポジションの深い適応を実現',
+          '時効保証：24時間以内に応答・48時間以内に候補者を納品・72時間以内に面接を手配',
         ],
       },
       mapping: {
         title: 'マッピングとコンサルティング',
-        category: '人材コンサルティング',
+        category: 'エキスパートコンサルティング',
         features: [
           '重要ポジションの人材データベース構築、ターゲット企業の棚卸し',
           '業界人材構造調査と給与競争分析',
@@ -461,16 +461,16 @@ export const translations: Record<Language, Translations> = {
     },
     advantages: {
       deepUnderstanding: {
-        title: '深い業界理解',
-        description: 'AIと最先端技術分野に焦点を当て、重要ポジションとコア人材を正確に識別',
+        title: '精密納品',
+        description: 'AIと最先端技術分野に焦点を当て、自社開発AI検索エンジンでマッチングし、重要ポジションの「コア人材」を迅速に特定',
       },
       oneStop: {
-        title: 'ワンストップ',
-        description: '人材リクルーティング、チーム構築から組織最適化まで、完全なソリューションを提供',
+        title: 'ワンストップサービス',
+        description: '単なる「履歴書推薦」ではなく、人材リクルーティング、チーム構築から組織構造最適化まで、一つのソリューションで全ての人材課題を解決',
       },
       globalDelivery: {
         title: 'グローバル納品',
-        description: '千万級の人材リソースデータベース、企業のグローバル化された雇用ニーズをサポート',
+        description: '千万級のグローバル人材リソースを保有、国内チームの補完から海外支社の設立まで、迅速に適切な人選をマッチング',
       },
       professionalTeam: {
         title: '専門チーム',
@@ -478,7 +478,7 @@ export const translations: Record<Language, Translations> = {
       },
       speedyDelivery: {
         title: '極速納品',
-        description: '24時間以内に連絡、48時間以内に納品、72時間以内に面接を手配',
+        description: '24時間以内に連絡、48時間以内に納品、72時間以内に面接を手配、「稲妻の速度」で緊急の雇用ニーズに対応',
       },
     },
     about: {
@@ -574,7 +574,7 @@ export const translations: Record<Language, Translations> = {
     },
     coreAdvantages: {
       title: 'コア優位性',
-      subtitle: '業界をリードする人材データベースと専門的なコンサルタントチームを有し、お客様に卓越した人材ソリューションを提供',
+      subtitle: '人材問題を「迅速・正確・包括的」に解決',
     },
     serviceProcess: {
       title: 'サービスプロセス',
@@ -614,8 +614,8 @@ export const translations: Record<Language, Translations> = {
       beijing: '北京',
       tokyo: '東京',
       hebei: '河北',
-      beijingAddress: '北京市朝陽区建国路93号ワンダープラザA棟',
-      tokyoAddress: '東京都港区赤坂1-1-1',
+      beijingAddress: '昌平区科星西路106号国风美唐综合楼2号楼701',
+      tokyoAddress: '日本东京丰岛区1 Chome-19-1 Higashiikebukuro, Toshima City, Tokyo 170-0013',
       hebeiAddress: '邢台市信都区河北機電大学',
       followUs: 'フォローする',
       scanQRCode: 'QRコードをスキャンして公式アカウントをフォロー',
@@ -646,19 +646,19 @@ export const translations: Record<Language, Translations> = {
     },
     services: {
       title: 'Services',
-      subtitle: '24h Reach; 48h Delivery; 72h Interview Arrangement',
+      subtitle: 'One-stop solution for your talent and organizational challenges',
       globalTalent: {
-        title: 'Global Talent Search',
+        title: 'Global Mid-to-High-End Talent Search',
         category: 'Talent Search',
         features: [
-          'Tens of millions of high-end candidate database',
-          'Global talent search covering China, USA, Singapore, Japan, etc.',
-          'Senior consultants direct visit, precise hunting and attracting candidates, ensuring person-position match',
+          'Tens of millions of elite talent pool, covering core global markets such as China/US/Singapore/Japan',
+          'Senior consultant direct interviews: precise positioning + value attraction, achieving deep person-job fit',
+          'Timeliness guarantee: 24h response · 48h candidate delivery · 72h interview arrangement',
         ],
       },
       mapping: {
         title: 'Mapping & Consulting',
-        category: 'Talent Consulting',
+        category: 'Expert Consulting',
         features: [
           'Key position talent database construction, target company inventory',
           'Industry talent structure research and compensation competitive analysis',
@@ -686,24 +686,24 @@ export const translations: Record<Language, Translations> = {
     },
     advantages: {
       deepUnderstanding: {
-        title: 'Deep Understanding',
-        description: 'Focus on AI and cutting-edge technology fields, accurately identify key positions and core talent',
+        title: 'Precise Delivery',
+        description: 'Focus on AI and cutting-edge technology fields, using self-developed AI search engine to match and quickly lock in "core talent" for key positions',
       },
       oneStop: {
-        title: 'One-Stop',
-        description: 'From talent search, team building to organization optimization, providing complete solutions',
+        title: 'One-Stop Service',
+        description: 'Not just "resume recommendation", from talent search, team building to organizational structure optimization, one solution solves all human resource problems',
       },
       globalDelivery: {
         title: 'Global Delivery',
-        description: 'Tens of millions of talent resource database, supporting enterprises\' global employment needs',
+        description: 'Possessing tens of millions of global talent resources, capable of quickly matching suitable candidates whether for domestic team supplementation or overseas branch establishment',
       },
       professionalTeam: {
         title: 'Professional Team',
         description: 'Senior consultant team with rich industry experience and international network',
       },
       speedyDelivery: {
-        title: 'Speedy Delivery',
-        description: '24h Reach, 48h Delivery, 72h Interview Arrangement',
+        title: 'Rapid Delivery',
+        description: '24-hour reach, 48-hour delivery, 72-hour interview arrangement, using "lightning speed" to meet your urgent staffing needs',
       },
     },
     about: {
@@ -799,7 +799,7 @@ export const translations: Record<Language, Translations> = {
     },
     coreAdvantages: {
       title: 'Advantages',
-      subtitle: 'We have an industry-leading talent pool and a professional consulting team to provide you with excellent talent solutions',
+      subtitle: 'Solve talent problems "Fast, Accurate, Comprehensive"',
     },
     serviceProcess: {
       title: 'Service Process',
@@ -839,8 +839,8 @@ export const translations: Record<Language, Translations> = {
       beijing: 'Beijing',
       tokyo: 'Tokyo',
       hebei: 'Hebei',
-      beijingAddress: 'Wanda Plaza Tower A, No. 93 Jianguo Road, Chaoyang District, Beijing',
-      tokyoAddress: '1-1-1 Akasaka, Minato-ku, Tokyo',
+      beijingAddress: 'Room 701, Building 2, Guofeng Meitang Complex, No. 106 Kexing West Road, Changping District, Beijing',
+      tokyoAddress: '1 Chome-19-1 Higashiikebukuro, Toshima City, Tokyo 170-0013',
       hebeiAddress: 'Hebei Institute of Mechanical and Electrical Technology, Xindu District, Xingtai City',
       followUs: 'Follow Us',
       scanQRCode: 'Scan code to follow the official account',
