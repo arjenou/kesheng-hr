@@ -143,7 +143,7 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <nav className="md:hidden pb-4 space-y-2 bg-white/70 backdrop-blur-md">
+          <nav className="md:hidden pb-4 space-y-2">
             <Link href="#services" onClick={(e) => handleNavClick(e, "#services")} className="block text-sm text-slate-600 hover:text-blue-600 py-2 whitespace-nowrap">
               {t.nav.services}
             </Link>
