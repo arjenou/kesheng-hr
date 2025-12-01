@@ -147,88 +147,84 @@ ${message}
       `,
     }
 
-    // 发送邮件给管理员
-    const info = await transporter.sendMail(mailOptions)
-
-    // 发送确认邮件给用户
-    try {
-      const confirmationMailOptions = {
-        from: `"科盛咨询" <${smtpUser}>`,
-        to: email, // 发送给提交表单的用户
-        subject: `【科盛咨询】感谢您的咨询 - 我们会尽快与您联系`,
-        html: `
-          <div style="font-family: Arial, 'Microsoft YaHei', sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9fafb;">
-            <div style="background-color: #ffffff; border-radius: 12px; padding: 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-              <!-- Logo/Header -->
-              <div style="text-align: center; margin-bottom: 30px;">
-                <h1 style="color: #2563eb; margin: 0; font-size: 28px; font-weight: 600;">科盛咨询</h1>
-                <p style="color: #6b7280; margin: 8px 0 0 0; font-size: 14px;">KESHENG Consulting</p>
-              </div>
-              
-              <!-- Greeting -->
-              <div style="margin-bottom: 30px;">
-                <h2 style="color: #1f2937; margin: 0 0 10px 0; font-size: 22px;">尊敬的 ${name}，</h2>
-                <p style="color: #374151; line-height: 1.8; margin: 0; font-size: 16px;">
-                  感谢您通过我们的联系表单提交咨询。我们已经收到您的信息，我们的团队会在<strong style="color: #2563eb;">24小时内</strong>与您取得联系。
-                </p>
-              </div>
-              
-              <!-- Submitted Info -->
-              <div style="background-color: #f8f9fa; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
-                <h3 style="color: #374151; margin: 0 0 15px 0; font-size: 16px; font-weight: 600;">您提交的信息：</h3>
-                <table style="width: 100%; border-collapse: collapse;">
-                  <tr>
-                    <td style="padding: 8px 0; color: #6b7280; font-size: 14px; width: 100px;">公司名称：</td>
-                    <td style="padding: 8px 0; color: #1f2937; font-size: 14px; font-weight: 500;">${company}</td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">联系电话：</td>
-                    <td style="padding: 8px 0; color: #1f2937; font-size: 14px; font-weight: 500;">${phone}</td>
-                  </tr>
-                  ${address ? `
-                  <tr>
-                    <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">地址：</td>
-                    <td style="padding: 8px 0; color: #1f2937; font-size: 14px; font-weight: 500;">${address}</td>
-                  </tr>
-                  ` : ''}
-                </table>
-              </div>
-              
-              <!-- Next Steps -->
-              <div style="border-left: 4px solid #2563eb; padding-left: 20px; margin-bottom: 30px;">
-                <h3 style="color: #1f2937; margin: 0 0 10px 0; font-size: 18px;">接下来：</h3>
-                <ul style="color: #374151; line-height: 1.8; margin: 0; padding-left: 20px; font-size: 14px;">
-                  <li>我们的专业顾问会仔细审阅您的需求</li>
-                  <li>我们会在24小时内通过电话或邮件与您联系</li>
-                  <li>如有紧急需求，请直接致电我们的客服热线</li>
-                </ul>
-              </div>
-              
-              <!-- Contact Info -->
-              <div style="background-color: #eff6ff; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
-                <h3 style="color: #1e40af; margin: 0 0 15px 0; font-size: 16px; font-weight: 600;">联系我们：</h3>
-                <p style="color: #1e40af; margin: 5px 0; font-size: 14px;">
-                  📧 邮箱：<a href="mailto:lishengyang2@keshengcaidao.com" style="color: #2563eb; text-decoration: none;">lishengyang2@keshengcaidao.com</a>
-                </p>
-                <p style="color: #1e40af; margin: 5px 0; font-size: 14px;">
-                  🌐 网站：<a href="https://keshengcaidao.com" style="color: #2563eb; text-decoration: none;">keshengcaidao.com</a>
-                </p>
-              </div>
-              
-              <!-- Footer -->
-              <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; margin-top: 30px;">
-                <p style="color: #6b7280; font-size: 12px; margin: 5px 0; line-height: 1.6;">
-                  此邮件为自动发送的确认邮件，请勿直接回复。<br>
-                  如有任何疑问，请通过上述联系方式与我们取得联系。
-                </p>
-                <p style="color: #9ca3af; font-size: 11px; margin: 15px 0 0 0;">
-                  提交时间：${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}
-                </p>
-              </div>
+    // 准备确认邮件内容
+    const confirmationMailOptions = {
+      from: `"科盛咨询" <${smtpUser}>`,
+      to: email, // 发送给提交表单的用户
+      subject: `【科盛咨询】感谢您的咨询 - 我们会尽快与您联系`,
+      html: `
+        <div style="font-family: Arial, 'Microsoft YaHei', sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9fafb;">
+          <div style="background-color: #ffffff; border-radius: 12px; padding: 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <!-- Logo/Header -->
+            <div style="text-align: center; margin-bottom: 30px;">
+              <h1 style="color: #2563eb; margin: 0; font-size: 28px; font-weight: 600;">科盛咨询</h1>
+              <p style="color: #6b7280; margin: 8px 0 0 0; font-size: 14px;">KESHENG Consulting</p>
+            </div>
+            
+            <!-- Greeting -->
+            <div style="margin-bottom: 30px;">
+              <h2 style="color: #1f2937; margin: 0 0 10px 0; font-size: 22px;">尊敬的 ${name}，</h2>
+              <p style="color: #374151; line-height: 1.8; margin: 0; font-size: 16px;">
+                感谢您通过我们的联系表单提交咨询。我们已经收到您的信息，我们的团队会在<strong style="color: #2563eb;">24小时内</strong>与您取得联系。
+              </p>
+            </div>
+            
+            <!-- Submitted Info -->
+            <div style="background-color: #f8f9fa; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+              <h3 style="color: #374151; margin: 0 0 15px 0; font-size: 16px; font-weight: 600;">您提交的信息：</h3>
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td style="padding: 8px 0; color: #6b7280; font-size: 14px; width: 100px;">公司名称：</td>
+                  <td style="padding: 8px 0; color: #1f2937; font-size: 14px; font-weight: 500;">${company}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">联系电话：</td>
+                  <td style="padding: 8px 0; color: #1f2937; font-size: 14px; font-weight: 500;">${phone}</td>
+                </tr>
+                ${address ? `
+                <tr>
+                  <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">地址：</td>
+                  <td style="padding: 8px 0; color: #1f2937; font-size: 14px; font-weight: 500;">${address}</td>
+                </tr>
+                ` : ''}
+              </table>
+            </div>
+            
+            <!-- Next Steps -->
+            <div style="border-left: 4px solid #2563eb; padding-left: 20px; margin-bottom: 30px;">
+              <h3 style="color: #1f2937; margin: 0 0 10px 0; font-size: 18px;">接下来：</h3>
+              <ul style="color: #374151; line-height: 1.8; margin: 0; padding-left: 20px; font-size: 14px;">
+                <li>我们的专业顾问会仔细审阅您的需求</li>
+                <li>我们会在24小时内通过电话或邮件与您联系</li>
+                <li>如有紧急需求，请直接致电我们的客服热线</li>
+              </ul>
+            </div>
+            
+            <!-- Contact Info -->
+            <div style="background-color: #eff6ff; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+              <h3 style="color: #1e40af; margin: 0 0 15px 0; font-size: 16px; font-weight: 600;">联系我们：</h3>
+              <p style="color: #1e40af; margin: 5px 0; font-size: 14px;">
+                📧 邮箱：<a href="mailto:lishengyang2@keshengcaidao.com" style="color: #2563eb; text-decoration: none;">lishengyang2@keshengcaidao.com</a>
+              </p>
+              <p style="color: #1e40af; margin: 5px 0; font-size: 14px;">
+                🌐 网站：<a href="https://keshengcaidao.com" style="color: #2563eb; text-decoration: none;">keshengcaidao.com</a>
+              </p>
+            </div>
+            
+            <!-- Footer -->
+            <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; margin-top: 30px;">
+              <p style="color: #6b7280; font-size: 12px; margin: 5px 0; line-height: 1.6;">
+                此邮件为自动发送的确认邮件，请勿直接回复。<br>
+                如有任何疑问，请通过上述联系方式与我们取得联系。
+              </p>
+              <p style="color: #9ca3af; font-size: 11px; margin: 15px 0 0 0;">
+                提交时间：${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}
+              </p>
             </div>
           </div>
-        `,
-        text: `
+        </div>
+      `,
+      text: `
 尊敬的 ${name}，
 
 感谢您通过我们的联系表单提交咨询。我们已经收到您的信息，我们的团队会在24小时内与您取得联系。
@@ -250,21 +246,35 @@ ${address ? `- 地址：${address}` : ''}
 ---
 此邮件为自动发送的确认邮件，请勿直接回复。
 提交时间：${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}
-        `,
-      }
-
-      await transporter.sendMail(confirmationMailOptions)
-      console.log('确认邮件已发送给用户:', email)
-    } catch (confirmationError) {
-      // 如果确认邮件发送失败，记录错误但不影响主流程
-      console.error('发送确认邮件失败（不影响主流程）:', confirmationError)
+      `,
     }
 
+    // 立即返回成功响应，不等待邮件发送完成
+    // 邮件发送在后台异步进行
+    Promise.all([
+      transporter.sendMail(mailOptions).catch((error) => {
+        console.error('发送管理员邮件失败:', error)
+      }),
+      transporter.sendMail(confirmationMailOptions).catch((error) => {
+        console.error('发送确认邮件失败:', error)
+      }),
+    ]).then((results) => {
+      const [adminResult, confirmationResult] = results
+      if (adminResult) {
+        console.log('管理员邮件已发送:', adminResult.messageId)
+      }
+      if (confirmationResult) {
+        console.log('确认邮件已发送给用户:', email, confirmationResult.messageId)
+      }
+    }).catch((error) => {
+      console.error('邮件发送过程中出现错误:', error)
+    })
+
+    // 立即返回成功响应，提升用户体验
     return NextResponse.json(
       {
         success: true,
-        message: '邮件发送成功',
-        messageId: info.messageId,
+        message: '表单提交成功，我们会尽快与您联系',
       },
       { status: 200 }
     )
