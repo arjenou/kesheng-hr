@@ -1,8 +1,10 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useI18n } from "@/lib/i18n/context"
 
 export default function Hero() {
+  const { t } = useI18n()
   const [isMobile, setIsMobile] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
   const mobileBgRef = useRef<HTMLDivElement>(null)
@@ -169,47 +171,47 @@ export default function Hero() {
 
       <div className="relative max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
-          <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            <span className="whitespace-nowrap" style={{ textShadow: '0 0 8px rgba(255,255,255,0.5), 0 0 16px rgba(255,255,255,0.3), 0 0 24px rgba(255,255,255,0.2)' }}>科盛咨询</span>
+          <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+            <span className="whitespace-nowrap overflow-hidden text-ellipsis block" style={{ textShadow: '0 0 8px rgba(255,255,255,0.5), 0 0 16px rgba(255,255,255,0.3), 0 0 24px rgba(255,255,255,0.2)' }}>{t.hero.title}</span>
             <br />
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent whitespace-nowrap">
-              链接全球顶尖科技人才
+            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block whitespace-pre-line">
+              {t.hero.subtitle}
             </span>
           </h1>
 
           <div className="flex flex-col sm:flex-row gap-4">
             <button
               onClick={() => handleScroll("#contact")}
-              className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all transform hover:-translate-y-1"
+              className="px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5 lg:py-3 text-xs sm:text-sm lg:text-base bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all transform hover:-translate-y-1 whitespace-nowrap"
             >
-              开始合作
+              {t.hero.startCooperation}
             </button>
             <button
               onClick={() => handleScroll("#about")}
-              className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all transform hover:-translate-y-1"
+              className="px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5 lg:py-3 text-xs sm:text-sm lg:text-base bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all transform hover:-translate-y-1 whitespace-nowrap"
             >
-              了解更多
+              {t.hero.learnMore}
             </button>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 sm:gap-6 pt-16">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 lg:gap-6 pt-16">
             <div className="text-center">
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-blue-400 whitespace-nowrap transition-all duration-300">
+              <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-blue-400 whitespace-nowrap transition-all duration-300 overflow-hidden text-ellipsis">
                 {count1}+
               </div>
-              <div className="text-xs sm:text-sm text-slate-300">合作企业</div>
+              <div className="text-xs sm:text-sm text-slate-300 whitespace-nowrap overflow-hidden text-ellipsis">{t.hero.partners}</div>
             </div>
             <div className="text-center">
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent whitespace-nowrap transition-all duration-300">
+              <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent whitespace-nowrap transition-all duration-300 overflow-hidden text-ellipsis">
                 {count2}+
               </div>
-              <div className="text-xs sm:text-sm text-slate-300">成功案例</div>
+              <div className="text-xs sm:text-sm text-slate-300 whitespace-nowrap overflow-hidden text-ellipsis">{t.hero.successCases}</div>
             </div>
             <div className="text-center">
-              <div className={`text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent whitespace-nowrap transition-all duration-500 ${showText ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                北京&东京
+              <div className={`text-base sm:text-lg md:text-xl lg:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent transition-all duration-500 break-words ${showText ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                {t.hero.headquartersCity}
               </div>
-              <div className="text-xs sm:text-sm text-slate-300">双城总部</div>
+              <div className="text-xs sm:text-sm text-slate-300 whitespace-nowrap overflow-hidden text-ellipsis">{t.hero.headquarters}</div>
             </div>
           </div>
         </div>

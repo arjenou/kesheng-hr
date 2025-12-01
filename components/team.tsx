@@ -1,8 +1,10 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import { useI18n } from "@/lib/i18n/context"
 
 export default function Team() {
+  const { t } = useI18n()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
@@ -89,9 +91,9 @@ export default function Team() {
     <section id="team" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">我们的团队</h2>
+          <h2 className="text-4xl font-bold text-slate-900 mb-4">{t.team.title}</h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            由行业资深专家组成的顾问团队，为您提供专业的人才解决方案
+            {t.team.subtitle}
           </p>
         </div>
 

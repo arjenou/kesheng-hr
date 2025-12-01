@@ -1,8 +1,10 @@
 "use client"
 
 import Link from "next/link"
+import { useI18n } from "@/lib/i18n/context"
 
 export default function Footer() {
+  const { t } = useI18n()
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
     const element = document.querySelector(href)
@@ -26,72 +28,65 @@ export default function Footer() {
           <div className="mb-4">
             <img src="/kesheng-logo.png" alt="KESHENG Logo" className="h-24 w-auto mx-auto" />
           </div>
-          <p className="text-sm text-white/80">致力于为全球 AI 与科技企业提供高端人才与组织解决方案</p>
+          <p className="text-sm text-white/80">{t.footer.tagline}</p>
         </div>
 
         {/* Navigation Links */}
         <nav className="flex flex-wrap justify-center gap-6 md:gap-8 mb-12">
           <Link 
-            href="#client-logos" 
-            onClick={(e) => handleNavClick(e, "#client-logos")} 
-            className="text-white hover:text-white/80 transition-colors whitespace-nowrap"
-          >
-            合作伙伴
-          </Link>
-          <Link 
             href="#services" 
             onClick={(e) => handleNavClick(e, "#services")} 
             className="text-white hover:text-white/80 transition-colors whitespace-nowrap"
           >
-            服务介绍
+            {t.nav.services}
           </Link>
           <Link 
             href="#advantages" 
             onClick={(e) => handleNavClick(e, "#advantages")} 
             className="text-white hover:text-white/80 transition-colors whitespace-nowrap"
           >
-            核心优势
+            {t.nav.advantages}
           </Link>
           <Link 
             href="#service-process" 
             onClick={(e) => handleNavClick(e, "#service-process")} 
             className="text-white hover:text-white/80 transition-colors whitespace-nowrap"
           >
-            服务流程
+            {t.nav.process}
           </Link>
           <Link 
             href="#team" 
             onClick={(e) => handleNavClick(e, "#team")} 
             className="text-white hover:text-white/80 transition-colors whitespace-nowrap"
           >
-            我们的团队
+            {t.nav.team}
           </Link>
           <Link 
             href="#about" 
             onClick={(e) => handleNavClick(e, "#about")} 
             className="text-white hover:text-white/80 transition-colors whitespace-nowrap"
           >
-            关于我们
+            {t.nav.about}
           </Link>
           <Link 
             href="#hot-jobs" 
             onClick={(e) => handleNavClick(e, "#hot-jobs")} 
             className="text-white hover:text-white/80 transition-colors whitespace-nowrap"
           >
-            公司动态
+            {t.nav.news}
           </Link>
           <Link 
             href="#contact" 
             onClick={(e) => handleNavClick(e, "#contact")} 
             className="text-white hover:text-white/80 transition-colors whitespace-nowrap"
           >
-            联系我们
+            {t.nav.contact}
           </Link>
         </nav>
 
         {/* Copyright */}
         <div className="text-center text-sm text-white/70">
-          <p>科盛才道企业管理咨询有限公司. all rights reserved.</p>
+          <p>{t.footer.copyright}</p>
         </div>
       </div>
     </footer>

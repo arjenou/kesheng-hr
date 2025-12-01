@@ -3,8 +3,10 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useI18n } from "@/lib/i18n/context"
 
 export default function Contact() {
+  const { t } = useI18n()
   const [formData, setFormData] = useState({
     company: "",
     name: "",
@@ -23,7 +25,7 @@ export default function Contact() {
     e.preventDefault()
     console.log("Form submitted:", formData)
     setFormData({ company: "", name: "", phone: "", email: "", address: "", message: "" })
-    alert("感谢您的留言，我们会尽快与您联系！")
+    alert(t.contact.successMessage)
   }
 
   return (
@@ -31,7 +33,7 @@ export default function Contact() {
       <div className="max-w-7xl mx-auto">
         {/* PC端标题 */}
         <div className="hidden lg:block text-center mb-12">
-          <h2 className="text-4xl font-bold text-slate-900 mb-3">联系我们</h2>
+          <h2 className="text-4xl font-bold text-slate-900 mb-3">{t.contact.title}</h2>
           <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
         </div>
 
@@ -41,9 +43,9 @@ export default function Contact() {
           <div className="max-w-2xl flex-1 flex">
             <form onSubmit={handleSubmit} className="form-style w-full flex flex-col">
               <p className="title-style">
-                联系我们
+                {t.contact.formTitle}
               </p>
-              <p className="message-style">填写表单，我们会尽快与您联系</p>
+              <p className="message-style">{t.contact.formMessage}</p>
 
               <div className="flex gap-2">
                 <label className="form-label">
@@ -56,7 +58,7 @@ export default function Contact() {
                     className="input-style"
                     placeholder=" "
                   />
-                  <span>公司名称</span>
+                  <span>{t.contact.company}</span>
                 </label>
                 <label className="form-label">
                   <input
@@ -68,7 +70,7 @@ export default function Contact() {
                     className="input-style"
                     placeholder=" "
                   />
-                  <span>姓名</span>
+                  <span>{t.contact.name}</span>
                 </label>
               </div>
 
@@ -83,7 +85,7 @@ export default function Contact() {
                     className="input-style"
                     placeholder=" "
                   />
-                  <span>电话号码</span>
+                  <span>{t.contact.phone}</span>
                 </label>
                 <label className="form-label">
                   <input
@@ -95,7 +97,7 @@ export default function Contact() {
                     className="input-style"
                     placeholder=" "
                   />
-                  <span>邮箱</span>
+                  <span>{t.contact.email}</span>
                 </label>
               </div>
 
@@ -109,7 +111,7 @@ export default function Contact() {
                   className="input-style"
                   placeholder=" "
                 />
-                <span>地址</span>
+                <span>{t.contact.address}</span>
               </label>
 
               <label className="form-label">
@@ -122,11 +124,11 @@ export default function Contact() {
                   className="input-style resize-none pt-3"
                   placeholder=" "
                 ></textarea>
-                <span>咨询内容</span>
+                <span>{t.contact.message}</span>
               </label>
 
               <button type="submit" className="submit-style mt-auto">
-                提交
+                {t.contact.submit}
               </button>
             </form>
           </div>
@@ -143,15 +145,15 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-sm font-semibold text-slate-900 mb-1">住所</h3>
+                    <h3 className="text-sm font-semibold text-slate-900 mb-1">{t.contact.address}</h3>
                     <p className="text-sm text-slate-600 leading-relaxed">
-                      北京：昌平区科星西路106号国风美唐综合楼2号楼701
+                      {t.contact.beijing}：{t.contact.beijingAddress}
                     </p>
                     <p className="text-sm text-slate-600 leading-relaxed mt-2">
-                      东京：日本东京丰岛区1 Chome-19-1 Higashiikebukuro, Toshima City, Tokyo 170-0013
+                      {t.contact.hebei}：{t.contact.hebeiAddress}
                     </p>
                     <p className="text-sm text-slate-600 leading-relaxed mt-2">
-                      河北：邢台市信都区河北机电大学
+                      {t.contact.tokyo}：{t.contact.tokyoAddress}
                     </p>
                   </div>
                 </div>
@@ -164,7 +166,7 @@ export default function Contact() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-sm font-semibold text-slate-900 mb-1">现在咨询</h3>
+                    <h3 className="text-sm font-semibold text-slate-900 mb-1">{t.contact.consultNow}</h3>
                     <a href="mailto:lishengyang3@keshengcaidao.com" className="text-sm text-slate-600 hover:text-blue-600 transition-colors">
                       lishengyang3@keshengcaidao.com
                     </a>
@@ -189,7 +191,7 @@ export default function Contact() {
                 {/* 二维码 */}
                 <div className="pt-4 border-t border-slate-200">
                   <div className="text-center">
-                    <h3 className="text-sm font-semibold text-slate-900 mb-4">关注我们</h3>
+                    <h3 className="text-sm font-semibold text-slate-900 mb-4">{t.contact.followUs}</h3>
                     <div className="flex justify-center">
                       <img 
                         src="/公众号.png" 
@@ -197,7 +199,7 @@ export default function Contact() {
                         className="w-40 h-40 object-contain"
                       />
                     </div>
-                    <p className="text-xs text-slate-500 mt-3">扫码关注公众号</p>
+                    <p className="text-xs text-slate-500 mt-3">{t.contact.scanQRCode}</p>
                   </div>
                 </div>
               </div>
@@ -208,15 +210,15 @@ export default function Contact() {
         {/* 移动端：使用新设计 */}
         <div className="lg:hidden">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-slate-900 mb-3">联系我们</h2>
+            <h2 className="text-4xl font-bold text-slate-900 mb-3">{t.contact.title}</h2>
             <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
           </div>
 
           <form onSubmit={handleSubmit} className="form-style">
             <p className="title-style">
-              联系我们
+              {t.contact.formTitle}
             </p>
-            <p className="message-style">填写表单，我们会尽快与您联系</p>
+            <p className="message-style">{t.contact.formMessage}</p>
 
             <div className="flex flex-col gap-4">
               <label className="form-label">
@@ -229,7 +231,7 @@ export default function Contact() {
                   className="input-style"
                   placeholder=" "
                 />
-                <span>公司名称</span>
+                <span>{t.contact.company}</span>
               </label>
               <label className="form-label">
                 <input
@@ -241,7 +243,7 @@ export default function Contact() {
                   className="input-style"
                   placeholder=" "
                 />
-                <span>姓名</span>
+                <span>{t.contact.name}</span>
               </label>
               <label className="form-label">
                 <input
@@ -253,7 +255,7 @@ export default function Contact() {
                   className="input-style"
                   placeholder=" "
                 />
-                <span>电话号码</span>
+                <span>{t.contact.phone}</span>
               </label>
               <label className="form-label">
                 <input
@@ -265,7 +267,7 @@ export default function Contact() {
                   className="input-style"
                   placeholder=" "
                 />
-                <span>邮箱</span>
+                <span>{t.contact.email}</span>
               </label>
               <label className="form-label">
                 <input
@@ -277,7 +279,7 @@ export default function Contact() {
                   className="input-style"
                   placeholder=" "
                 />
-                <span>地址</span>
+                <span>{t.contact.address}</span>
               </label>
               <label className="form-label">
                 <textarea
@@ -289,12 +291,12 @@ export default function Contact() {
                   className="input-style resize-none pt-3"
                   placeholder=" "
                 ></textarea>
-                <span>咨询内容</span>
+                <span>{t.contact.message}</span>
               </label>
             </div>
 
             <button type="submit" className="submit-style">
-              提交
+              {t.contact.submit}
             </button>
           </form>
         </div>

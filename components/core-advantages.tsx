@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Brain, Layers, Globe, Zap } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 interface AdvantageNode {
   title: string
@@ -10,6 +11,7 @@ interface AdvantageNode {
 }
 
 export default function CoreAdvantages() {
+  const { t } = useI18n()
   const [isMobile, setIsMobile] = useState(false)
   const [mounted, setMounted] = useState(false)
 
@@ -26,23 +28,23 @@ export default function CoreAdvantages() {
   // 4个优势节点
   const advantages: AdvantageNode[] = [
     {
-      title: "深度行业理解",
-      description: "专注AI与前沿科技领域，精准识别关键岗位与核心人才",
+      title: t.advantages.deepUnderstanding.title,
+      description: t.advantages.deepUnderstanding.description,
       icon: <Brain className="w-6 h-6" />,
     },
     {
-      title: "一站式服务",
-      description: "从人才寻访、团队搭建到组织优化，提供完整解决方案",
+      title: t.advantages.oneStop.title,
+      description: t.advantages.oneStop.description,
       icon: <Layers className="w-6 h-6" />,
     },
     {
-      title: "全球交付",
-      description: "千万级人才资源库，支持企业全球化用人需求",
+      title: t.advantages.globalDelivery.title,
+      description: t.advantages.globalDelivery.description,
       icon: <Globe className="w-6 h-6" />,
     },
     {
-      title: "极速交付",
-      description: "24小时触达，48小时交付，72小时安排面试",
+      title: t.advantages.speedyDelivery.title,
+      description: t.advantages.speedyDelivery.description,
       icon: <Zap className="w-6 h-6" />,
     },
   ]
@@ -61,10 +63,10 @@ export default function CoreAdvantages() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16 md:mb-20">
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">核心优势</h2>
+          <h2 className="text-4xl font-bold text-slate-900 mb-4">{t.coreAdvantages.title}</h2>
           <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-6"></div>
           <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            我们拥有业界领先的人才库和专业的顾问团队，为您提供卓越的人才解决方案
+            {t.coreAdvantages.subtitle}
           </p>
         </div>
 
@@ -83,7 +85,7 @@ export default function CoreAdvantages() {
               </div>
               
               {/* 标题和描述 */}
-              <h4 className="font-bold text-slate-900 text-xl md:text-2xl mb-4 leading-tight group-hover:text-blue-600 transition-colors duration-300">
+              <h4 className="font-bold text-slate-900 text-xl md:text-2xl mb-4 leading-tight group-hover:text-blue-600 transition-colors duration-300 whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
                 {advantage.title}
               </h4>
               <p className="text-sm md:text-base text-slate-600 leading-relaxed group-hover:text-slate-700 transition-colors duration-300 flex-1">

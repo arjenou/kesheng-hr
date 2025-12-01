@@ -2,8 +2,10 @@
 
 import { useEffect, useRef, useState } from "react"
 import CoreAdvantages from "./core-advantages"
+import { useI18n } from "@/lib/i18n/context"
 
 export default function Advantages() {
+  const { t } = useI18n()
   const [isMobile, setIsMobile] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
@@ -16,48 +18,18 @@ export default function Advantages() {
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const carouselRef = useRef<HTMLDivElement>(null)
 
-  const team = [
-    {
-      name: "李楠",
-      title: "高级合伙人",
-      description: "拥有15年以上人力资源与组织管理经验，心理学硕士，国家二级心理咨询师",
-      image: "/member/李楠.jpg",
-      email: "linan07@keshengcaidao.com",
-    },
-    {
-      name: "王佳",
-      title: "高级合伙人",
-      description: "资深猎头专家，10年以上高阶岗位寻访经验，计算机专业背景",
-      image: "/member/王佳.jpg",
-      email: "luck@keshengcaidao.com",
-    },
-    {
-      name: "温煦森",
-      title: "高级合伙人",
-      description: "精通人才Mapping，全球顶尖实验室定点寻访专家，服务过多个一线互联网企业",
-      image: "/member/温煦森.jpg",
-      email: "contact@keshengcaidao.com",
-    },
-    {
-      name: "魏忻伶",
-      title: "合伙人",
-      description: "资深人力资源专家，专注于组织发展和人才战略",
-      image: "/member/魏忻伶.jpg",
-      email: "contact@keshengcaidao.com",
-    },
-    {
-      name: "李晟洋",
-      title: "高级合伙人",
-      description: "资深人力资源与猎头专家，专注于高端人才寻访和团队建设",
-      image: "/member/李晟洋.jpg",
-      email: "contact@keshengcaidao.com",
-    },
-  ]
+  const team = t.team.members.map((member, index) => ({
+    name: member.name,
+    title: member.title,
+    description: member.description,
+    image: ["/member/李楠.jpg", "/member/王佳.jpg", "/member/温煦森.jpg", "/member/魏忻伶.jpg", "/member/李晟洋.jpg"][index],
+    email: index === 0 ? "linan07@keshengcaidao.com" : index === 1 ? "luck@keshengcaidao.com" : "contact@keshengcaidao.com",
+  }))
 
   const advantages = [
     {
-      title: "深度行业理解",
-      description: "专注AI与前沿科技领域，精准识别关键岗位与核心人才",
+      title: t.advantages.deepUnderstanding.title,
+      description: t.advantages.deepUnderstanding.description,
       bgColor: "from-slate-50 to-slate-100",
       iconBg: "bg-white",
       backgroundImage: "/picture2/img1.jpg",
@@ -73,8 +45,8 @@ export default function Advantages() {
       ),
     },
     {
-      title: "一站式服务",
-      description: "从人才寻访、团队搭建到组织优化，提供完整解决方案",
+      title: t.advantages.oneStop.title,
+      description: t.advantages.oneStop.description,
       bgColor: "from-blue-50 to-blue-100",
       iconBg: "bg-white",
       backgroundImage: "/picture2/img2.jpg",
@@ -90,8 +62,8 @@ export default function Advantages() {
       ),
     },
     {
-      title: "全球交付",
-      description: "千万级人才资源库，支持企业全球化用人需求",
+      title: t.advantages.globalDelivery.title,
+      description: t.advantages.globalDelivery.description,
       bgColor: "from-indigo-50 to-indigo-100",
       iconBg: "bg-white",
       backgroundImage: "/picture2/img3.jpg",
@@ -107,8 +79,8 @@ export default function Advantages() {
       ),
     },
     {
-      title: "极速交付",
-      description: "24小时触达，48小时交付，72小时安排面试",
+      title: t.advantages.speedyDelivery.title,
+      description: t.advantages.speedyDelivery.description,
       bgColor: "from-purple-50 to-purple-100",
       iconBg: "bg-white",
       backgroundImage: "/picture2/img4.jpg",
@@ -374,10 +346,10 @@ export default function Advantages() {
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-3">服务流程</h2>
+            <h2 className="text-4xl font-bold text-white mb-3">{t.serviceProcess.title}</h2>
             <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
             <p className="text-lg text-white/90 max-w-3xl mx-auto">
-              让复杂的招聘变得高效，透明，可控
+              {t.serviceProcess.subtitle}
             </p>
           </div>
 
@@ -386,8 +358,8 @@ export default function Advantages() {
             {[
               {
                 step: "01",
-                title: "商谈需求",
-                description: "精准理解岗位要求，构建人岗双向画像",
+                title: t.serviceProcess.steps.requirement.title,
+                description: t.serviceProcess.steps.requirement.description,
                 icon: (
                   <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -396,8 +368,8 @@ export default function Advantages() {
               },
               {
                 step: "02",
-                title: "人选推荐",
-                description: "24小时内首批人选推荐，基于自研AI匹配引擎高效精准",
+                title: t.serviceProcess.steps.recommendation.title,
+                description: t.serviceProcess.steps.recommendation.description,
                 icon: (
                   <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
@@ -406,8 +378,8 @@ export default function Advantages() {
               },
               {
                 step: "03",
-                title: "面试推进",
-                description: "72小时内推进面试，从约面到反馈，专业顾问全程追踪",
+                title: t.serviceProcess.steps.interview.title,
+                description: t.serviceProcess.steps.interview.description,
                 icon: (
                   <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -416,8 +388,8 @@ export default function Advantages() {
               },
               {
                 step: "04",
-                title: "入职成功",
-                description: "30天内完成入职，从Offer到入职，实现节奏可视化",
+                title: t.serviceProcess.steps.onboarding.title,
+                description: t.serviceProcess.steps.onboarding.description,
                 icon: (
                   <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
@@ -429,8 +401,8 @@ export default function Advantages() {
                 <div className="w-16 h-16 lg:w-20 lg:h-20 mb-3 lg:mb-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-indigo-500/40 group-hover:via-purple-500/40 group-hover:to-pink-500/40 group-hover:border-indigo-400/50 transition-all group-hover:scale-110 group-hover:shadow-2xl group-hover:shadow-purple-500/20 p-3 lg:p-4">
                   {item.icon}
                 </div>
-                <div className="text-white font-semibold text-base lg:text-lg mb-1 lg:mb-2">{item.title}</div>
-                <p className="text-white/90 text-xs lg:text-sm leading-relaxed px-1">{item.description}</p>
+                <div className="text-white font-semibold text-sm lg:text-base xl:text-lg mb-1 lg:mb-2 whitespace-nowrap overflow-hidden text-ellipsis max-w-full px-1">{item.title}</div>
+                <p className="text-white/90 text-xs lg:text-sm leading-relaxed px-1 break-words">{item.description}</p>
               </div>
             ))}
           </div>
@@ -450,10 +422,10 @@ export default function Advantages() {
         
         <div className="relative max-w-7xl mx-auto z-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-3">我们的团队</h2>
+            <h2 className="text-4xl font-bold text-slate-900 mb-3">{t.team.title}</h2>
             <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              由行业资深专家组成的顾问团队，为您提供专业的人才解决方案
+              {t.team.subtitle}
             </p>
           </div>
 

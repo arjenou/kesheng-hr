@@ -1,4 +1,9 @@
+"use client"
+
+import { useI18n } from "@/lib/i18n/context"
+
 export default function ClientLogos() {
+  const { t } = useI18n()
   // 添加版本号以清除缓存
   const version = "20241127"
   
@@ -73,10 +78,10 @@ export default function ClientLogos() {
       
       <div className="relative max-w-7xl mx-auto z-10">
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">合作伙伴</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">{t.partners.title}</h2>
           <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
-          <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto">
-            我们与众多知名企业建立了长期合作关系，共同推动行业发展
+          <p className="text-base md:text-lg text-slate-600 max-w-2xl lg:max-w-4xl xl:max-w-5xl 2xl:whitespace-nowrap 2xl:max-w-none mx-auto">
+            {t.partners.subtitle}
           </p>
         </div>
 

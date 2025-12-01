@@ -1,47 +1,34 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useI18n } from "@/lib/i18n/context"
 
 export default function Services() {
+  const { t } = useI18n()
+  
   const services = [
     {
-      title: "全球高端人才寻访",
-      features: [
-        "千万级高端人选库",
-        "全球范围人才寻访，中国，美国，新加坡，日本等",
-        "资深顾问直访，精准猎寻与吸引人选，确保人岗匹配",
-      ],
-      category: "人才寻访",
+      title: t.services.globalTalent.title,
+      features: t.services.globalTalent.features,
+      category: t.services.globalTalent.category,
       image: "/service/全球高端人才寻访.jpg",
     },
     {
-      title: "Mapping与专家咨询",
-      features: [
-        "关键岗位人才库构建、目标公司盘点",
-        "行业人才结构调研与薪酬竞争分析",
-        "定点业务咨询，竞对业务调研",
-      ],
-      category: "人才咨询",
+      title: t.services.mapping.title,
+      features: t.services.mapping.features,
+      category: t.services.mapping.category,
       image: "/service/人才地图与精准咨询.jpg",
     },
     {
-      title: "组织优化与风险管理",
-      features: [
-        "组织结构与岗位体系搭建",
-        "招聘流程梳理",
-        "人力管理风险诊断",
-      ],
-      category: "组织优化",
+      title: t.services.organization.title,
+      features: t.services.organization.features,
+      category: t.services.organization.category,
       image: "/service/组织优化与风险管理.jpg",
     },
     {
-      title: "劳务派遣与外包",
-      features: [
-        "IT / AI 岗位派遣与项目制外包",
-        "海外团队落地与本地化灵活用工咨询",
-        "外包团队管理与交付质量监控",
-      ],
-      category: "劳务外包",
+      title: t.services.outsourcing.title,
+      features: t.services.outsourcing.features,
+      category: t.services.outsourcing.category,
       image: "/service/劳务派遣与外包.jpg",
     },
   ]
@@ -197,9 +184,9 @@ export default function Services() {
       
       <div className="relative max-w-7xl mx-auto z-10">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-slate-900 mb-3">服务介绍</h2>
+          <h2 className="text-4xl font-bold text-slate-900 mb-3">{t.services.title}</h2>
           <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">24小时触达；48小时交付；72小时安排面试</p>
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">{t.services.subtitle}</p>
         </div>
 
         {/* Grid Layout - 一排四个 */}
@@ -237,17 +224,17 @@ export default function Services() {
 
               {/* Content Card */}
               <div className="bg-white rounded-3xl p-6 pt-10 pb-8 shadow-lg hover:shadow-xl transition-shadow relative z-10 flex-1 flex flex-col min-h-[240px]">
-                <div className="inline-block px-5 py-2 bg-gradient-to-r from-blue-400 to-purple-400 text-white rounded-lg text-base font-bold mb-4 self-start shadow-sm">
+                <div className="inline-block px-3 lg:px-5 py-1.5 lg:py-2 bg-gradient-to-r from-blue-400 to-purple-400 text-white rounded-lg text-xs lg:text-sm font-bold mb-4 self-start shadow-sm whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
                   {service.category}
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-4">{service.title}</h3>
+                <h3 className="text-base lg:text-lg xl:text-xl font-bold text-slate-900 mb-4 whitespace-nowrap overflow-hidden text-ellipsis">{service.title}</h3>
                 
                 {/* Features List */}
                 <ul className="space-y-3 mb-4 flex-1">
                   {service.features.map((feature, idx) => (
                     <li key={idx} className="flex items-start gap-3">
                       <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-blue-500 mt-2"></span>
-                      <span className="text-slate-600 text-sm leading-relaxed">{feature}</span>
+                      <span className="text-slate-600 text-xs lg:text-sm leading-relaxed break-words">{feature}</span>
                     </li>
                   ))}
                 </ul>

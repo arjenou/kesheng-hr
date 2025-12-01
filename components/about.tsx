@@ -1,8 +1,10 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useI18n } from "@/lib/i18n/context"
 
 export default function About() {
+  const { t } = useI18n()
   const [isVisible, setIsVisible] = useState(false)
   const [cardsVisible, setCardsVisible] = useState<boolean[]>(new Array(5).fill(false)) // 左侧大卡片 + 右侧4个小卡片
   const sectionRef = useRef<HTMLElement>(null)
@@ -68,9 +70,9 @@ export default function About() {
         <div className={`text-center mb-12 transition-all duration-700 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
-          <h2 className="text-4xl font-bold text-slate-900 mb-3">关于我们</h2>
+          <h2 className="text-4xl font-bold text-slate-900 mb-3">{t.about.title}</h2>
           <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
-          <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto">致力打造卓越服务</p>
+          <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto">{t.about.subtitle}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -100,19 +102,19 @@ export default function About() {
               <div className="relative z-10 space-y-6">
                 <div className="inline-block">
                   <span className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium">
-                    关于科盛咨询
+                    {t.about.aboutTag}
                   </span>
                 </div>
                 
                 <div className="space-y-4">
                   <p className="text-base text-white leading-relaxed max-w-md">
-                    <span className="text-lg sm:text-2xl font-bold text-white">科盛才道企业管理咨询有限公司</span>，简称"科盛咨询"，专注 AI、大模型、机器人与前沿科技领域，为全球科技企业提供高端人才招聘与团队搭建服务。
+                    <span className="text-lg sm:text-2xl font-bold text-white">{t.about.companyName}</span>{t.about.description1}
                   </p>
                   <p className="text-base text-white leading-relaxed max-w-md">
-                    依托丰富的行业经验与跨国网络，我们为客户提供精准寻访、关键岗位招聘、海外团队落地及用工合规等全流程解决方案。
+                    {t.about.description2}
                   </p>
                   <p className="text-base text-white leading-relaxed max-w-md">
-                    自 2018 年成立以来，我们已服务百余家科技企业，助力企业快速获取核心人才、提升组织效能。
+                    {t.about.description3}
                   </p>
                 </div>
               </div>
@@ -172,10 +174,10 @@ export default function About() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-lg sm:text-2xl font-bold text-white drop-shadow-lg whitespace-nowrap">公司使命</h3>
+                  <h3 className="text-lg sm:text-2xl font-bold text-white drop-shadow-lg whitespace-nowrap">{t.about.mission.title}</h3>
                 </div>
                 <p className="text-sm sm:text-base text-white/95 leading-relaxed drop-shadow-md text-left">
-                  连接全球顶尖科技人才，让科技更快落地，让组织更具韧性
+                  {t.about.mission.description}
                 </p>
               </div>
             </div>
@@ -231,10 +233,10 @@ export default function About() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-lg sm:text-2xl font-bold text-white drop-shadow-lg whitespace-nowrap">公司价值观</h3>
+                  <h3 className="text-lg sm:text-2xl font-bold text-white drop-shadow-lg whitespace-nowrap">{t.about.values.title}</h3>
                 </div>
                 <p className="text-sm sm:text-base text-white/95 leading-relaxed drop-shadow-md text-left">
-                  以客户为中心，以专业为本，以诚信为基，持续创新与追求卓越
+                  {t.about.values.description}
                 </p>
               </div>
             </div>
@@ -290,10 +292,10 @@ export default function About() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-lg sm:text-2xl font-bold text-white drop-shadow-lg whitespace-nowrap">经营理念</h3>
+                  <h3 className="text-lg sm:text-2xl font-bold text-white drop-shadow-lg whitespace-nowrap">{t.about.strength.title}</h3>
                 </div>
                 <p className="text-sm sm:text-base text-white/95 leading-relaxed drop-shadow-md text-left">
-                为客户创造长期价值，通过专业服务持续精进，实现稳健可持续增长
+                  {t.about.strength.description}
                 </p>
               </div>
             </div>
@@ -349,10 +351,10 @@ export default function About() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-lg sm:text-2xl font-bold text-white drop-shadow-lg whitespace-nowrap">公司愿景</h3>
+                  <h3 className="text-lg sm:text-2xl font-bold text-white drop-shadow-lg whitespace-nowrap">{t.about.vision.title}</h3>
                 </div>
                 <p className="text-sm sm:text-base text-white/95 leading-relaxed drop-shadow-md text-left">
-                  以长期主义打造百年企业，成为全球科技企业信赖的人才服务伙伴
+                  {t.about.vision.description}
                 </p>
               </div>
             </div>

@@ -1,45 +1,26 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useI18n } from "@/lib/i18n/context"
 
 export default function HotJobs() {
+  const { t } = useI18n()
   const [hotJobsIndex, setHotJobsIndex] = useState(0)
   const [itemsPerView, setItemsPerView] = useState(4)
 
-  const jobs = [
-    {
-      date: "",
-      author: "科盛",
-      title: "科盛咨询受邀出席 2025 高德地图猎头供应商峰会",
-      description: "斩获\"最佳猎头贡献奖\"",
-      image: "/公司活动/4.JPEG",
-      link: "https://ay8cup2mj4.feishu.cn/wiki/WQaiwfI2nitTezkOgRLchHvUnvd",
-    },
-    {
-      date: "",
-      author: "科盛",
-      title: "科盛咨询 2024-2025 财年总结会圆满落幕",
-      description: "全员自驾游开启活力新程",
-      image: "/公司活动/1.jpeg",
-      link: "https://ay8cup2mj4.feishu.cn/wiki/RiKpwWz9kiwA33k4oQjcrCS5nch",
-    },
-    {
-      date: "",
-      author: "科盛",
-      title: "科盛咨询 2023-2024 财年总结会圆满收官",
-      description: "全员泰国团建共启新程",
-      image: "/公司活动/2.JPEG",
-      link: "https://ay8cup2mj4.feishu.cn/wiki/DIO0wSsuqilmp4kVSj3c23dNn8c",
-    },
-    {
-      date: "",
-      author: "科盛",
-      title: "科盛咨询 2023 财年团建",
-      description: "芽庄一周行，以热爱续新程",
-      image: "/公司活动/3.JPEG",
-      link: "https://ay8cup2mj4.feishu.cn/docx/J3Mgd33f2oMguMxWVEKcCIQanQf",
-    },
-  ]
+  const jobs = t.hotJobs.jobs.map((job, index) => ({
+    date: "",
+    author: job.author,
+    title: job.title,
+    description: job.description,
+    image: ["/公司活动/4.JPEG", "/公司活动/1.jpeg", "/公司活动/2.JPEG", "/公司活动/3.JPEG"][index],
+    link: [
+      "https://ay8cup2mj4.feishu.cn/wiki/WQaiwfI2nitTezkOgRLchHvUnvd",
+      "https://ay8cup2mj4.feishu.cn/wiki/RiKpwWz9kiwA33k4oQjcrCS5nch",
+      "https://ay8cup2mj4.feishu.cn/wiki/DIO0wSsuqilmp4kVSj3c23dNn8c",
+      "https://ay8cup2mj4.feishu.cn/docx/J3Mgd33f2oMguMxWVEKcCIQanQf",
+    ][index],
+  }))
 
   // 热门职位响应式设置每次显示的卡片数量
   useEffect(() => {
@@ -100,7 +81,7 @@ export default function HotJobs() {
     <section id="hot-jobs" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-slate-900 mb-3">公司动态</h2>
+          <h2 className="text-4xl font-bold text-slate-900 mb-3">{t.hotJobs.title}</h2>
           <div className="w-16 h-0.5 bg-teal-500 mx-auto"></div>
         </div>
 
@@ -150,7 +131,7 @@ export default function HotJobs() {
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:text-blue-700 font-medium text-sm inline-flex items-center gap-1 group-hover:gap-2 transition-all"
                       >
-                        查看详情
+                        {t.hotJobs.viewDetails}
                         <span className="text-blue-600">→</span>
                       </a>
                     </div>
