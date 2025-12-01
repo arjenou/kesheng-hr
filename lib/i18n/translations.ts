@@ -472,23 +472,23 @@ export const translations: Record<Language, Translations> = {
     advantages: {
       deepUnderstanding: {
         title: '精密納品',
-        description: 'AIと最先端技術分野に焦点を当て、自社開発AI検索エンジンでマッチングし、重要ポジションの「コア人材」を迅速に特定',
+        description: 'AI・最先端技術分野に特化し、自社開発AI検索エンジンによる高精度マッチングで、重要ポジションの「コア人材」を迅速に特定。',
       },
       oneStop: {
-        title: 'ワンストップサービス',
-        description: '単なる「履歴書推薦」ではなく、人材リクルーティング、チーム構築から組織構造最適化まで、一つのソリューションで全ての人材課題を解決',
+        title: 'ワンストップ',
+        description: '単なる「履歴書推薦」ではなく、人材リクルーティングからチーム構築、組織構造最適化まで、すべての人材課題をワンストップで解決。',
       },
       globalDelivery: {
         title: 'グローバル納品',
-        description: '千万級のグローバル人材リソースを保有、国内チームの補完から海外支社の設立まで、迅速に適切な人選をマッチング',
+        description: '千万級のグローバル人材リソースを保有し、国内チームの補完から海外支社の設立まで、迅速に最適な人選をマッチング。',
       },
       professionalTeam: {
         title: '専門チーム',
-        description: 'ベテランコンサルタントチーム、豊富な業界経験と国際ネットワークを保有',
+        description: '豊富な業界経験と国際ネットワークを持つベテランコンサルタントチームが、お客様のニーズに合わせた専門サービスを提供。',
       },
       speedyDelivery: {
         title: '極速納品',
-        description: '24時間以内に連絡、48時間以内に納品、72時間以内に面接を手配、「稲妻の速度」で緊急の雇用ニーズに対応',
+        description: '24時間以内に連絡、48時間以内に納品、72時間以内に面接を手配。「稲妻の速度」で緊急の雇用ニーズに迅速に対応。',
       },
     },
     about: {
@@ -710,7 +710,7 @@ export const translations: Record<Language, Translations> = {
         description: 'Focus on AI and cutting-edge technology fields, using self-developed AI search engine to match and quickly lock in "core talent" for key positions',
       },
       oneStop: {
-        title: 'One-Stop Service',
+        title: 'One-Stop',
         description: 'Not just "resume recommendation", from talent search, team building to organizational structure optimization, one solution solves all human resource problems',
       },
       globalDelivery: {
