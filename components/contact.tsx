@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { useI18n } from "@/lib/i18n/context"
+import { toast } from "sonner"
 
 export default function Contact() {
   const { t } = useI18n()
@@ -15,17 +16,50 @@ export default function Contact() {
     address: "",
     message: "",
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
-    setFormData({ company: "", name: "", phone: "", email: "", address: "", message: "" })
-    alert(t.contact.successMessage)
+    
+    if (isSubmitting) return
+
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || '邮件发送失败')
+      }
+
+      // 成功提示
+      toast.success(t.contact.successMessage || '邮件发送成功！我们会尽快与您联系。')
+      
+      // 清空表单
+      setFormData({ company: "", name: "", phone: "", email: "", address: "", message: "" })
+    } catch (error) {
+      console.error('表单提交错误:', error)
+      toast.error(
+        error instanceof Error 
+          ? error.message 
+          : '邮件发送失败，请稍后重试'
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -127,8 +161,12 @@ export default function Contact() {
                 <span>{t.contact.message}</span>
               </label>
 
-              <button type="submit" className="submit-style mt-auto">
-                {t.contact.submit}
+              <button 
+                type="submit" 
+                className="submit-style mt-auto disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? '发送中...' : t.contact.submit}
               </button>
             </form>
           </div>
@@ -167,8 +205,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="text-sm font-semibold text-slate-900 mb-1">{t.contact.consultNow}</h3>
-                    <a href="mailto:lishengyang3@keshengcaidao.com" className="text-sm text-slate-600 hover:text-blue-600 transition-colors">
-                      lishengyang3@keshengcaidao.com
+                    <a href="mailto:lishengyang2@keshengcaidao.com" className="text-sm text-slate-600 hover:text-blue-600 transition-colors">
+                      lishengyang2@keshengcaidao.com
                     </a>
                   </div>
                 </div>
@@ -295,8 +333,12 @@ export default function Contact() {
               </label>
             </div>
 
-            <button type="submit" className="submit-style">
-              {t.contact.submit}
+            <button 
+              type="submit" 
+              className="submit-style disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? '发送中...' : t.contact.submit}
             </button>
           </form>
         </div>
