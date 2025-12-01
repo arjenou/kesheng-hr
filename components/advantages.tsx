@@ -8,6 +8,7 @@ export default function Advantages() {
   const { t } = useI18n()
   const [isMobile, setIsMobile] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [translateX, setTranslateX] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const [dragStart, setDragStart] = useState(0)
   const [dragOffset, setDragOffset] = useState(0)
@@ -16,15 +17,58 @@ export default function Advantages() {
   const deepFocusSectionRef = useRef<HTMLElement>(null)
   const mobileBgRef = useRef<HTMLDivElement>(null)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
+  const desktopIntervalRef = useRef<NodeJS.Timeout | null>(null)
   const carouselRef = useRef<HTMLDivElement>(null)
+  const carouselContainerRef = useRef<HTMLDivElement>(null)
 
   const team = t.team.members.map((member, index) => ({
     name: member.name,
     title: member.title,
     description: member.description,
-    image: ["/member/李楠.jpg", "/member/王佳.jpg", "/member/温煦森.jpg", "/member/魏忻伶.jpg", "/member/李晟洋.jpg"][index],
-    email: index === 0 ? "linan07@keshengcaidao.com" : index === 1 ? "luck@keshengcaidao.com" : "contact@keshengcaidao.com",
+    image: ["/member/李楠.jpg", "/member/王佳.jpg", "/member/李晟洋.jpg", "/member/温煦森.jpg", "/member/闫鹏.jpg", "/member/李浩文.jpg", "/member/魏忻伶.jpg"][index],
+    email: index === 0 ? "linan07@keshengcaidao.com" : index === 1 ? "luck@keshengcaidao.com" : index === 2 ? "lishengyang@keshengcaidao.com" : index === 3 ? "fuller@keshengcaidao.com" : index === 4 ? "yanpeng@keshengcaidao.com" : index === 5 ? "bob@keshengcaidao.com" : "daisy@keshengcaidao.com",
   }))
+
+  // 复制数组以实现无缝循环（复制3次）
+  const duplicatedTeam = [...team, ...team, ...team]
+  const cardWidth = 100 / 5 // 每个卡片占20%宽度（一排5个）
+
+  // PC端连续滚动自动播放
+  useEffect(() => {
+    const checkDesktop = () => {
+      return window.innerWidth >= 768
+    }
+
+    if (!checkDesktop()) return
+
+    const startAutoPlay = () => {
+      if (desktopIntervalRef.current) {
+        clearInterval(desktopIntervalRef.current)
+      }
+      
+      if (!isPaused) {
+        desktopIntervalRef.current = setInterval(() => {
+          setTranslateX((prev) => {
+            const step = cardWidth / 50 // 每次移动更小的距离，使滚动更平滑
+            const newTranslate = prev + step
+            // 当滚动到第二个数组的末尾时（即 team.length * 2），重置到第一个数组的开始位置
+            if (newTranslate >= cardWidth * team.length * 2) {
+              return cardWidth * team.length
+            }
+            return newTranslate
+          })
+        }, 50) // 每50ms更新一次，配合CSS transition实现丝滑效果
+      }
+    }
+
+    startAutoPlay()
+
+    return () => {
+      if (desktopIntervalRef.current) {
+        clearInterval(desktopIntervalRef.current)
+      }
+    }
+  }, [isPaused, cardWidth, team.length])
 
   const advantages = [
     {
@@ -110,7 +154,7 @@ export default function Advantages() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // 团队成员自动轮播功能（仅移动端）
+  // 团队成员自动轮播功能（移动端）
   useEffect(() => {
     // 只在移动端启用自动轮播
     const checkMobile = () => {
@@ -140,7 +184,8 @@ export default function Advantages() {
     }
   }, [isPaused, team.length])
 
-  // 手动切换时暂停自动轮播
+
+  // 手动切换时暂停自动轮播（移动端）
   const handleManualChange = (newIndex: number) => {
     setIsPaused(true)
     setCurrentIndex(newIndex)
@@ -148,6 +193,11 @@ export default function Advantages() {
     setTimeout(() => {
       setIsPaused(false)
     }, 3000)
+  }
+
+  // PC端暂停/恢复滚动
+  const handlePauseToggle = () => {
+    setIsPaused((prev) => !prev)
   }
 
   // 拖拽开始
@@ -482,33 +532,47 @@ export default function Advantages() {
             </div>
           </div>
 
-          {/* Desktop Grid */}
-          <div className="hidden md:grid grid-cols-2 lg:grid-cols-5 gap-8">
-            {team.map((member, index) => (
-              <div
-                key={index}
-                className="group bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-300 hover:shadow-xl transition-all flex flex-col h-full"
+          {/* Desktop Carousel - 连续滚动 */}
+          <div className="hidden md:block relative">
+            <div className="overflow-hidden" ref={carouselContainerRef}>
+              <div 
+                className="flex"
+                style={{ 
+                  transform: `translateX(-${translateX}%)`,
+                  transition: 'transform 0.5s linear' // 使用linear过渡，实现丝滑滚动
+                }}
+                onMouseEnter={handlePauseToggle}
+                onMouseLeave={handlePauseToggle}
               >
-                <div className="relative h-80 overflow-hidden bg-gradient-to-br from-slate-200 to-slate-300 flex-shrink-0">
-                  <img
-                    src={member.image || "/placeholder.svg"}
-                    alt={member.name}
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                    <a href={`mailto:${member.email}`} className="text-white text-sm font-medium hover:underline">
-                      {member.email}
-                    </a>
+                {duplicatedTeam.map((member, index) => (
+                  <div
+                    key={`member-${index}`}
+                    className="flex-shrink-0"
+                    style={{ width: `${cardWidth}%` }}
+                  >
+                    <div className="group bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-300 hover:shadow-xl transition-all flex flex-col h-full mx-4">
+                      <div className="relative h-80 overflow-hidden bg-gradient-to-br from-slate-200 to-slate-300 flex-shrink-0">
+                        <img
+                          src={member.image || "/placeholder.svg"}
+                          alt={member.name}
+                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                          <a href={`mailto:${member.email}`} className="text-white text-sm font-medium hover:underline break-words break-all">
+                            {member.email}
+                          </a>
+                        </div>
+                      </div>
+                      <div className="p-6 flex flex-col flex-1">
+                        <h3 className="text-xl font-bold text-slate-900 mb-1">{member.name}</h3>
+                        <p className="text-sm font-semibold text-blue-600 mb-3">{member.title}</p>
+                        <p className="text-slate-600 text-sm leading-relaxed flex-1">{member.description}</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-
-                <div className="p-6 flex flex-col flex-1">
-                  <h3 className="text-xl font-bold text-slate-900 mb-1">{member.name}</h3>
-                  <p className="text-sm font-semibold text-blue-600 mb-3">{member.title}</p>
-                  <p className="text-slate-600 text-sm leading-relaxed flex-1">{member.description}</p>
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>

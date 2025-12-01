@@ -319,27 +319,37 @@ export const translations: Record<Language, Translations> = {
         {
           name: '李楠',
           title: '高级合伙人',
-          description: '拥有15年以上人力资源与组织管理经验，心理学硕士，国家二级心理咨询师',
+          description: '拥有 15 年以上人力资源与组织管理经验，深耕科技行业核心岗位招聘、组织发展与团队搭建。曾服务多家世界 500 强及头部科技企业，并担任上市集团 HR 负责人，具备丰富的组织战略与人才体系建设经验，并以心理学专业背景提升对人才能力、团队结构和组织管理问题的整体判断力。',
         },
         {
           name: '王佳',
           title: '高级合伙人',
-          description: '资深猎头专家，10年以上高阶岗位寻访经验，计算机专业背景',
-        },
-        {
-          name: '温煦森',
-          title: '高级合伙人',
-          description: '精通人才Mapping，全球顶尖实验室定点寻访专家，服务过多个一线互联网企业',
-        },
-        {
-          name: '魏忻伶',
-          title: '合伙人',
-          description: '资深人力资源专家，专注于组织发展和人才战略',
+          description: '专注 AI 与工程技术领域人才招聘，拥有 10 年以上高阶技术岗位寻访经验。具备计算机专业背景，对大模型、平台工程等核心技术体系有系统理解，为科技企业提供高精准度的技术人才解决方案。',
         },
         {
           name: '李晟洋',
           title: '高级合伙人',
-          description: '资深人力资源与猎头专家，专注于高端人才寻访和团队建设',
+          description: '具备 10 年以上企业管理与组织运营经验，专注组织诊断、团队升级与关键岗位招聘。深度理解企业增长阶段的人才结构需求，擅长为客户提供兼具战略视角与落地能力的人才与组织优化方案。经验，涉猎众多行业，精通组织优化，团队建设，组织赋能能领域。计算机专业背景',
+        },
+        {
+          name: '温煦森',
+          title: '高级合伙人',
+          description: '长期服务全球领先科研机构和 AI 实验室，深耕高精度人才 Mapping 与战略级岗位寻访。擅长支持科研型组织的团队搭建与关键岗位引进，多次成功推动 VP、C-level 等高端人才的定向招募。',
+        },
+        {
+          name: '闫鹏',
+          title: '合伙人',
+          description: '深耕 AI 大模型与算法类岗位招聘，拥有 10 年以上猎头经验。擅长高复杂度技术岗位的深度寻访与候选人评估，对前沿技术团队的人才结构和能力要求具备成熟认知。',
+        },
+        {
+          name: '李浩文',
+          title: '合伙人',
+          description: '聚焦产品与运营方向的核心岗位招聘，具备计算机背景及丰富的业务理解能力。擅长从用户体验与业务增长视角识别关键型产品人才，为企业的产品战略与组织发展提供专业支持。',
+        },
+        {
+          name: '魏忻伶',
+          title: '合伙人',
+          description: '专注研发与技术体系岗位招聘，对企业技术架构与研发能力模型有全面认知。擅长从业务场景与技术深度双维度评估候选人，为客户提供高匹配度的研发人才交付方案。',
         },
       ],
     },
@@ -544,27 +554,37 @@ export const translations: Record<Language, Translations> = {
         {
           name: '李楠',
           title: 'シニアパートナー',
-          description: '15年以上の人材資源と組織管理の経験を有し、心理学修士、国家2級心理カウンセラー',
+          description: '15年以上の人材資源と組織管理の経験を有し、テクノロジー業界のコアポジション採用、組織発展、チーム構築に深く取り組んでいます。複数のフォーチュン500企業やトップテクノロジー企業にサービスを提供し、上場グループのHR責任者も務めました。組織戦略と人材システム構築の豊富な経験を持ち、心理学の専門的背景により、人材能力、チーム構造、組織管理問題に対する全体的な判断力を向上させています。',
         },
         {
           name: '王佳',
           title: 'シニアパートナー',
-          description: 'ベテランヘッドハンター専門家、10年以上の高階ポジションリクルーティング経験、コンピュータ専門背景',
-        },
-        {
-          name: '温煦森',
-          title: 'シニアパートナー',
-          description: '人材マッピングに精通、世界トップクラスの研究所定点リクルーティング専門家、複数の第一線インターネット企業にサービス提供',
-        },
-        {
-          name: '魏忻伶',
-          title: 'パートナー',
-          description: 'ベテラン人材資源専門家、組織発展と人材戦略に専念',
+          description: 'AIとエンジニアリング技術分野の人材採用に焦点を当て、10年以上の高階技術ポジションリクルーティング経験を持ちます。コンピュータ科学の専門的背景を持ち、大規模モデル、プラットフォームエンジニアリングなどのコア技術システムを体系的に理解し、テクノロジー企業に高精度の技術人材ソリューションを提供しています。',
         },
         {
           name: '李晟洋',
           title: 'シニアパートナー',
-          description: 'ベテラン人材資源とヘッドハンター専門家、高級人材リクルーティングとチーム構築に専念',
+          description: '10年以上の企業管理と組織運営の経験を持ち、組織診断、チームアップグレード、キーポジション採用に焦点を当てています。企業の成長段階における人材構造のニーズを深く理解し、戦略的視点と実践的能力を兼ね備えた人材と組織の最適化ソリューションをクライアントに提供することに長けています。多くの業界にわたる経験を持ち、組織最適化、チーム構築、組織エンパワーメントの分野に精通しています。コンピュータ科学の専門的背景を持ちます。',
+        },
+        {
+          name: '温煦森',
+          title: 'シニアパートナー',
+          description: '世界をリードする研究機関やAI研究所に長期的にサービスを提供し、高精度人材マッピングと戦略レベルのポジションリクルーティングに深く取り組んでいます。研究型組織のチーム構築とキーポジション採用をサポートすることに長け、VP、C-levelなどの高級人材のターゲットリクルーティングを複数回成功させています。',
+        },
+        {
+          name: '闫鹏',
+          title: 'パートナー',
+          description: 'AI大規模モデルとアルゴリズムポジション採用に深く取り組み、10年以上のヘッドハンティング経験を持ちます。高複雑度技術ポジションの深いリクルーティングと候補者評価に長け、最先端技術チームの人材構造と能力要件に対する成熟した認識を持っています。',
+        },
+        {
+          name: '李浩文',
+          title: 'パートナー',
+          description: '製品とオペレーション方向のコアポジション採用に焦点を当て、コンピュータ背景と豊富なビジネス理解能力を持ちます。ユーザー体験とビジネス成長の視点からキー製品人材を識別することに長け、企業の製品戦略と組織発展に専門的なサポートを提供しています。',
+        },
+        {
+          name: '魏忻伶',
+          title: 'パートナー',
+          description: '研究開発と技術システムポジション採用に焦点を当て、企業の技術アーキテクチャと研究開発能力モデルに対する包括的な認識を持ちます。ビジネスシナリオと技術深度の両方の次元から候補者を評価することに長け、クライアントに高マッチ度の研究開発人材提供ソリューションを提供しています。',
         },
       ],
     },
@@ -769,27 +789,37 @@ export const translations: Record<Language, Translations> = {
         {
           name: 'Li Nan',
           title: 'Senior Partner',
-          description: 'Over 15 years of human resources and organizational management experience, Master of Psychology, National Level 2 Psychological Counselor',
+          description: 'Over 15 years of human resources and organizational management experience, specializing in core position recruitment, organizational development, and team building in the technology industry. Has served multiple Fortune 500 companies and leading tech enterprises, and served as HR head of a listed group. Possesses rich experience in organizational strategy and talent system construction, with a psychology background that enhances overall judgment of talent capabilities, team structure, and organizational management issues.',
         },
         {
           name: 'Wang Jia',
           title: 'Senior Partner',
-          description: 'Senior headhunter expert, over 10 years of high-level position search experience, computer science background',
-        },
-        {
-          name: 'Wen Xusen',
-          title: 'Senior Partner',
-          description: 'Proficient in talent mapping, expert in targeted searches for top global laboratories, has served multiple first-tier internet companies',
-        },
-        {
-          name: 'Wei Xinling',
-          title: 'Partner',
-          description: 'Senior human resources expert, focused on organizational development and talent strategy',
+          description: 'Focuses on talent recruitment in AI and engineering technology fields, with over 10 years of experience in high-level technical position searches. Has a computer science background and systematic understanding of core technology systems such as large models and platform engineering, providing highly accurate technical talent solutions for tech enterprises.',
         },
         {
           name: 'Li Shengyang',
           title: 'Senior Partner',
-          description: 'Senior human resources and headhunting expert, focused on high-end talent search and team building',
+          description: 'Has over 10 years of enterprise management and organizational operations experience, focusing on organizational diagnosis, team upgrades, and key position recruitment. Deeply understands talent structure needs at different growth stages of enterprises, skilled at providing clients with talent and organizational optimization solutions that combine strategic vision with practical capabilities. Experienced across numerous industries, proficient in organizational optimization, team building, and organizational empowerment. Computer science background.',
+        },
+        {
+          name: 'Wen Xusen',
+          title: 'Senior Partner',
+          description: 'Long-term service to globally leading research institutions and AI laboratories, specializing in high-precision talent mapping and strategic-level position searches. Skilled at supporting team building and key position recruitment for research-oriented organizations, successfully facilitating targeted recruitment of VP, C-level, and other high-end talents multiple times.',
+        },
+        {
+          name: 'Yan Peng',
+          title: 'Partner',
+          description: 'Specializes in AI large model and algorithm position recruitment, with over 10 years of headhunting experience. Skilled at deep searches and candidate evaluation for highly complex technical positions, with mature understanding of talent structure and capability requirements for cutting-edge technology teams.',
+        },
+        {
+          name: 'Li Haowen',
+          title: 'Partner',
+          description: 'Focuses on core position recruitment in product and operations, with a computer science background and rich business understanding capabilities. Skilled at identifying key product talents from user experience and business growth perspectives, providing professional support for enterprise product strategy and organizational development.',
+        },
+        {
+          name: 'Wei Xinling',
+          title: 'Partner',
+          description: 'Focuses on R&D and technical system position recruitment, with comprehensive understanding of enterprise technical architecture and R&D capability models. Skilled at evaluating candidates from both business scenarios and technical depth dimensions, providing clients with highly matched R&D talent delivery solutions.',
         },
       ],
     },
