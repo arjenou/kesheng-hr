@@ -249,28 +249,32 @@ ${address ? `- 地址：${address}` : ''}
       `,
     }
 
-    // 立即返回成功响应，不等待邮件发送完成
-    // 邮件发送在后台异步进行
-    Promise.all([
-      transporter.sendMail(mailOptions).catch((error) => {
-        console.error('发送管理员邮件失败:', error)
-      }),
-      transporter.sendMail(confirmationMailOptions).catch((error) => {
-        console.error('发送确认邮件失败:', error)
-      }),
-    ]).then((results) => {
-      const [adminResult, confirmationResult] = results
-      if (adminResult) {
-        console.log('管理员邮件已发送:', adminResult.messageId)
-      }
-      if (confirmationResult) {
-        console.log('确认邮件已发送给用户:', email, confirmationResult.messageId)
-      }
+    // 在 Vercel 无服务器环境中，必须等待邮件发送完成
+    // 否则函数返回后异步任务会被终止，导致邮件无法发送
+    // 使用 Promise.all 并行发送两封邮件，提升效率
+    // 邮件发送通常只需要 1-3 秒，用户等待时间可接受
+    
+    // 发送邮件给管理员
+    const adminMailPromise = transporter.sendMail(mailOptions).then((result) => {
+      console.log('管理员邮件已发送:', result.messageId)
+      return result
     }).catch((error) => {
-      console.error('邮件发送过程中出现错误:', error)
+      console.error('发送管理员邮件失败:', error)
+      throw error
     })
 
-    // 立即返回成功响应，提升用户体验
+    // 发送确认邮件给用户
+    const confirmationMailPromise = transporter.sendMail(confirmationMailOptions).then((result) => {
+      console.log('确认邮件已发送给用户:', email, result.messageId)
+      return result
+    }).catch((error) => {
+      console.error('发送确认邮件失败:', error)
+      throw error
+    })
+
+    // 并行发送两封邮件
+    await Promise.all([adminMailPromise, confirmationMailPromise])
+
     return NextResponse.json(
       {
         success: true,
