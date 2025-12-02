@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { useI18n } from "@/lib/i18n/context"
 
 export default function Hero() {
-  const { t } = useI18n()
+  const { t, language } = useI18n()
   const [isMobile, setIsMobile] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
   const mobileBgRef = useRef<HTMLDivElement>(null)
@@ -170,10 +170,14 @@ export default function Hero() {
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl opacity-60"></div>
 
       <div className="relative max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl">
+        <div className="max-w-2xl md:max-w-4xl">
           <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
             <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl whitespace-nowrap overflow-hidden text-ellipsis block mb-2 text-white">{t.hero.title}</span>
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block whitespace-pre-line">
+            <span className={`bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block ${
+              language === 'ja' 
+                ? 'whitespace-pre-line' 
+                : 'whitespace-pre-line md:whitespace-nowrap'
+            }`}>
               {t.hero.subtitle}
             </span>
           </h1>
