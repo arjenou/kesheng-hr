@@ -13,7 +13,7 @@ export default function ClientLogos() {
     { name: "小鹏汽车", image: "/icone-spnn/小鹏汽车.png" },
     { name: "支付宝", image: "/icone-spnn/支付宝.png" },
     { name: "通义", image: "/icone-spnn/通义.png" },
-    { name: "Bigo", image: "/icone-spnn/bigo.png" },
+    { name: "阿丘科技", image: "/icone-spnn/阿丘科技.png" },
     { name: "Momo", image: "/icone-spnn/momo.png" },
     { name: "千寻智能", image: "/icone-spnn/千寻智能.png" },
     { name: "它石智能", image: "/icone-spnn/它石智能.png" },
@@ -38,7 +38,7 @@ export default function ClientLogos() {
     { name: "饿了么", image: "/icone-spnn/饿了么.png" },
     { name: "高德地图", image: "/icone-spnn/高德地图.png" },
     { name: "360集团", image: "/icone-spnn/360集团.png" },
-    { name: "QFIN", image: "/icone-spnn/QFIN.jpg" },
+    { name: "QFIN", image: "/icone-spnn/QFIN.png" },
     { name: "幻方", image: "/icone-spnn/幻方.png" },
   ]
 
@@ -100,7 +100,7 @@ export default function ClientLogos() {
                   <img
                     src={`${logo.image}?v=${version}`}
                     alt={logo.name}
-                    className={`h-full w-auto object-contain max-w-full ${logo.name === "高德地图" || logo.name === "QFIN" ? "scale-[2]" : ""}`}
+                    className={`h-full w-auto object-contain max-w-full ${logo.name === "高德地图" ? "scale-[2]" : ""}`}
                   />
                 </div>
               ))}

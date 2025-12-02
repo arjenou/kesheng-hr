@@ -10,7 +10,7 @@ import Footer from "@/components/footer"
 
 export default function Home() {
   return (
-    <main className="overflow-hidden">
+    <main className="overflow-hidden min-h-screen bg-white">
       <Header />
       <Hero />
       <ClientLogos />

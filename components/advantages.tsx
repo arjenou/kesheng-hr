@@ -8,7 +8,7 @@ export default function Advantages() {
   const { t } = useI18n()
   const [isMobile, setIsMobile] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [translateX, setTranslateX] = useState(0)
+  const [currentPage, setCurrentPage] = useState(0) // PC端当前页码（0或1）
   const [isPaused, setIsPaused] = useState(false)
   const [dragStart, setDragStart] = useState(0)
   const [dragOffset, setDragOffset] = useState(0)
@@ -17,9 +17,7 @@ export default function Advantages() {
   const deepFocusSectionRef = useRef<HTMLElement>(null)
   const mobileBgRef = useRef<HTMLDivElement>(null)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
-  const desktopIntervalRef = useRef<NodeJS.Timeout | null>(null)
   const carouselRef = useRef<HTMLDivElement>(null)
-  const carouselContainerRef = useRef<HTMLDivElement>(null)
 
   const team = t.team.members.map((member, index) => ({
     name: member.name,
@@ -29,46 +27,16 @@ export default function Advantages() {
     email: index === 0 ? "linan07@keshengcaidao.com" : index === 1 ? "luck@keshengcaidao.com" : index === 2 ? "lishengyang@keshengcaidao.com" : index === 3 ? "fuller@keshengcaidao.com" : index === 4 ? "yanpeng@keshengcaidao.com" : index === 5 ? "bob@keshengcaidao.com" : "daisy@keshengcaidao.com",
   }))
 
-  // 复制数组以实现无缝循环（复制3次）
-  const duplicatedTeam = [...team, ...team, ...team]
-  const cardWidth = 100 / 5 // 每个卡片占20%宽度（一排5个）
+  // 分页：第一页4个人，第二页3个人
+  const page1 = team.slice(0, 4) // 前4个
+  const page2 = team.slice(4) // 后3个
+  const pages = [page1, page2]
+  const totalPages = 2
 
-  // PC端连续滚动自动播放
-  useEffect(() => {
-    const checkDesktop = () => {
-      return window.innerWidth >= 768
-    }
-
-    if (!checkDesktop()) return
-
-    const startAutoPlay = () => {
-      if (desktopIntervalRef.current) {
-        clearInterval(desktopIntervalRef.current)
-      }
-      
-      if (!isPaused) {
-        desktopIntervalRef.current = setInterval(() => {
-          setTranslateX((prev) => {
-            const step = cardWidth / 50 // 每次移动更小的距离，使滚动更平滑
-            const newTranslate = prev + step
-            // 当滚动到第二个数组的末尾时（即 team.length * 2），重置到第一个数组的开始位置
-            if (newTranslate >= cardWidth * team.length * 2) {
-              return cardWidth * team.length
-            }
-            return newTranslate
-          })
-        }, 50) // 每50ms更新一次，配合CSS transition实现丝滑效果
-      }
-    }
-
-    startAutoPlay()
-
-    return () => {
-      if (desktopIntervalRef.current) {
-        clearInterval(desktopIntervalRef.current)
-      }
-    }
-  }, [isPaused, cardWidth, team.length])
+  // PC端页面切换处理
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage)
+  }
 
   const advantages = [
     {
@@ -532,46 +500,84 @@ export default function Advantages() {
             </div>
           </div>
 
-          {/* Desktop Carousel - 连续滚动 */}
+          {/* Desktop Carousel - 分页切换：第一页4个，第二页3个 */}
           <div className="hidden md:block relative">
-            <div className="overflow-hidden" ref={carouselContainerRef}>
+            <div className="overflow-hidden">
               <div 
-                className="flex"
-                style={{ 
-                  transform: `translateX(-${translateX}%)`,
-                  transition: 'transform 0.5s linear' // 使用linear过渡，实现丝滑滚动
-                }}
-                onMouseEnter={handlePauseToggle}
-                onMouseLeave={handlePauseToggle}
+                className="flex transition-transform duration-300 ease-in-out"
+                style={{ transform: `translateX(-${currentPage * 100}%)` }}
               >
-                {duplicatedTeam.map((member, index) => (
+                {pages.map((page, pageIndex) => (
                   <div
-                    key={`member-${index}`}
-                    className="flex-shrink-0"
-                    style={{ width: `${cardWidth}%` }}
+                    key={pageIndex}
+                    className="w-full flex-shrink-0 px-4"
                   >
-                    <div className="group bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-300 hover:shadow-xl transition-all flex flex-col h-full mx-4">
-                      <div className="relative h-80 overflow-hidden bg-gradient-to-br from-slate-200 to-slate-300 flex-shrink-0">
-                        <img
-                          src={member.image || "/placeholder.svg"}
-                          alt={member.name}
-                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                          <a href={`mailto:${member.email}`} className="text-white text-sm font-medium hover:underline break-words break-all">
-                            {member.email}
-                          </a>
+                    <div className={`flex gap-6 justify-center items-stretch max-w-7xl mx-auto`}>
+                      {page.length === 3 && <div style={{ width: 'calc((100% - 3 * 1.5rem) / 8)' }}></div>}
+                      {page.map((member, index) => (
+                        <div
+                          key={index}
+                          className="group bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-300 hover:shadow-xl transition-all flex flex-col min-h-[600px]"
+                          style={{ width: 'calc((100% - 3 * 1.5rem) / 4)', maxWidth: 'calc((100% - 3 * 1.5rem) / 4)' }}
+                        >
+                          <div className="relative h-80 overflow-hidden bg-gradient-to-br from-slate-200 to-slate-300 flex-shrink-0">
+                            <img
+                              src={member.image || "/placeholder.svg"}
+                              alt={member.name}
+                              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                              <a href={`mailto:${member.email}`} className="text-white text-sm font-medium hover:underline break-words break-all">
+                                {member.email}
+                              </a>
+                            </div>
+                          </div>
+                          <div className="p-6 flex flex-col flex-1">
+                            <h3 className="text-xl font-bold text-slate-900 mb-1">{member.name}</h3>
+                            <p className="text-sm font-semibold text-blue-600 mb-3">{member.title}</p>
+                            <p className="text-slate-600 text-sm leading-relaxed flex-1 min-h-[180px]">{member.description}</p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="p-6 flex flex-col flex-1">
-                        <h3 className="text-xl font-bold text-slate-900 mb-1">{member.name}</h3>
-                        <p className="text-sm font-semibold text-blue-600 mb-3">{member.title}</p>
-                        <p className="text-slate-600 text-sm leading-relaxed flex-1">{member.description}</p>
-                      </div>
+                      ))}
+                      {page.length === 3 && <div style={{ width: 'calc((100% - 3 * 1.5rem) / 8)' }}></div>}
                     </div>
                   </div>
                 ))}
               </div>
+            </div>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={() => handlePageChange(currentPage === 0 ? totalPages - 1 : currentPage - 1)}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-xl hover:bg-blue-50 hover:shadow-2xl transition-all z-10 border border-slate-200 hover:border-blue-300"
+              aria-label="Previous page"
+            >
+              <svg className="w-7 h-7 text-slate-700 hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={() => handlePageChange(currentPage === totalPages - 1 ? 0 : currentPage + 1)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-xl hover:bg-blue-50 hover:shadow-2xl transition-all z-10 border border-slate-200 hover:border-blue-300"
+              aria-label="Next page"
+            >
+              <svg className="w-7 h-7 text-slate-700 hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="flex justify-center gap-2 mt-8">
+              {pages.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handlePageChange(index)}
+                  className={`rounded-full transition-all ${
+                    index === currentPage ? "bg-blue-600 w-8 h-2" : "bg-slate-300 w-2 h-2"
+                  }`}
+                  aria-label={`Go to page ${index + 1}`}
+                />
+              ))}
             </div>
           </div>
         </div>
