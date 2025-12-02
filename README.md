@@ -59,3 +59,17 @@ RECIPIENT_EMAIL=lishengyang2@keshengcaidao.com
 3. **部署到 Vercel**: 
    - 在 Vercel 项目设置中添加上述环境变量
    - 确保 `SMTP_PASSWORD` 使用客户端专用密码
+
+4. **部署到腾讯云服务器**: 
+   - ⚠️ **重要**：不要将包含真实密码的 `.env.local` 文件提交到 Git！
+   - 在服务器上单独创建 `.env.local` 文件并配置环境变量
+   - 详细部署步骤请参考 [DEPLOYMENT.md](./DEPLOYMENT.md)
+
+## ⚠️ 安全提示
+
+**绝对不要将邮箱密码等敏感信息提交到代码仓库！**
+
+- ✅ `.env.local` 文件已在 `.gitignore` 中，不会被提交
+- ✅ 使用 `.env.example` 作为模板（不包含真实密码）
+- ✅ 在服务器上单独配置环境变量
+- ❌ 不要将包含真实密码的文件上传到 Git
