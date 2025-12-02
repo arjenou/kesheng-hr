@@ -319,7 +319,7 @@ export const translations: Record<Language, Translations> = {
         {
           name: '李楠',
           title: '高级合伙人',
-          description: '拥有 15 年以上人力资源与组织管理经验，深耕科技行业核心岗位招聘、组织发展与团队搭建。曾服务多家世界 500 强及头部科技企业，并担任上市集团 HR 负责人，具备丰富的组织战略与人才体系建设经验，并以心理学专业背景提升对人才能力、团队结构和组织管理问题的整体判断力。',
+          description: '拥有 15 年以上人力资源与组织管理经验，深耕科技行业核心岗位招聘、组织发展与团队搭建。曾服务多家世界 500 强及头部科技企业，并担任上市集团 HR 负责人，具备丰富的组织战略与人才体系建设经验。',
         },
         {
           name: '王佳',
@@ -329,7 +329,7 @@ export const translations: Record<Language, Translations> = {
         {
           name: '李晟洋',
           title: '高级合伙人',
-          description: '具备 10 年以上企业管理与组织运营经验，专注组织诊断、团队升级与关键岗位招聘。深度理解企业增长阶段的人才结构需求，擅长为客户提供兼具战略视角与落地能力的人才与组织优化方案。经验，涉猎众多行业，精通组织优化，团队建设，组织赋能能领域。计算机专业背景',
+          description: '具备 10 年以上企业管理与组织运营经验，专注组织诊断、团队升级与关键岗位招聘。深度理解企业增长阶段的人才结构需求，擅长为客户提供兼具战略视角与落地能力的人才与组织优化方案。',
         },
         {
           name: '温煦森',
@@ -564,7 +564,7 @@ export const translations: Record<Language, Translations> = {
         {
           name: '李晟洋',
           title: 'シニアパートナー',
-          description: '10年以上の企業管理と組織運営の経験を持ち、組織診断、チームアップグレード、キーポジション採用に焦点を当てています。企業の成長段階における人材構造のニーズを深く理解し、戦略的視点と実践的能力を兼ね備えた人材と組織の最適化ソリューションをクライアントに提供することに長けています。多くの業界にわたる経験を持ち、組織最適化、チーム構築、組織エンパワーメントの分野に精通しています。コンピュータ科学の専門的背景を持ちます。',
+          description: '10年以上の企業管理と組織運営の経験を持ち、組織診断、チームアップグレード、キーポジション採用に焦点を当てています。企業の成長段階における人材構造のニーズを深く理解し、戦略的視点と実践的能力を兼ね備えた人材と組織の最適化ソリューションをクライアントに提供することに長けています。',
         },
         {
           name: '温煦森',
@@ -799,7 +799,7 @@ export const translations: Record<Language, Translations> = {
         {
           name: 'Li Shengyang',
           title: 'Senior Partner',
-          description: 'Has over 10 years of enterprise management and organizational operations experience, focusing on organizational diagnosis, team upgrades, and key position recruitment. Deeply understands talent structure needs at different growth stages of enterprises, skilled at providing clients with talent and organizational optimization solutions that combine strategic vision with practical capabilities. Experienced across numerous industries, proficient in organizational optimization, team building, and organizational empowerment. Computer science background.',
+          description: 'Has over 10 years of enterprise management and organizational operations experience, focusing on organizational diagnosis, team upgrades, and key position recruitment. Deeply understands talent structure needs at different growth stages of enterprises, skilled at providing clients with talent and organizational optimization solutions that combine strategic vision with practical capabilities.',
         },
         {
           name: 'Wen Xusen',
