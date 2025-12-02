@@ -11,25 +11,25 @@ export default function Services() {
       title: t.services.globalTalent.title,
       features: t.services.globalTalent.features,
       category: t.services.globalTalent.category,
-      image: "/service/全球高端人才寻访.jpg",
+      image: "/service/global-talent-search.jpg",
     },
     {
       title: t.services.outsourcing.title,
       features: t.services.outsourcing.features,
       category: t.services.outsourcing.category,
-      image: "/service/劳务派遣与外包.jpg",
+      image: "/service/staffing-outsourcing.jpg",
     },
     {
       title: t.services.mapping.title,
       features: t.services.mapping.features,
       category: t.services.mapping.category,
-      image: "/service/人才地图与精准咨询.jpg",
+      image: "/service/talent-mapping-consulting.jpg",
     },
     {
       title: t.services.organization.title,
       features: t.services.organization.features,
       category: t.services.organization.category,
-      image: "/service/组织优化与风险管理.jpg",
+      image: "/service/organization-optimization-risk-management.jpg",
     },
   ]
 

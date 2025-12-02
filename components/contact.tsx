@@ -232,7 +232,7 @@ export default function Contact() {
                     <h3 className="text-sm font-semibold text-slate-900 mb-4">{t.contact.followUs}</h3>
                     <div className="flex justify-center">
                       <img 
-                        src="/公众号.png" 
+                        src="/wechat-official-account.png" 
                         alt="公众号二维码" 
                         className="w-40 h-40 object-contain"
                       />
@@ -402,7 +402,7 @@ export default function Contact() {
                   <h3 className="text-sm font-semibold text-slate-900 mb-4">{t.contact.followUs}</h3>
                   <div className="flex justify-center">
                     <img 
-                      src="/公众号.png" 
+                      src="/wechat-official-account.png" 
                       alt="公众号二维码" 
                       className="w-40 h-40 object-contain"
                     />

@@ -13,7 +13,7 @@ export default function HotJobs() {
     author: job.author,
     title: job.title,
     description: job.description,
-    image: ["/公司活动/4.JPEG", "/公司活动/1.jpeg", "/公司活动/2.JPEG", "/公司活动/3.JPEG"][index],
+    image: ["/company-events/4.jpeg", "/company-events/1.jpeg", "/company-events/2.jpeg", "/company-events/3.jpeg"][index],
     link: [
       "https://ay8cup2mj4.feishu.cn/wiki/WQaiwfI2nitTezkOgRLchHvUnvd",
       "https://ay8cup2mj4.feishu.cn/wiki/RiKpwWz9kiwA33k4oQjcrCS5nch",

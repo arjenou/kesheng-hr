@@ -23,7 +23,7 @@ export default function Advantages() {
     name: member.name,
     title: member.title,
     description: member.description,
-    image: ["/member/李楠.jpg", "/member/王佳.jpg", "/member/李晟洋.jpg", "/member/温煦森.jpg", "/member/闫鹏.jpg", "/member/李浩文.jpg", "/member/魏忻伶.jpg"][index],
+    image: ["/member/li-nan.jpg", "/member/wang-jia.jpg", "/member/li-shengyang.jpg", "/member/wen-xusen.jpg", "/member/yan-peng.jpg", "/member/li-haowen.jpg", "/member/wei-xinling.jpg"][index],
     email: index === 0 ? "linan07@keshengcaidao.com" : index === 1 ? "luck@keshengcaidao.com" : index === 2 ? "lishengyang@keshengcaidao.com" : index === 3 ? "fuller@keshengcaidao.com" : index === 4 ? "yanpeng@keshengcaidao.com" : index === 5 ? "bob@keshengcaidao.com" : "daisy@keshengcaidao.com",
   }))
 
